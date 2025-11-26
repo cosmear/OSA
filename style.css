@@ -13,11 +13,19 @@
 }
 
 body {
-  font-family: var(--fuente);
+ font-family: var(--fuente);
   color: #333;
   line-height: 1.6;
+  /* empujo el contenido hacia abajo para que no quede tapado por el header fijo */
+  padding-top: 120px; /* si lo ves muy alto/bajo, después lo ajustás: 100, 110, 130, etc. */
 }
-
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
 .container {
   max-width: 1100px;
   margin: auto;
@@ -52,19 +60,18 @@ body {
 .navbar {
   background: white;
   border-bottom: 3px solid var(--dorado);
-  position: sticky;   /* asegura que no quede tapada */
-  top: 0;
-  z-index: 1000;
+  /* ya no hace falta sticky ni top ni z-index, eso lo maneja .site-header */
 }
 
 .nav-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 13px;
+  padding: 12px 0 16px;
+  margin: 0;                 /* sacamos los margin-left/right que deformaban el header */
+}
+.site-header .container {
+  padding: 0 40px;
 }
 
 .logo img {
@@ -517,12 +524,13 @@ nav a:hover {
   display: flex;
   justify-content: space-between;
   gap: 25px;
+  flex-wrap: wrap;
 }
 
-/* Cuando hay solo 2 tarjetas en una fila → alinearlas bajo los gaps */
+/* Última fila centrada (cuando hay 2 tarjetas) */
 .grid-red .fila:last-child {
   justify-content: space-around;
-  padding: 0 40px; /* ajusta este valor para “alinear” exacto con los espacios de arriba */
+  padding: 0 40px; /* ajusta este valor si querés más o menos desplazamiento */
 }
 
 /* === Tarjeta base === */
@@ -623,30 +631,34 @@ nav a:hover {
 
 /* ==== RESPONSIVE ==== */
 
-/* Tablets: 3 columnas para mantener equilibrio */
 @media (max-width: 992px) {
-  .grid-red {
-    grid-template-columns: repeat(3, 1fr);
+  .grid-red .fila {
+    justify-content: center;
+    gap: 20px;
   }
 
-  /* Reset posiciones en pantallas medianas */
-  .grid-red > *:nth-child(4),
-  .grid-red > *:nth-child(5) {
-    grid-column: auto;
+  .grid-red .card-red {
+    flex: 1 1 calc(45% - 20px); /* 2 columnas */
+    max-width: 45%;
+  }
+
+  .grid-red .fila:last-child {
+    justify-content: center;
+    padding: 0;
   }
 }
 
-@media (max-width: 768px) {
-  .grid-red {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 600px) {
+  .grid-red .card-red {
+    flex: 1 1 100%; /* 1 columna */
+    max-width: 100%;
+  }
+
+  .grid-red .fila {
+    justify-content: center;
   }
 }
 
-@media (max-width: 480px) {
-  .grid-red {
-    grid-template-columns: 1fr;
-  }
-}
 /* === ÍCONOS EN EL REVERSO === */
 .back .icons {
   display: flex;
@@ -999,7 +1011,162 @@ blockquote {
 }
 
 
+/* ============================
+   PÁGINAS INTERNAS: HERO
+   ============================ */
 
+.subpage-hero {
+  background: var(--azul);
+  color: #fff;
+  padding: 70px 0 45px;
+  text-align: center;
+}
+
+.subpage-hero h1 {
+  font-size: 2.1rem;
+  margin-bottom: 10px;
+}
+
+.subpage-hero p {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 1rem;
+}
+
+/* ============================
+   TIMELINE / ROADMAP SAN AGUSTÍN
+   ============================ */
+
+.timeline-section {
+  padding: 60px 0 80px;
+  background: #fff;
+}
+
+.timeline {
+  position: relative;
+  margin: 40px auto 0;
+  padding: 20px 0;
+}
+
+/* Línea vertical central */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--dorado), #f0e4c2);
+  transform: translateX(-50%);
+}
+
+/* Item base */
+.timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 20px 40px;
+}
+
+.timeline-item.left {
+  left: 0;
+  text-align: right;
+}
+
+.timeline-item.right {
+  left: 50%;
+  text-align: left;
+}
+
+/* Puntos en la línea */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  top: 32px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--dorado);
+  box-shadow: 0 0 0 4px rgba(197, 162, 74, 0.2);
+}
+
+.timeline-item.left::before {
+  right: -8px;
+}
+
+.timeline-item.right::before {
+  left: -8px;
+}
+
+/* Tarjeta de contenido */
+.timeline-content {
+  background: var(--gris);
+  border-radius: 10px;
+  padding: 18px 22px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  border-left: 4px solid var(--dorado);
+}
+
+.timeline-item.right .timeline-content {
+  border-left: none;
+  border-right: 4px solid var(--dorado);
+}
+
+.timeline-label {
+  display: inline-block;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dorado);
+  margin-bottom: 4px;
+}
+
+.timeline-content h2 {
+  font-size: 1.2rem;
+  color: var(--azul);
+  margin-bottom: 8px;
+}
+
+.timeline-content p {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+/* Último párrafo sin margen extra */
+.timeline-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================
+   RESPONSIVE TIMELINE
+   ============================ */
+
+@media (max-width: 900px) {
+  .timeline::before {
+    left: 26px;
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding: 18px 20px 18px 60px;
+  }
+
+  .timeline-item.left,
+  .timeline-item.right {
+    left: 0;
+    text-align: left;
+  }
+
+  .timeline-item::before {
+    left: 19px;
+    right: auto;
+  }
+
+  .timeline-item.right .timeline-content {
+    border-right: none;
+    border-left: 4px solid var(--dorado);
+  }
+}
 
 
 
