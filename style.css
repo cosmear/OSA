@@ -61,115 +61,190 @@ body {
 .navbar {
   background: white;
   border-bottom: 3px solid var(--dorado);
-  /* ya no hace falta sticky ni top ni z-index, eso lo maneja .site-header */
+  position: relative; /* For absolute positioning of mobile menu */
 }
 
 .nav-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 0 16px;
-  margin: 0; /* sacamos los margin-left/right que deformaban el header */
-}
-.site-header .container {
-  padding: 0 40px;
+  padding: 15px 0; /* Slightly more padding */
+  position: relative; /* Anchor for absolute elements */
 }
 
 .logo img {
-  max-height: 60px;
+  max-height: 65px; /* Slightly larger logo */
 }
 
+/* Desktop Nav */
 nav ul {
   list-style: none;
   display: flex;
-  gap: 25px;
+  gap: 30px; /* More space between links */
 }
 
 nav a {
   text-decoration: none;
   color: var(--azul);
   font-weight: 600;
+  font-size: 1rem;
   transition: color 0.3s;
+  text-transform: uppercase; /* Professional touch */
+  letter-spacing: 0.5px;
 }
 
 nav a:hover {
   color: var(--dorado);
 }
 
-/* =========================
-   HERO + SLIDER (limpio)
-   ========================= */
-.hero {
-  position: relative;
-  width: 100%;
-  min-height: 427px; /* altura fija máxima */
-  overflow: hidden;
-  display: flex;
+/* Hamburger Menu (Hidden on Desktop) */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--azul);
+  cursor: pointer;
+  transition: color 0.3s;
+  width: 40px; /* Explicit width */
+  height: 40px; /* Explicit height */
   align-items: center;
   justify-content: center;
-  color: white;
+  padding: 0;
+}
+
+.hamburger:hover {
+  color: var(--dorado);
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex; /* Show on mobile with flex */
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999; /* Super high z-index */
+    color: black !important; /* Force black color */
+    background: rgba(255, 0, 0, 0.1); /* Temporary debug background */
+  }
+
+  nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-bottom: 3px solid var(--dorado);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+    z-index: 999;
+  }
+
+  nav.active {
+    max-height: 400px; /* Expand menu */
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+  }
+
+  nav li {
+    border-bottom: 1px solid #eee;
+  }
+
+  nav li:last-child {
+    border-bottom: none;
+  }
+
+  nav a {
+    display: block;
+    padding: 15px 20px;
+    text-align: center;
+  }
+  
+  .site-header .container {
+      padding: 0 20px; /* Restore padding on mobile */
+  }
+}
+
+/* =========================
+   WELCOME HERO (Static)
+   ========================= */
+.welcome-hero {
+  width: 100%;
+  background: white;
   text-align: center;
-  z-index: 1;
-  background: none; /* quita fondo duplicado */
 }
 
-/* Fondo deslizante detrás del hero */
-.hero-slider {
-  position: absolute;
-  inset: 0;
+.hero-banner img {
   width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 0;
+  height: auto;
+  display: block;
+  max-height: 500px;
+  object-fit: cover;
 }
 
-.hero-slider .slide {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  width: 100%;
-  height: 100%;
-  background-size: contain;
-  background-position: center center;
-  background-repeat: no-repeat;
-  opacity: 0;
-  transition: all 1s ease-in-out;
+.welcome-text {
+  padding: 80px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.hero-slider .slide.active {
-  left: 0;
-  opacity: 1;
-  z-index: 1;
+.welcome-text h1 {
+  font-size: 2.8rem;
+  color: var(--azul);
+  margin-bottom: 30px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
-.hero-slider .slide.prev {
-  left: -100%;
-  opacity: 0;
-}
-
-/* Overlay y texto por encima del slider */
-.hero .overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(21, 31, 67, 0.65);
-  z-index: 2;
-}
-
-.hero-text {
-  position: relative;
-  z-index: 3;
-  max-width: 700px;
-  padding: 0 20px;
-}
-
-.hero-text h1 {
-  font-size: 2.2rem;
-  margin-bottom: 15px;
-}
-
-.hero-text p {
+.intro-text,
+.closing-text {
   font-size: 1.1rem;
-  margin-bottom: 25px;
+  color: #444;
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+.quote-container {
+  margin: 30px 0;
+  padding: 25px;
+  background-color: #f9f9f9;
+  border-left: 4px solid var(--dorado);
+  border-radius: 4px;
+  position: relative;
+}
+
+.welcome-text .quote {
+  font-size: 1.6rem;
+  font-style: italic;
+  color: var(--azul);
+  font-family: 'Georgia', serif;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.quote-context {
+  font-size: 1rem;
+  color: #666;
+  font-style: italic;
+  margin-bottom: 15px;
+  font-family: 'Georgia', serif;
+}
+
+.welcome-text .sub-quote {
+  font-size: 0.9rem;
+  color: var(--dorado);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* Botón genérico */
@@ -611,7 +686,7 @@ nav a:hover {
   flex: 1;
   min-width: 250px;
   height: 260px;
-  background: #535353; /* Soft Grey */
+  background: #2c2c2c; /* Soft Grey */
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   overflow: hidden;
@@ -971,40 +1046,6 @@ body {
   filter: brightness(0.6);
 }
 
-.hero-content {
-  position: relative;
-  text-align: center;
-  z-index: 2;
-  background: rgba(21, 31, 67, 0.5);
-  padding: 20px 40px;
-  border-radius: 10px;
-  backdrop-filter: blur(6px);
-}
-
-.hero-content h1 {
-  font-size: 2.8rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.hero-content h2 {
-  font-size: 1.2rem;
-  font-weight: 400;
-  margin-bottom: 10px;
-  color: #f2e5c0;
-}
-
-.hero-content .fecha {
-  font-size: 0.9rem;
-  color: #ddd;
-}
-
-/* CONTENIDO */
-.noticia-body {
-  background: #fff;
-  padding: 60px 20px 80px;
-}
-
 .noticia-container {
   max-width: 850px;
   margin: auto;
@@ -1127,16 +1168,28 @@ blockquote {
   padding: 20px 0;
 }
 
-/* Línea vertical central */
-.timeline::before {
-  content: "";
+/* SVG Path Container */
+.timeline-path-svg {
   position: absolute;
   top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 3px;
-  background: linear-gradient(to bottom, var(--dorado), #f0e4c2);
-  transform: translateX(-50%);
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Click through */
+  z-index: 0; /* Behind content */
+}
+
+#timeline-path {
+  fill: none;
+  stroke: var(--dorado);
+  stroke-width: 3;
+  stroke-dasharray: 10, 5; /* Dashed line for a "path" look */
+  opacity: 0.6;
+}
+
+/* Línea vertical central ELIMINADA para usar SVG zigzag */
+.timeline::before {
+  display: none;
 }
 
 /* Item base */
@@ -1144,6 +1197,7 @@ blockquote {
   position: relative;
   width: 50%;
   padding: 20px 40px;
+  z-index: 1; /* Above SVG */
 }
 
 .timeline-item.left {
@@ -1160,21 +1214,23 @@ blockquote {
 .timeline-item::before {
   content: "";
   position: absolute;
-  top: 32px;
+  top: 30px; /* Center at 40px (30 + 10) */
   width: 14px;
   height: 14px;
   border-radius: 50%;
   background: #fff;
   border: 3px solid var(--dorado);
   box-shadow: 0 0 0 4px rgba(197, 162, 74, 0.2);
+  z-index: 2;
 }
 
+/* Posicionamiento de puntos para Zigzag (separados del centro) */
 .timeline-item.left::before {
-  right: -8px;
+  right: 30px; /* Center at 40px from right edge */
 }
 
 .timeline-item.right::before {
-  left: -8px;
+  left: 30px; /* Center at 40px from left edge */
 }
 
 /* Tarjeta de contenido */
@@ -1221,8 +1277,10 @@ blockquote {
    ============================ */
 
 @media (max-width: 900px) {
-  .timeline::before {
-    left: 26px;
+  /* En móvil, volvemos a una línea más recta o simple */
+  #timeline-path {
+    stroke-width: 2;
+    stroke-dasharray: 5, 5;
   }
 
   .timeline-item {
@@ -1237,8 +1295,12 @@ blockquote {
   }
 
   .timeline-item::before {
-    left: 19px;
+    left: 16px; /* Center at 26px to match JS */
     right: auto;
+  }
+
+  .timeline-item.left::before {
+    right: auto; /* Reset desktop style */
   }
 
   .timeline-item.right .timeline-content {
