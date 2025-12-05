@@ -2,7 +2,7 @@
   --azul: #151f43;
   --dorado: #c5a24a;
   --gris: #f4f4f4;
-  --gris-oscuro: #2c2c2c;
+  --gris-oscuro: #797878;
   --rojo: #b22222;
   --fuente: "Montserrat", sans-serif;
 }
@@ -18,8 +18,10 @@ body {
   color: #333;
   line-height: 1.6;
   /* empujo el contenido hacia abajo para que no quede tapado por el header fijo */
-  padding-top: 120px; /* si lo ves muy alto/bajo, después lo ajustás: 100, 110, 130, etc. */
+  padding-top: 120px;
+  /* si lo ves muy alto/bajo, después lo ajustás: 100, 110, 130, etc. */
 }
+
 .site-header {
   position: fixed;
   top: 0;
@@ -27,6 +29,7 @@ body {
   width: 100%;
   z-index: 1000;
 }
+
 .container {
   max-width: 1100px;
   margin: auto;
@@ -53,6 +56,7 @@ body {
   font-size: 1.1rem;
   transition: 0.3s;
 }
+
 .topbar .social a:hover {
   color: var(--dorado);
 }
@@ -61,26 +65,31 @@ body {
 .navbar {
   background: white;
   border-bottom: 3px solid var(--dorado);
-  position: relative; /* For absolute positioning of mobile menu */
+  position: relative;
+  /* For absolute positioning of mobile menu */
 }
 
 .nav-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 0; /* Slightly more padding */
-  position: relative; /* Anchor for absolute elements */
+  padding: 15px 0;
+  /* Slightly more padding */
+  position: relative;
+  /* Anchor for absolute elements */
 }
 
 .logo img {
-  max-height: 65px; /* Slightly larger logo */
+  max-height: 65px;
+  /* Slightly larger logo */
 }
 
 /* Desktop Nav */
 nav ul {
   list-style: none;
   display: flex;
-  gap: 30px; /* More space between links */
+  gap: 30px;
+  /* More space between links */
 }
 
 nav a {
@@ -89,7 +98,8 @@ nav a {
   font-weight: 600;
   font-size: 1rem;
   transition: color 0.3s;
-  text-transform: uppercase; /* Professional touch */
+  text-transform: uppercase;
+  /* Professional touch */
   letter-spacing: 0.5px;
 }
 
@@ -106,8 +116,10 @@ nav a:hover {
   color: var(--azul);
   cursor: pointer;
   transition: color 0.3s;
-  width: 40px; /* Explicit width */
-  height: 40px; /* Explicit height */
+  width: 40px;
+  /* Explicit width */
+  height: 40px;
+  /* Explicit height */
   align-items: center;
   justify-content: center;
   padding: 0;
@@ -120,14 +132,18 @@ nav a:hover {
 /* Mobile Styles */
 @media (max-width: 768px) {
   .hamburger {
-    display: flex; /* Show on mobile with flex */
+    display: flex;
+    /* Show on mobile with flex */
     position: absolute;
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 9999; /* Super high z-index */
-    color: black !important; /* Force black color */
-    background: rgba(255, 0, 0, 0.1); /* Temporary debug background */
+    z-index: 9999;
+    /* Super high z-index */
+    color: black !important;
+    /* Force black color */
+    background: rgba(255, 0, 0, 0.1);
+    /* Temporary debug background */
   }
 
   nav {
@@ -137,7 +153,7 @@ nav a:hover {
     width: 100%;
     background: white;
     border-bottom: 3px solid var(--dorado);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.4s ease-in-out;
@@ -145,7 +161,8 @@ nav a:hover {
   }
 
   nav.active {
-    max-height: 400px; /* Expand menu */
+    max-height: 400px;
+    /* Expand menu */
   }
 
   nav ul {
@@ -167,9 +184,10 @@ nav a:hover {
     padding: 15px 20px;
     text-align: center;
   }
-  
+
   .site-header .container {
-      padding: 0 20px; /* Restore padding on mobile */
+    padding: 0 20px;
+    /* Restore padding on mobile */
   }
 }
 
@@ -257,6 +275,7 @@ nav a:hover {
   font-weight: 600;
   transition: 0.3s;
 }
+
 .btn:hover {
   background: #e2c66a;
 }
@@ -266,11 +285,13 @@ nav a:hover {
   background: #fff;
   padding: 60px 0;
 }
+
 .main-cards .container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 25px;
 }
+
 .highlight {
   background: white;
   border-radius: 8px;
@@ -278,9 +299,11 @@ nav a:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
 }
+
 .highlight:hover {
   transform: translateY(-5px);
 }
+
 .highlight-title {
   background: var(--rojo);
   color: white;
@@ -289,6 +312,7 @@ nav a:hover {
   font-weight: 600;
   letter-spacing: 0.5px;
 }
+
 .highlight img {
   width: 100%;
   display: block;
@@ -299,6 +323,7 @@ nav a:hover {
   background: var(--gris);
   padding: 80px 0;
 }
+
 .news h2 {
   color: var(--azul);
   margin-bottom: 50px;
@@ -318,13 +343,15 @@ nav a:hover {
 /* News Card */
 .news-item {
   display: flex;
-  flex-direction: column; /* Vertical layout */
+  flex-direction: column;
+  /* Vertical layout */
   background: white;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%; /* Equal height cards */
+  height: 100%;
+  /* Equal height cards */
 }
 
 .news-item:hover {
@@ -334,7 +361,8 @@ nav a:hover {
 
 .news-item img {
   width: 100%;
-  height: 220px; /* Fixed height for consistency */
+  height: 220px;
+  /* Fixed height for consistency */
   object-fit: cover;
   transition: transform 0.5s ease;
 }
@@ -345,128 +373,16 @@ nav a:hover {
 
 .news-content {
   padding: 25px;
-  flex-grow: 1; /* Pushes content to fill space */
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.news-content h3 {
-  color: var(--azul);
-  font-size: 1.25rem;
-  margin-bottom: 15px;
-  line-height: 1.4;
-  font-weight: 700;
-}
-
-.news-content p {
-  font-size: 0.95rem;
-  color: #555;
-  margin-bottom: 20px;
-  line-height: 1.6;
   flex-grow: 1;
+  /* Pushes content to fill space */
 }
 
-/* "More" Button styled as a link/button */
-.more {
-  align-self: flex-start;
-  background: transparent;
-  color: var(--azul);
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: color 0.3s;
-  margin-top: auto; /* Pushes to bottom */
-  padding: 0;
-  width: auto;
-  height: auto;
-  border-radius: 0;
-}
-
-.more::after {
-  content: "Leer más";
-  font-size: 0.9rem;
-}
-
-.more i {
-  font-size: 0.8rem;
-  transition: transform 0.3s;
-}
-
-.more:hover {
-  color: var(--dorado);
-  background: transparent;
-}
-
-.more:hover i {
-  transform: translateX(3px);
-}
-
-/* Footer */
-.footer {
-  background: var(--azul);
-  color: white;
-  padding: 50px 20px 20px;
-}
-.footer-columns {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  margin-bottom: 25px;
-}
-.footer h4 {
-  color: var(--dorado);
-  margin-bottom: 10px;
-}
-.footer-logo {
-  width: 120px;
-  margin-bottom: 10px;
-}
-.footer .social a {
-  color: var(--dorado);
-  margin-right: 10px;
-  font-size: 1.3rem;
-  transition: 0.3s;
-}
-.footer .social a:hover {
-  color: white;
-}
-.copy {
-  text-align: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  padding-top: 10px;
-  font-size: 0.85rem;
-}
-
-/* --- Cards extra (bloque único, sin duplicar) --- */
-.cards {
-  padding: 60px 20px;
-  background: var(--gris);
-}
-.cards .container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-}
-.card {
-  background: white;
-  padding: 30px;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: 0.3s;
-}
-.card:hover {
-  background: var(--dorado);
-  color: white;
-}
 .card i {
   font-size: 2rem;
   margin-bottom: 15px;
   color: var(--azul);
 }
+
 .card:hover i {
   color: white;
 }
@@ -480,9 +396,11 @@ nav a:hover {
   .hero {
     min-height: 380px;
   }
+
   .hero-text h1 {
     font-size: 1.9rem;
   }
+
   .hero-text p {
     font-size: 1rem;
   }
@@ -493,15 +411,19 @@ nav a:hover {
   .hero {
     min-height: 320px;
   }
+
   .hero-text {
     max-width: 90%;
   }
+
   .hero-text h1 {
     font-size: 1.6rem;
   }
+
   .hero-text p {
     font-size: 0.95rem;
   }
+
   .btn {
     padding: 8px 18px;
     font-size: 0.9rem;
@@ -513,13 +435,16 @@ nav a:hover {
   .hero {
     min-height: 270px;
   }
+
   .hero-text h1 {
     font-size: 1.3rem;
   }
+
   .hero-text p {
     font-size: 0.9rem;
   }
 }
+
 /* NAV RESPONSIVE */
 @media (max-width: 768px) {
   .nav-inner {
@@ -609,12 +534,15 @@ nav a:hover {
     align-items: center;
   }
 }
+
 /* === RED AGUSTINIANA (SECCIONES) === */
 .section-parroquias,
 .section-colegios {
-  background: var(--gris-oscuro); /* Unified Dark Grey */
+  background: var(--gris-oscuro);
+  /* Unified Dark Grey */
   padding: 70px 0;
-  color: white; /* White text for contrast */
+  color: white;
+  /* White text for contrast */
 }
 
 /* Adjust titles for dark background */
@@ -630,7 +558,8 @@ nav a:hover {
 
 .section-title {
   text-align: center;
-  color: var(--dorado); /* Gold main title */
+  color: var(--dorado);
+  /* Gold main title */
   font-size: 2.2rem;
   margin-bottom: 60px;
   font-weight: 700;
@@ -642,7 +571,8 @@ nav a:hover {
   align-items: center;
   justify-content: flex-start;
   gap: 15px;
-  margin: 70px 0 35px; /* separación más generosa */
+  margin: 70px 0 35px;
+  /* separación más generosa */
 }
 
 .subtitulo h3 {
@@ -659,6 +589,7 @@ nav a:hover {
   background: var(--dorado);
   border-radius: 2px;
 }
+
 .grid-red {
   display: flex;
   flex-direction: column;
@@ -676,7 +607,8 @@ nav a:hover {
 /* Última fila centrada (cuando hay 2 tarjetas) */
 .grid-red .fila:last-child {
   justify-content: space-around;
-  padding: 0 40px; /* ajusta este valor si querés más o menos desplazamiento */
+  padding: 0 40px;
+  /* ajusta este valor si querés más o menos desplazamiento */
 }
 
 /* === Tarjeta base === */
@@ -686,7 +618,8 @@ nav a:hover {
   flex: 1;
   min-width: 250px;
   height: 260px;
-  background: #2c2c2c; /* Soft Grey */
+  background: #2c2c2c;
+  /* Soft Grey */
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   overflow: hidden;
@@ -703,7 +636,8 @@ nav a:hover {
 .front {
   position: absolute;
   inset: 0;
-  background: #535353; /* Soft Grey */
+  background: #535353;
+  /* Soft Grey */
   display: flex;
   flex-direction: column;
   backface-visibility: hidden;
@@ -783,7 +717,8 @@ nav a:hover {
   }
 
   .grid-red .card-red {
-    flex: 1 1 calc(45% - 20px); /* 2 columnas */
+    flex: 1 1 calc(45% - 20px);
+    /* 2 columnas */
     max-width: 45%;
   }
 
@@ -795,7 +730,8 @@ nav a:hover {
 
 @media (max-width: 600px) {
   .grid-red .card-red {
-    flex: 1 1 100%; /* 1 columna */
+    flex: 1 1 100%;
+    /* 1 columna */
     max-width: 100%;
   }
 
@@ -842,6 +778,7 @@ nav a:hover {
 .icon.web:hover {
   color: var(--azul);
 }
+
 ul.social-icons {
   list-style: none;
   display: flex;
@@ -916,27 +853,27 @@ ul.social-icons {
 
 /* Color logic */
 .icon-content a[data-social="whatsapp"] .filled,
-.icon-content a[data-social="whatsapp"] ~ .tooltip {
+.icon-content a[data-social="whatsapp"]~.tooltip {
   background-color: #128c7e;
 }
 
 .icon-content a[data-social="maps"] .filled,
-.icon-content a[data-social="maps"] ~ .tooltip {
+.icon-content a[data-social="maps"]~.tooltip {
   background-color: #ea4335;
 }
 
 .icon-content a[data-social="web"] .filled,
-.icon-content a[data-social="web"] ~ .tooltip {
+.icon-content a[data-social="web"]~.tooltip {
   background-color: var(--dorado);
 }
 
 .icon-content a[data-social="instagram"] .filled,
-.icon-content a[data-social="instagram"] ~ .tooltip {
+.icon-content a[data-social="instagram"]~.tooltip {
   background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
 }
 
 .icon-content a[data-social="facebook"] .filled,
-.icon-content a[data-social="facebook"] ~ .tooltip {
+.icon-content a[data-social="facebook"]~.tooltip {
   background-color: #1877f2;
 }
 
@@ -945,6 +882,7 @@ ul.social-icons {
   color: white;
   box-shadow: 3px 2px 45px 0px rgba(0, 0, 0, 0.15);
 }
+
 /* 🔧 Arreglo de footer tras las tarjetas animadas */
 /* ==== FOOTER ==== */
 .footer {
@@ -1126,36 +1064,11 @@ blockquote {
   .hero-content h1 {
     font-size: 2rem;
   }
+
   .hero-content {
     padding: 15px 25px;
   }
 }
-
-/* ============================
-   PÁGINAS INTERNAS: HERO
-   ============================ */
-
-.subpage-hero {
-  background: var(--azul);
-  color: #fff;
-  padding: 70px 0 45px;
-  text-align: center;
-}
-
-.subpage-hero h1 {
-  font-size: 2.1rem;
-  margin-bottom: 10px;
-}
-
-.subpage-hero p {
-  max-width: 720px;
-  margin: 0 auto;
-  font-size: 1rem;
-}
-
-/* ============================
-   TIMELINE / ROADMAP SAN AGUSTÍN
-   ============================ */
 
 .timeline-section {
   padding: 60px 0 80px;
@@ -1175,15 +1088,18 @@ blockquote {
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none; /* Click through */
-  z-index: 0; /* Behind content */
+  pointer-events: none;
+  /* Click through */
+  z-index: 0;
+  /* Behind content */
 }
 
 #timeline-path {
   fill: none;
   stroke: var(--dorado);
   stroke-width: 3;
-  stroke-dasharray: 10, 5; /* Dashed line for a "path" look */
+  stroke-dasharray: 10, 5;
+  /* Dashed line for a "path" look */
   opacity: 0.6;
 }
 
@@ -1197,7 +1113,8 @@ blockquote {
   position: relative;
   width: 50%;
   padding: 20px 40px;
-  z-index: 1; /* Above SVG */
+  z-index: 1;
+  /* Above SVG */
 }
 
 .timeline-item.left {
@@ -1214,7 +1131,8 @@ blockquote {
 .timeline-item::before {
   content: "";
   position: absolute;
-  top: 30px; /* Center at 40px (30 + 10) */
+  top: 30px;
+  /* Center at 40px (30 + 10) */
   width: 14px;
   height: 14px;
   border-radius: 50%;
@@ -1226,11 +1144,13 @@ blockquote {
 
 /* Posicionamiento de puntos para Zigzag (separados del centro) */
 .timeline-item.left::before {
-  right: 30px; /* Center at 40px from right edge */
+  right: 30px;
+  /* Center at 40px from right edge */
 }
 
 .timeline-item.right::before {
-  left: 30px; /* Center at 40px from left edge */
+  left: 30px;
+  /* Center at 40px from left edge */
 }
 
 /* Tarjeta de contenido */
@@ -1277,6 +1197,7 @@ blockquote {
    ============================ */
 
 @media (max-width: 900px) {
+
   /* En móvil, volvemos a una línea más recta o simple */
   #timeline-path {
     stroke-width: 2;
@@ -1295,23 +1216,221 @@ blockquote {
   }
 
   .timeline-item::before {
-    left: 16px; /* Center at 26px to match JS */
+    left: 16px;
+    /* Center at 26px to match JS */
     right: auto;
   }
 
   .timeline-item.left::before {
-    right: auto; /* Reset desktop style */
+    margin-bottom: 10px;
+    padding-left: 25px;
+    position: relative;
+  }
+
+  .lineas li::before {
+    content: "›";
+    position: absolute;
+    left: 0;
+    color: #c6a44f;
+    font-weight: bold;
+  }
+
+  /* BOTÓN VOLVER */
+  .btn-volver {
+    display: inline-block;
+    margin-top: 60px;
+    background: #152043;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .btn-volver:hover {
+    background: #c6a44f;
+    color: #152043;
+    transform: translateY(-3px);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+
+    .hero-content {
+      padding: 15px 25px;
+    }
+  }
+
+  .timeline-section {
+    padding: 60px 0 80px;
+    background: #fff;
+  }
+
+  .timeline {
+    position: relative;
+    margin: 40px auto 0;
+    padding: 20px 0;
+  }
+
+  /* SVG Path Container */
+  .timeline-path-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* Click through */
+    z-index: 0;
+    /* Behind content */
+  }
+
+  #timeline-path {
+    fill: none;
+    stroke: var(--dorado);
+    stroke-width: 3;
+    stroke-dasharray: 10, 5;
+    /* Dashed line for a "path" look */
+    opacity: 0.6;
+  }
+
+  /* Línea vertical central ELIMINADA para usar SVG zigzag */
+  .timeline::before {
+    display: none;
+  }
+
+  /* Item base */
+  .timeline-item {
+    position: relative;
+    width: 50%;
+    padding: 20px 40px;
+    z-index: 1;
+    /* Above SVG */
+  }
+
+  .timeline-item.left {
+    left: 0;
+    text-align: right;
+  }
+
+  .timeline-item.right {
+    left: 50%;
+    text-align: left;
+  }
+
+  /* Puntos en la línea */
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    top: 30px;
+    /* Center at 40px (30 + 10) */
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--dorado);
+    box-shadow: 0 0 0 4px rgba(197, 162, 74, 0.2);
+    z-index: 2;
+  }
+
+  /* Posicionamiento de puntos para Zigzag (separados del centro) */
+  .timeline-item.left::before {
+    right: 30px;
+    /* Center at 40px from right edge */
+  }
+
+  .timeline-item.right::before {
+    left: 30px;
+    /* Center at 40px from left edge */
+  }
+
+  /* Tarjeta de contenido */
+  .timeline-content {
+    background: var(--gris);
+    border-radius: 10px;
+    padding: 18px 22px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+    border-left: 4px solid var(--dorado);
   }
 
   .timeline-item.right .timeline-content {
-    border-right: none;
-    border-left: 4px solid var(--dorado);
+    border-left: none;
+    border-right: 4px solid var(--dorado);
   }
-}
 
-html,
-body {
-  height: auto;
-  min-height: 100%;
-  overflow-x: hidden;
+  .timeline-label {
+    display: inline-block;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--dorado);
+    margin-bottom: 4px;
+  }
+
+  .timeline-content h2 {
+    font-size: 1.2rem;
+    color: var(--azul);
+    margin-bottom: 8px;
+  }
+
+  .timeline-content p {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+
+  /* Último párrafo sin margen extra */
+  .timeline-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ============================
+   RESPONSIVE TIMELINE
+   ============================ */
+
+  @media (max-width: 900px) {
+
+    /* En móvil, volvemos a una línea más recta o simple */
+    #timeline-path {
+      stroke-width: 2;
+      stroke-dasharray: 5, 5;
+    }
+
+    .timeline-item {
+      width: 100%;
+      padding: 18px 20px 18px 60px;
+    }
+
+    .timeline-item.left,
+    .timeline-item.right {
+      left: 0;
+      text-align: left;
+    }
+
+    .timeline-item::before {
+      left: 16px;
+      /* Center at 26px to match JS */
+      right: auto;
+    }
+
+    .timeline-item.left::before {
+      right: auto;
+      /* Reset desktop style */
+    }
+
+    .timeline-item.right .timeline-content {
+      border-right: none;
+      border-left: 4px solid var(--dorado);
+    }
+  }
+
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+  }
 }
