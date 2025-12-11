@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>P. Joseph Farrell, O.S.A. — Nuevo Prior General</title>
+
   <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Iconos -->
+  <script src="https://kit.fontawesome.com/4f3f57c0c0.js" crossorigin="anonymous"></script>
+
+
 </head>
 
 <body>
@@ -31,7 +38,7 @@
     <div class="navbar">
       <div class="container nav-inner">
         <a href="index.html" class="logo">
-          <img src="logo_new.png" alt="Orden de San Agustín Argentina">
+          <img src="logo_new.png" alt="Orden de San Agustín Argentina" />
         </a>
 
         <button class="hamburger" aria-label="Abrir menú">
@@ -41,7 +48,13 @@
         <nav id="main-nav">
           <ul>
             <li><a href="index.html">Inicio</a></li>
-            <li><a href="agustin.html">San Agustín</a></li>
+            <li class="dropdown">
+              <a href="agustin.html">San Agustín <i class="fas fa-caret-down"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="agustin.html">Vida</a></li>
+                <li><a href="ObrasSA.html">Obras</a></li>
+              </ul>
+            </li>
             <li><a href="#">Nosotros</a></li>
             <li><a href="#">Liturgia</a></li>
             <li><a href="#">Pastoral</a></li>
@@ -53,7 +66,7 @@
   </header>
 
   <!-- === HERO === -->
-   <section class="noticia-hero parallax">
+  <section class="noticia-hero parallax">
     <div class="hero-bg" style="background-image: url('WhatsApp-Image-2025-09-09-at-14.17.13-640x450.jpeg');"></div>
     <div class="hero-content">
       <h1>P. Joseph Farrell, O.S.A.</h1>
@@ -66,20 +79,57 @@
   <section class="noticia-body">
     <div class="noticia-container">
 
-      <p>En el marco del <strong>188º Capítulo General Ordinario</strong> de la Orden de San Agustín, celebrado en Roma, los capitulares han elegido al <strong>Padre Joseph Farrell, O.S.A.</strong> como nuevo <strong>Prior General</strong> de la Orden, para un servicio de seis años al frente de la familia agustiniana presente en los cinco continentes.</p>
+      <!-- Meta -->
+      <div class="noticia-meta">
+        <span class="pill time">4 min. de lectura</span>
+        <span class="pill update">Publicado: 9 de septiembre de 2025 · Roma</span>
+      </div>
+
+      <p>
+        En el marco del <strong>188º Capítulo General Ordinario</strong> de la Orden de San Agustín, celebrado en Roma,
+        los capitulares han elegido al <strong>Padre Joseph Farrell, O.S.A.</strong> como nuevo
+        <strong>Prior General</strong> de la Orden, para un servicio de seis años al frente de la familia agustiniana
+        presente en los cinco continentes.
+      </p>
+
+      <!-- Highlight al estilo de las otras noticias -->
+      <div class="noticia-highlight">
+        <h3>Un nuevo Prior General para la familia agustiniana</h3>
+        <p>
+          La elección del P. Farrell se da en un momento clave para la Orden, llamada a vivir su carisma con
+          profundidad, sinodalidad y apertura a los desafíos de la evangelización en el mundo actual.
+        </p>
+        <ul class="chips">
+          <li>188º Capítulo General</li>
+          <li>Prior General 2025–2031</li>
+          <li>Presencia en 5 continentes</li>
+        </ul>
+      </div>
 
       <div class="bloque">
         <h3>Trayectoria académica y ministerial</h3>
-        <p>Originario de la Provincia de Villanova (EE.UU.), el P. Farrell cursó estudios de teología en Roma, donde se especializó en <strong>Teología Espiritual</strong>. Desarrolló su ministerio académico en la <strong>Universidad de Villanova, Pennsylvania</strong>, institución de gran prestigio agustiniano, donde también estudió el actual Papa León XIV.</p>
-
-        <p>En Roma sirvió durante años como <strong>Vicario General de la Orden</strong>, acompañando comunidades, animando la vida fraterna y promoviendo el carisma agustiniano.</p>
+        <p>
+          Originario de la Provincia de Villanova (EE.UU.), el P. Farrell cursó estudios de teología en Roma, donde se
+          especializó en <strong>Teología Espiritual</strong>. Desarrolló su ministerio académico en la
+          <strong>Universidad de Villanova, Pennsylvania</strong>, institución de gran prestigio agustiniano, donde
+          también estudió el actual Papa León XIV.
+        </p>
+        <p>
+          En Roma sirvió durante años como <strong>Vicario General de la Orden</strong>, acompañando comunidades,
+          animando la vida fraterna y promoviendo el carisma agustiniano.
+        </p>
       </div>
 
       <div class="bloque destacado">
         <h3>Estilo y visión</h3>
-        <p>Conocido por su cercanía fraterna y su visión pastoral, el P. Farrell combina serenidad en el discernimiento con claridad académica e internacionalidad. Su liderazgo promueve puentes entre culturas y comunidades.</p>
-
-        <blockquote>“Su elección llega en un momento de renovación para la Orden, llamada a responder a los desafíos de la evangelización en un mundo globalizado.”</blockquote>
+        <p>
+          Conocido por su cercanía fraterna y su visión pastoral, el P. Farrell combina serenidad en el discernimiento
+          con claridad académica e internacionalidad. Su liderazgo promueve puentes entre culturas y comunidades.
+        </p>
+        <blockquote>
+          “Su elección llega en un momento de renovación para la Orden, llamada a responder a los desafíos de
+          la evangelización en un mundo globalizado.”
+        </blockquote>
       </div>
 
       <div class="bloque">
@@ -95,7 +145,11 @@
 
       <div class="bloque">
         <h3>Significado de su elección</h3>
-        <p>La elección del P. Joseph Farrell expresa la confianza en un religioso con sólida preparación académica, sensibilidad pastoral y experiencia de gobierno. Su figura se proyecta como un guía que renueva la tradición agustiniana de servicio a la Iglesia.</p>
+        <p>
+          La elección del P. Joseph Farrell expresa la confianza en un religioso con sólida preparación académica,
+          sensibilidad pastoral y experiencia de gobierno. Su figura se proyecta como un guía que renueva la tradición
+          agustiniana de servicio a la Iglesia.
+        </p>
       </div>
 
       <a href="noticias.html" class="btn-volver">← Volver a noticias</a>
@@ -104,78 +158,92 @@
 
   <!-- === FOOTER === -->
   <footer class="footer">
-  <div class="footer-container">
-    <!-- Columna 1 -->
-    <div class="footer-col brand">
-      <img src="logo_new.png" alt="Orden de San Agustín Argentina" class="footer-logo" />
-      <p>
-        Promovemos la vida comunitaria, la oración y el servicio
-        en el espíritu de San Agustín.
-      </p>
+    <div class="footer-container">
+      <!-- Columna 1 -->
+      <div class="footer-col brand">
+        <img src="logo_new.png" alt="Orden de San Agustín Argentina" class="footer-logo" />
+        <p>
+          Promovemos la vida comunitaria, la oración y el servicio
+          en el espíritu de San Agustín.
+        </p>
+      </div>
+
+      <!-- Columna 2 -->
+      <div class="footer-col contact">
+        <h4>Contacto</h4>
+        <p>Email: <a href="mailto:secretariaviacarg@sanagustin.org">secretariaviacarg@sanagustin.org</a></p>
+        <p>Tel: 4802 4724 / 4801 9724</p>
+      </div>
+
+      <!-- Columna 3 -->
+      <div class="footer-col social">
+        <h4>Seguinos</h4>
+        <ul class="social-icons">
+          <li class="icon-content">
+            <a data-social="whatsapp" aria-label="Whatsapp" href="https://api.whatsapp.com/send?phone=+5491123456789"
+              target="_blank">
+              <div class="filled"></div>
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path fill="currentColor"
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.347s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.999-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.886 9.884" />
+              </svg>
+            </a>
+            <div class="tooltip">WhatsApp</div>
+          </li>
+
+          <li class="icon-content">
+            <a data-social="instagram" aria-label="Instagram" href="https://instagram.com/" target="_blank">
+              <div class="filled"></div>
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.056 1.97.24 2.427.403a4.92 4.92 0 0 1 1.75 1.145 4.92 4.92 0 0 1 1.145 1.75c.163.457.347 1.257.403 2.427.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.97-.403 2.427a4.92 4.92 0 0 1-1.145 1.75 4.92 4.92 0 0 1-1.75 1.145c-.457.163-1.257.347-2.427.403-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.97-.24-2.427-.403a4.92 4.92 0 0 1-1.75-1.145 4.92 4.92 0 0 1-1.145-1.75c-.163-.457-.347-1.257-.403-2.427-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.056-1.17.24-1.97.403-2.427a4.92 4.92 0 0 1 1.145-1.75 4.92 4.92 0 0 1 1.75-1.145c.457-.163 1.257-.347 2.427-.403C8.416 2.175 8.796 2.163 12 2.163zm0 1.622c-3.17 0-3.549.012-4.796.07-.995.046-1.538.212-1.897.353-.477.185-.818.406-1.178.766-.36.36-.581.701-.766 1.178-.141.359-.307.902-.353 1.897-.058 1.247-.07 1.626-.07 4.796s.012 3.549.07 4.796c.046.995.212 1.538.353 1.897.185.477.406.818.766 1.178.36.36.701.581 1.178.766.359.141.902.307 1.897.353 1.247.058 1.626.07 4.796.07s3.549-.012 4.796-.07c.995-.046 1.538-.212 1.897-.353a3.297 3.297 0 0 0 1.178-.766 3.297 3.297 0 0 0 .766-1.178c.141-.359.307-.902.353-1.897.058-1.247.07-1.626.07-4.796s-.012-3.549-.07-4.796c-.046-.995-.212-1.538-.353-1.897a3.297 3.297 0 0 0-.766-1.178 3.297 3.297 0 0 0-1.178-.766c-.359-.141-.902-.307-1.897-.353-1.247-.058-1.626-.07-4.796-.07zm0 3.905a5.932 5.932 0 1 1 0 11.864 5.932 5.932 0 0 1 0-11.864zm0 1.622a4.31 4.31 0 1 0 0 8.62 4.31 4.31 0 0 0 0-8.62zm5.993-2.412a1.386 1.386 0 1 1 0 2.772 1.386 1.386 0 0 1 0-2.772z" />
+              </svg>
+            </a>
+            <div class="tooltip">Instagram</div>
+          </li>
+
+          <li class="icon-content">
+            <a data-social="facebook" aria-label="Facebook" href="https://facebook.com/" target="_blank">
+              <div class="filled"></div>
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M23.998 11.999C23.998 5.372 18.626 0 11.999 0 5.372 0 0 5.372 0 11.999c0 5.99 4.388 10.954 10.124 11.854V15.47H7.078v-3.468h3.046V9.356c0-3.007 1.791-4.668 4.532-4.668 1.313 0 2.686.234 2.686.234v2.953h-1.513c-1.491 0-1.956.925-1.956 1.874v2.251h3.328l-.532 3.468h-2.796v8.385c5.736-.9 10.124-5.864 10.124-11.854Z" />
+              </svg>
+            </a>
+            <div class="tooltip">Facebook</div>
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <!-- Columna 2 -->
-    <div class="footer-col contact">
-      <h4>Contacto</h4>
-      <p>Email: <a href="mailto:secretariaviacarg@sanagustin.org">secretariaviacarg@sanagustin.org</a></p>
-      <p>Tel: 4802 4724 / 4801 9724</p>
+    <div class="footer-bottom">
+      © 2025 Orden de San Agustín Argentina — Todos los derechos reservados
     </div>
+  </footer>
 
-    <!-- Columna 3 -->
-    <div class="footer-col social">
-      <h4>Seguinos</h4>
-      <ul class="social-icons">
-        <li class="icon-content">
-          <a data-social="whatsapp" aria-label="Whatsapp" href="https://api.whatsapp.com/send?phone=+5491123456789" target="_blank">
-            <div class="filled"></div>
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path
-                fill="currentColor"
-                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
-              />
-            </svg>
-          </a>
-          <div class="tooltip">WhatsApp</div>
-        </li>
-
-        <li class="icon-content">
-          <a data-social="instagram" aria-label="Instagram" href="https://www.instagram.com/" target="_blank">
-            <div class="filled"></div>
-            <svg viewBox="0 0 16 16" fill="currentColor">
-              <path
-                d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"
-              />
-            </svg>
-          </a>
-          <div class="tooltip">Instagram</div>
-        </li>
-
-        <li class="icon-content">
-          <a data-social="facebook" aria-label="Facebook" href="https://facebook.com/" target="_blank">
-            <div class="filled"></div>
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M23.998 11.999C23.998 5.372 18.626 0 11.999 0 5.372 0 0 5.372 0 11.999c0 5.99 4.388 10.954 10.124 11.854V15.47H7.078v-3.468h3.046V9.356c0-3.007 1.791-4.668 4.532-4.668 1.313 0 2.686.234 2.686.234v2.953h-1.513c-1.491 0-1.956.925-1.956 1.874v2.251h3.328l-.532 3.468h-2.796v8.385c5.736-.9 10.124-5.864 10.124-11.854Z"
-              />
-            </svg>
-          </a>
-          <div class="tooltip">Facebook</div>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    © 2025 Orden de San Agustín Argentina — Todos los derechos reservados
-  </div>
-</footer>
-<script>
+  <script>
     // Efecto parallax simple
     window.addEventListener('scroll', () => {
       const bg = document.querySelector('.hero-bg');
-      bg.style.transform = `translateY(${window.scrollY * 0.4}px)`;
+      if (bg) {
+        bg.style.transform = `translateY(${window.scrollY * 0.4}px)`;
+      }
     });
+
+    // Menú hamburguesa
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.getElementById('main-nav');
+
+    if (hamburger && nav) {
+      nav.classList.add('nav-closed');
+
+      hamburger.addEventListener('click', () => {
+        nav.classList.toggle('nav-open');
+        nav.classList.toggle('nav-closed');
+      });
+    }
   </script>
 
 </body>
+
 </html>
