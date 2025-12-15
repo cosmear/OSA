@@ -10,26 +10,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/4f3f57c0c0.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/4f3f57c0c0.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
     <header class="site-header">
-        <!-- Topbar -->
-        <div class="topbar">
-            <div class="container">
-                <p>
-                    <strong>Email:</strong> secretariavicarg@sanagustin.org |
-                    <strong>Tel:</strong> 4802 4724 / 4801 9724
-                </p>
-                <div class="social">
-                    <a href="https://www.facebook.com/OSAArgentina"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/osaargentina/"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.youtube.com/channel/UCGlJCQsChG4kUGouDW-7zEg"><i
-                            class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-        </div>
 
         <!-- Navbar -->
         <div class="navbar">
@@ -52,10 +38,9 @@
                                 <li><a href="ObrasSA.html">Obras</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Nosotros</a></li>
-                        <li><a href="#">Liturgia</a></li>
+                        <li><a href="Estructura.html">Nosotros</a></li>
                         <li><a href="pastoral.html">Pastoral</a></li>
-                        <li><a href="#">Contacto</a></li>
+                        <li><a href="#footer">Contacto</a></li>
                     </ul>
                 </nav>
             </div>
@@ -151,201 +136,161 @@
             </div>
         </section>
 
-        <!-- TIMELINE DE OBRAS -->
-        <section class="timeline-section">
+        <!-- LIBRERÍA DE OBRAS (Nuevo Diseño) -->
+        <section class="library-section">
             <div class="container">
-                <div class="timeline">
-                    <!-- SVG Path for the line -->
-                    <svg class="timeline-path-svg" preserveAspectRatio="none">
-                        <path id="timeline-path" d="" />
-                    </svg>
+                <div class="bookshelf">
 
-                    <!-- Item 1: Biográficas (Left) -->
-                    <div class="timeline-item left">
-                        <div class="timeline-content">
-                            <span class="timeline-label">Vida y Testimonio</span>
-                            <h2><i class="fas fa-user-edit"></i> Biográficas</h2>
+                    <!-- Shelf 1: Biográficas -->
+                    <div class="shelf-row">
+                        <div class="shelf-info">
+                            <h3><i class="fas fa-user-edit"></i> Biográficas</h3>
                             <p>Obras donde Agustín narra su propia vida o es narrada por sus discípulos.</p>
-                            <ol>
-                                <li>Confesiones.</li>
-                                <li>Vida de San Agustín (por San Posidio).</li>
-                            </ol>
                         </div>
+                        <div class="shelf-books">
+                            <div class="book" data-title="Confesiones"><span>Confesiones</span></div>
+                            <div class="book" data-title="Vida de San Agustín"><span>Vida de S. Agustín</span></div>
+                        </div>
+                        <div class="shelf-board"></div>
                     </div>
 
-                    <!-- Item 2: Filosóficos (Right) -->
-                    <div class="timeline-item right">
-                        <div class="timeline-content">
-                            <span class="timeline-label">Búsqueda de la Verdad</span>
-                            <h2><i class="fas fa-brain"></i> Escritos Filosóficos</h2>
+                    <!-- Shelf 2: Filosóficos -->
+                    <div class="shelf-row">
+                        <div class="shelf-info">
+                            <h3><i class="fas fa-brain"></i> Escritos Filosóficos</h3>
                             <p>Diálogos tempranos y reflexiones sobre la razón, el alma y el orden del universo.</p>
-                            <ol>
-                                <li>Soliloquios.</li>
-                                <li>La vida feliz.</li>
-                                <li>El orden.</li>
-                                <li>Contra los académicos.</li>
-                                <li>El libre albedrío.</li>
-                                <li>La dimensión del alma.</li>
-                                <li>El maestro.</li>
-                                <li>Naturaleza y origen del alma.</li>
-                                <li>Naturaleza del bien.</li>
-                            </ol>
                         </div>
+                        <div class="shelf-books">
+                            <div class="book" data-title="Soliloquios"><span>Soliloquios</span></div>
+                            <div class="book" data-title="La vida feliz"><span>La vida feliz</span></div>
+                            <div class="book" data-title="El orden"><span>El orden</span></div>
+                            <div class="book" data-title="Contra los académicos"><span>Contra académicos</span></div>
+                            <div class="book" data-title="El libre albedrío"><span>Libre albedrío</span></div>
+                            <div class="book" data-title="La dimensión del alma"><span>Dimensión del alma</span></div>
+                            <div class="book" data-title="El maestro"><span>El maestro</span></div>
+                            <div class="book" data-title="Naturaleza y origen del alma"><span>Origen del alma</span></div>
+                            <div class="book" data-title="Naturaleza del bien"><span>Naturaleza bien</span></div>
+                        </div>
+                        <div class="shelf-board"></div>
                     </div>
 
-                    <!-- Item 3: Defensa de la Fe (Left) -->
-                    <div class="timeline-item left">
-                        <div class="timeline-content">
-                            <span class="timeline-label">Apologética</span>
-                            <h2><i class="fas fa-shield-alt"></i> Defensa de la Fe</h2>
-                            <p>Escritos fundamentales para proteger la doctrina católica frente a herejías y
-                                confusiones.</p>
-                            <ol>
-                                <li>La verdadera religión.</li>
-                                <li>Las costumbres de la Iglesia.</li>
-                                <li>Manual de fe, esperanza y caridad.</li>
-                                <li>La fe en lo que no vemos.</li>
-                                <li>Utilidad de la fe.</li>
-                                <li>La Trinidad.</li>
-                                <li>La ciudad de Dios.</li>
-                            </ol>
+                    <!-- Shelf 3: Defensa de la Fe -->
+                    <div class="shelf-row">
+                        <div class="shelf-info">
+                            <h3><i class="fas fa-shield-alt"></i> Defensa de la Fe</h3>
+                            <p>Escritos fundamentales para proteger la doctrina católica frente a herejías.</p>
                         </div>
+                        <div class="shelf-books">
+                            <div class="book" data-title="La verdadera religión"><span>Verdadera religión</span></div>
+                            <div class="book" data-title="Costumbres de la Iglesia"><span>Costumbres Iglesia</span></div>
+                            <div class="book" data-title="Manual de fe, esperanza y caridad"><span>Manual Fe</span></div>
+                            <div class="book" data-title="La fe en lo que no vemos"><span>Fe en lo invisible</span></div>
+                            <div class="book" data-title="Utilidad de la fe"><span>Utilidad de la fe</span></div>
+                            <div class="book gold" data-title="La Trinidad"><span>La Trinidad</span></div>
+                            <div class="book gold" data-title="La ciudad de Dios"><span>Ciudad de Dios</span></div>
+                        </div>
+                        <div class="shelf-board"></div>
                     </div>
 
-                    <!-- Item 4: Gracia y Libertad (Right) -->
-                    <div class="timeline-item right">
-                        <div class="timeline-content">
-                            <span class="timeline-label">Teología de la Gracia</span>
-                            <h2><i class="fas fa-dove"></i> Gracia y Libertad</h2>
-                            <p>La gran batalla teológica de Agustín: conciliar la libertad humana con la necesidad de la
-                                gracia divina.</p>
-                            <ol>
-                                <li>El espíritu y la letra.</li>
-                                <li>La naturaleza y la gracia.</li>
-                                <li>La gracia de Jesucristo.</li>
-                                <li>La gracia y el libre albedrío.</li>
-                                <li>La corrección y la gracia.</li>
-                                <li>La predestinación de los santos.</li>
-                                <li>El don de la perseverancia.</li>
-                            </ol>
+                    <!-- Shelf 4: Gracia y Libertad -->
+                    <div class="shelf-row">
+                        <div class="shelf-info">
+                            <h3><i class="fas fa-dove"></i> Gracia y Libertad</h3>
+                            <p>Conciliando la libertad humana con la necesidad de la gracia divina.</p>
                         </div>
+                        <div class="shelf-books">
+                            <div class="book" data-title="El espíritu y la letra"><span>Espíritu y letra</span></div>
+                            <div class="book" data-title="La naturaleza y la gracia"><span>Naturaleza y gracia</span></div>
+                            <div class="book" data-title="Gracia de Jesucristo"><span>Gracia de Cristo</span></div>
+                            <div class="book" data-title="Gracia y libre albedrío"><span>Gracia y libertad</span></div>
+                            <div class="book" data-title="La corrección y la gracia"><span>Corrección y gracia</span></div>
+                            <div class="book" data-title="Predestinación de los santos"><span>Predestinación</span></div>
+                            <div class="book" data-title="Don de la perseverancia"><span>Perseverancia</span></div>
+                        </div>
+                        <div class="shelf-board"></div>
                     </div>
 
-                    <!-- Item 5: Sermones y Cartas (Left) -->
-                    <div class="timeline-item left">
-                        <div class="timeline-content">
-                            <span class="timeline-label">Pastor de Almas</span>
-                            <h2><i class="fas fa-envelope-open-text"></i> Sermones y Cartas</h2>
-                            <p>El Agustín pastor, predicando a su pueblo y aconsejando a fieles de todo el mundo.</p>
-                            <ul class="simple-list">
-                                <li><strong>396 Sermones:</strong> Sobre el AT, NT, tiempos litúrgicos y mártires.</li>
-                                <li><strong>270 Cartas:</strong> Correspondencia con obispos, autoridades y laicos.</li>
-                            </ul>
+                    <!-- Shelf 5: Sermones y Cartas -->
+                    <div class="shelf-row">
+                        <div class="shelf-info">
+                            <h3><i class="fas fa-envelope-open-text"></i> Sermones y Cartas</h3>
+                            <p>El Agustín pastor, predicando y aconsejando.</p>
                         </div>
+                        <div class="shelf-books">
+                            <!-- Representing large collections with fewer, thicker books -->
+                            <div class="book" style="width: 50px; background: #444;" data-title="Colección Sermones (396)"><span>SERMONES</span></div>
+                            <div class="book" style="width: 50px; background: #555;" data-title="Colección Cartas (270)"><span>CARTAS</span></div>
+                        </div>
+                        <div class="shelf-board"></div>
                     </div>
 
-                    <!-- Item 6: Temas Morales (Right) -->
-                    <div class="timeline-item right">
-                        <div class="timeline-content">
-                            <span class="timeline-label">Ética Cristiana</span>
-                            <h2><i class="fas fa-balance-scale"></i> Temas Morales</h2>
+                    <!-- Shelf 6: Temas Morales -->
+                    <div class="shelf-row">
+                        <div class="shelf-info">
+                            <h3><i class="fas fa-balance-scale"></i> Temas Morales</h3>
                             <p>Guía práctica para la vida cristiana en santidad.</p>
-                            <ol>
-                                <li>La bondad del matrimonio.</li>
-                                <li>La santa virginidad.</li>
-                                <li>La paciencia.</li>
-                                <li>El combate cristiano.</li>
-                                <li>La mentira y Contra la mentira.</li>
-                                <li>El trabajo de los monjes.</li>
-                            </ol>
                         </div>
+                        <div class="shelf-books">
+                            <div class="book" data-title="Bondad del matrimonio"><span>Matrimonio</span></div>
+                            <div class="book" data-title="Santa virginidad"><span>Virginidad</span></div>
+                            <div class="book" data-title="Paciencia"><span>Paciencia</span></div>
+                            <div class="book" data-title="Combate cristiano"><span>Combate</span></div>
+                            <div class="book" data-title="Contra la mentira"><span>Mentira</span></div>
+                            <div class="book" data-title="Trabajo de los monjes"><span>Trabajo monjes</span></div>
+                        </div>
+                        <div class="shelf-board"></div>
                     </div>
 
-                    <!-- Item 7: Exhortación (Left) -->
-                    <div class="timeline-item left">
-                        <div class="timeline-content">
-                            <span class="timeline-label">Espiritualidad</span>
-                            <h2><i class="fas fa-praying-hands"></i> Exhortación y Meditación</h2>
-                            <ol>
-                                <li>Tratados sobre el Evangelio de San Juan.</li>
-                                <li>Comentarios a los salmos (Enarrationes in Psalmos).</li>
-                            </ol>
+                    <!-- Shelf 7: Espiritualidad & Biblia -->
+                    <div class="shelf-row">
+                        <div class="shelf-info">
+                            <h3><i class="fas fa-bible"></i> Espiritualidad y Biblia</h3>
+                            <p>Exégesis, comentarios a los salmos y exhortaciones.</p>
                         </div>
+                        <div class="shelf-books">
+                            <div class="book" data-title="Tratados Evangelio Juan"><span>Evangelio Juan</span></div>
+                            <div class="book" data-title="Comentarios a los Salmos"><span>Salmos</span></div>
+                            <div class="book" data-title="Doctrina cristiana"><span>Doctrina</span></div>
+                            <div class="book" data-title="Comentarios Génesis"><span>Génesis</span></div>
+                            <div class="book" data-title="Romanos y Gálatas"><span>Romanos/Gálatas</span></div>
+                            <div class="book" data-title="1ª Carta San Juan"><span>1ª Juan</span></div>
+                            <div class="book" data-title="Concordancia evangelistas"><span>Concordancia</span></div>
+                        </div>
+                        <div class="shelf-board"></div>
                     </div>
 
-                    <!-- Item 8: Escritos Bíblicos (Right) -->
-                    <div class="timeline-item right">
-                        <div class="timeline-content">
-                            <span class="timeline-label">Exégesis</span>
-                            <h2><i class="fas fa-bible"></i> Escritos Bíblicos</h2>
-                            <p>Estudios profundos sobre las Sagradas Escrituras.</p>
-                            <ol>
-                                <li>La doctrina cristiana.</li>
-                                <li>Comentarios al Génesis.</li>
-                                <li>Exposiciones sobre Romanos y Gálatas.</li>
-                                <li>Tratados sobre la Primera Carta de San Juan.</li>
-                                <li>Concordancia de los evangelistas.</li>
-                            </ol>
+                    <!-- Shelf 8: Polémica y Eclesiología -->
+                    <div class="shelf-row">
+                        <div class="shelf-info">
+                            <h3><i class="fas fa-church"></i> Polémica y Eclesiología</h3>
+                            <p>Contra maniqueos, donatistas y arrianos.</p>
                         </div>
+                        <div class="shelf-books">
+                            <div class="book" data-title="Las dos almas"><span>Dos almas</span></div>
+                            <div class="book" data-title="Réplica a Fausto"><span>Contra Fausto</span></div>
+                            <div class="book" data-title="Naturaleza del bien"><span>Nat. del Bien</span></div>
+                            <div class="book" data-title="Tratado bautismo"><span>Bautismo</span></div>
+                            <div class="book" data-title="Unidad de la Iglesia"><span>Unidad Iglesia</span></div>
+                            <div class="book" data-title="Corrección donatistas"><span>Donatistas</span></div>
+                            <div class="book" data-title="Contra los judíos"><span>Contra judíos</span></div>
+                            <div class="book" data-title="Contra arrianos"><span>Contra arrianos</span></div>
+                        </div>
+                        <div class="shelf-board"></div>
                     </div>
 
-                    <!-- Item 9: Contra el Maniqueísmo (Left) -->
-                    <div class="timeline-item left">
-                        <div class="timeline-content">
-                            <span class="timeline-label">Polémica</span>
-                            <h2><i class="fas fa-apple-alt"></i> El Mal y la Creación</h2>
-                            <p>Refutación del dualismo maniqueo y defensa de la bondad de la creación.</p>
-                            <ol>
-                                <li>Las dos almas del hombre.</li>
-                                <li>Réplica a Fausto, el maniqueo.</li>
-                                <li>Actas del debate con Félix.</li>
-                                <li>La naturaleza del bien.</li>
-                            </ol>
+                    <!-- Shelf 9: Miscelánea -->
+                    <div class="shelf-row">
+                        <div class="shelf-info">
+                            <h3><i class="fas fa-scroll"></i> Miscelánea</h3>
+                            <p>Música, catequesis y revisiones finales.</p>
                         </div>
-                    </div>
-
-                    <!-- Item 10: Unidad de la Iglesia (Right) -->
-                    <div class="timeline-item right">
-                        <div class="timeline-content">
-                            <span class="timeline-label">Eclesiología</span>
-                            <h2><i class="fas fa-church"></i> Unidad de la Iglesia</h2>
-                            <p>Contra el donatismo: la validez de los sacramentos no depende de la santidad del
-                                ministro.</p>
-                            <ol>
-                                <li>Tratado sobre el bautismo.</li>
-                                <li>La unidad de la Iglesia.</li>
-                                <li>Réplica a Petiliano.</li>
-                                <li>La corrección de los donatistas.</li>
-                            </ol>
+                        <div class="shelf-books">
+                            <div class="book" data-title="La música"><span>La música</span></div>
+                            <div class="book" data-title="Catequesis principiantes"><span>Catequesis</span></div>
+                            <div class="book" data-title="Fe y obras"><span>Fe y obras</span></div>
+                            <div class="book" data-title="Las Revisiones"><span>Revisiones</span></div>
                         </div>
-                    </div>
-
-                    <!-- Item 11: Cristología (Left) -->
-                    <div class="timeline-item left">
-                        <div class="timeline-content">
-                            <span class="timeline-label">Cristología</span>
-                            <h2><i class="fas fa-cross"></i> Divinidad de Cristo</h2>
-                            <p>Defensa de la fe trinitaria y cristológica frente al arrianismo.</p>
-                            <ol>
-                                <li>Las herejías.</li>
-                                <li>Tratado contra los judíos.</li>
-                                <li>Debate con Maximino, obispo arriano.</li>
-                            </ol>
-                        </div>
-                    </div>
-
-                    <!-- Item 12: Varios (Right) -->
-                    <div class="timeline-item right">
-                        <div class="timeline-content">
-                            <span class="timeline-label">Miscelánea</span>
-                            <h2><i class="fas fa-scroll"></i> Escritos Varios</h2>
-                            <ol>
-                                <li>La música.</li>
-                                <li>La catequesis a principiantes.</li>
-                                <li>La fe y las obras.</li>
-                                <li>Las Revisiones (Retractationes).</li>
-                            </ol>
-                        </div>
+                        <div class="shelf-board"></div>
                     </div>
 
                 </div>
@@ -418,47 +363,7 @@
         </div>
     </footer>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const svg = document.querySelector(".timeline-path-svg");
-            const path = document.getElementById("timeline-path");
-            const items = document.querySelectorAll(".timeline-item");
-
-            function drawPath() {
-                if (window.innerWidth <= 900) {
-                    // Mobile: Línea recta simple a la izquierda
-                    const lastItem = items[items.length - 1];
-                    const height = lastItem.offsetTop + lastItem.offsetHeight - 20;
-                    path.setAttribute("d", `M 26,0 L 26,${height}`);
-                    return;
-                }
-
-                // Desktop: Zig-Zag
-                let d = "";
-                items.forEach((item, index) => {
-                    const rect = item.getBoundingClientRect();
-                    const parentRect = item.parentElement.getBoundingClientRect();
-
-                    const top = item.offsetTop + 37;
-                    const center = parentRect.width / 2;
-                    const x = item.classList.contains("left") ? center - 30 : center + 30;
-
-                    if (index === 0) {
-                        d += `M ${center},0 L ${center},${top - 20} Q ${center},${top} ${x},${top}`;
-                    } else {
-                        const prevItem = items[index - 1];
-                        const prevTop = prevItem.offsetTop + 37;
-                        const prevX = prevItem.classList.contains("left") ? center - 30 : center + 30;
-                        d += ` M ${prevX},${prevTop} C ${center},${prevTop} ${center},${top} ${x},${top}`;
-                    }
-                });
-                path.setAttribute("d", d);
-            }
-
-            drawPath();
-            window.addEventListener("resize", drawPath);
-        });
-    </script>
+    <script src="java.js"></script>
 </body>
 
 </html>
