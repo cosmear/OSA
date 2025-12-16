@@ -4,6 +4,7 @@
   --gris: #f4f4f4;
   --gris-oscuro: #797878;
   --rojo: #b22222;
+  --dorado-claro: #e0c878;
   --fuente: "Montserrat", sans-serif;
 }
 
@@ -18,7 +19,8 @@ body {
   color: #333;
   line-height: 1.6;
   /* empujo el contenido hacia abajo para que no quede tapado por el header fijo */
-  padding-top: 120px; /* Reduced from 160px because topbar is removed */
+  padding-top: 120px;
+  /* Reduced from 160px because topbar is removed */
   /* si lo ves muy alto/bajo, después lo ajustás: 100, 110, 130, etc. */
 }
 
@@ -351,7 +353,8 @@ nav a:hover {
 
 /* Novedades */
 .news {
-  background: var(--dorado); /* Changed from gris to dorado */
+  background: var(--dorado-claro);
+  /* Changed from gris to dorado */
   padding: 80px 0;
 }
 
@@ -361,21 +364,23 @@ nav a:hover {
      I added .news h2 to the previous block.
      But I need to REMOVE the old rule here to avoid conflict or just update it.
   */
-  color: white; /* Overwriting prior var(--azul) */
+  color: white;
+  /* Overwriting prior var(--azul) */
   margin-bottom: 50px;
   font-size: 2.2rem;
   text-align: center;
   font-weight: 700;
   letter-spacing: 1px;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Button in News section needs to contrast with Gold background */
 .news .btn {
   background: white;
   color: var(--azul);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 .news .btn:hover {
   background: var(--azul);
   color: white;
@@ -611,26 +616,30 @@ nav a:hover {
 
 /* === RED AGUSTINIANA (SECCIONES) === */
 .section-parroquias {
-  background: var(--dorado);
+  background: var(--dorado-claro);
   padding: 70px 0;
-  color: var(--azul); /* Blue text on Gold */
+  color: var(--azul);
+  /* Blue text on Gold */
 }
 
 .section-colegios {
-  background: white; /* "El blanco que ya usamos" */
+  background: white;
+  /* "El blanco que ya usamos" */
   padding: 70px 0;
   color: var(--azul);
 }
 
 /* Adjust main section title for Gold background */
 .section-parroquias .section-title,
-.news h2 { /* Applying distinct style to News Title as well */
+.news h2 {
+  /* Applying distinct style to News Title as well */
   text-align: center;
-  color: white; /* White title on Gold */
+  color: white;
+  /* White title on Gold */
   font-size: 2.2rem;
   margin-bottom: 60px;
   font-weight: 700;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Subtítulos */
@@ -652,11 +661,13 @@ nav a:hover {
 
 /* Line styling */
 .section-parroquias .subtitulo .line {
-  background: white; /* White line on Gold */
+  background: white;
+  /* White line on Gold */
 }
 
 .section-colegios .subtitulo .line {
-  background: var(--dorado); /* Gold line on White */
+  background: var(--dorado);
+  /* Gold line on White */
 }
 
 .grid-red {
@@ -686,7 +697,8 @@ nav a:hover {
   min-width: 250px;
   height: 260px;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Shadow is key for White on White */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  /* Shadow is key for White on White */
   overflow: hidden;
   perspective: 1000px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -1599,211 +1611,213 @@ blockquote {
   .noticia-highlight {
     padding: 18px 18px;
   }
-}/* =========================
+}
+
+/* =========================
    PASTORAL PREMIUM DESIGN
    ========================= */
 
 .section-pastoral-premium {
-    position: relative;
-    background: linear-gradient(135deg, var(--azul) 0%, #030612 100%);
-    min-height: 85vh;
-    /* Occupy most of the viewport */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 20px;
-    /* Account for fixed header */
-    overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, var(--azul) 0%, #030612 100%);
+  min-height: 85vh;
+  /* Occupy most of the viewport */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px;
+  /* Account for fixed header */
+  overflow: hidden;
 }
 
 /* Background Animated Element */
 .section-pastoral-premium::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(197, 162, 74, 0.08) 0%, transparent 50%);
-    animation: rotateGradient 25s linear infinite;
-    pointer-events: none;
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(197, 162, 74, 0.08) 0%, transparent 50%);
+  animation: rotateGradient 25s linear infinite;
+  pointer-events: none;
 }
 
 @keyframes rotateGradient {
-    0% {
-        transform: rotate(0deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
 
-    100% {
-        transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .pastoral-container {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .pastoral-title {
-    font-size: 3rem;
-    color: var(--dorado);
-    text-align: center;
-    margin-bottom: 60px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  font-size: 3rem;
+  color: var(--dorado);
+  text-align: center;
+  margin-bottom: 60px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
 .pastoral-grid {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
 /* Premium Card Style */
 .card-premium {
-    position: relative;
-    width: 380px;
-    height: 550px;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-    background: #1a1a1a;
-    border: 1px solid rgba(197, 162, 74, 0.2);
-    cursor: pointer;
-    group: premium-card;
+  position: relative;
+  width: 380px;
+  height: 550px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: #1a1a1a;
+  border: 1px solid rgba(197, 162, 74, 0.2);
+  cursor: pointer;
+  group: premium-card;
 }
 
 .card-premium:hover {
-    transform: translateY(-15px) scale(1.02);
-    border-color: var(--dorado);
-    box-shadow: 0 20px 50px rgba(197, 162, 74, 0.25);
+  transform: translateY(-15px) scale(1.02);
+  border-color: var(--dorado);
+  box-shadow: 0 20px 50px rgba(197, 162, 74, 0.25);
 }
 
 .card-premium img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.8s ease;
-    filter: brightness(0.8);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+  filter: brightness(0.8);
 }
 
 .card-premium:hover img {
-    transform: scale(1.15);
-    filter: brightness(0.6);
+  transform: scale(1.15);
+  filter: brightness(0.6);
 }
 
 /* Content Overlay */
 .card-premium .content-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 40px 30px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 10%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    height: 100%;
-    transition: all 0.4s ease;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 40px 30px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 10%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  transition: all 0.4s ease;
 }
 
 .card-premium h3 {
-    color: white;
-    font-size: 2rem;
-    margin-bottom: 10px;
-    font-weight: 700;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-    transform: translateY(20px);
-    transition: transform 0.4s ease;
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  transform: translateY(20px);
+  transition: transform 0.4s ease;
 }
 
 .card-premium p {
-    color: #ddd;
-    font-size: 1.05rem;
-    line-height: 1.5;
-    margin-bottom: 25px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.4s ease 0.1s;
+  color: #ddd;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  margin-bottom: 25px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease 0.1s;
 }
 
 /* Hover State for Text */
 .card-premium:hover h3 {
-    transform: translateY(0);
-    color: var(--dorado);
+  transform: translateY(0);
+  color: var(--dorado);
 }
 
 .card-premium:hover p {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Action Button/Link */
 .premium-link {
-    display: inline-block;
-    color: var(--dorado);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.9rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.4s ease 0.2s;
+  display: inline-block;
+  color: var(--dorado);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease 0.2s;
 }
 
 .card-premium:hover .premium-link {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .premium-link i {
-    margin-left: 5px;
-    transition: transform 0.3s;
+  margin-left: 5px;
+  transition: transform 0.3s;
 }
 
 .premium-link:hover i {
-    transform: translateX(5px);
+  transform: translateX(5px);
 }
 
 /* Responsive */
 @media (max-width: 900px) {
-    .pastoral-grid {
-        flex-direction: column;
-        align-items: center;
-    }
+  .pastoral-grid {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .card-premium {
-        width: 100%;
-        max-width: 450px;
-        height: 400px;
-    }
+  .card-premium {
+    width: 100%;
+    max-width: 450px;
+    height: 400px;
+  }
 
-    .pastoral-title {
-        font-size: 2.2rem;
-    }
+  .pastoral-title {
+    font-size: 2.2rem;
+  }
 
-    /* On mobile, show text always partially */
-    .card-premium p {
-        opacity: 1;
-        transform: translateY(0);
-        display: none;
-        /* Hide paragraph on small mobile to save space, or keep it */
-    }
+  /* On mobile, show text always partially */
+  .card-premium p {
+    opacity: 1;
+    transform: translateY(0);
+    display: none;
+    /* Hide paragraph on small mobile to save space, or keep it */
+  }
 
-    .card-premium:hover p {
-        display: block;
-    }
+  .card-premium:hover p {
+    display: block;
+  }
 
-    .card-premium h3 {
-        transform: translateY(0);
-    }
+  .card-premium h3 {
+    transform: translateY(0);
+  }
 }
 
 /* =========================================
