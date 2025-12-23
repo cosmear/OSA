@@ -1691,7 +1691,6 @@ blockquote {
   background: #1a1a1a;
   border: 1px solid rgba(197, 162, 74, 0.2);
   cursor: pointer;
-  group: premium-card;
 }
 
 .card-premium:hover {
@@ -1881,92 +1880,200 @@ blockquote {
 
 .shelf-books {
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: 4px;
-  padding: 0 40px;
-  margin-bottom: -5px;
+  flex-direction: column;
+  /* Stack vertically! */
+  align-items: center;
+  /* Center the pile */
+  justify-content: flex-end;
+  gap: 0;
+  padding: 0 20px;
+  /* Ensure the pile sits on the board */
+  margin-bottom: 0px;
   z-index: 1;
+  width: 100%;
+  max-width: 600px;
+  /* Constrain pile width */
+  margin-left: auto;
+  margin-right: auto;
+  perspective: 1000px;
+  /* For 3D feel */
 }
 
 .book {
   position: relative;
-  width: 40px;
-  min-height: 140px;
+  flex: 0 0 auto;
+  /* Book Spine Width (horizontal length visually) */
+  width: 70%;
+  /* Base width relative to container */
+  max-width: 400px;
+  min-width: 250px;
+
+  /* Thickness */
+  height: 40px;
+
   background: var(--azul);
-  border-radius: 3px 6px 6px 3px;
-  box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.2), 2px 5px 5px rgba(0, 0, 0, 0.3);
-  color: rgba(255, 255, 255, 0.8);
+  /* Rounded spine facing viewer */
+  border-radius: 4px;
+
+  /* Spine Texture */
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 20%, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0.2) 100%);
+
+  /* Deep shadow below each book to separate them in the stack */
+  box-shadow:
+    0 1px 0px rgba(255, 255, 255, 0.1) inset,
+    /* Top edge light */
+    0 5px 10px rgba(0, 0, 0, 0.35);
+  /* Drop shadow on book below */
+
+  color: rgba(255, 255, 255, 0.95);
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Center text on the spine */
+  text-align: center;
+
   cursor: pointer;
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.27), z-index 0s box-shadow 0.3s;
-  transform-origin: bottom center;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  font-family: 'Montserrat', sans-serif;
+
+  /* Reset border */
+  border: none;
+
+  border-left: 3px solid rgba(255, 255, 255, 0.1);
+  border-right: 3px solid rgba(255, 255, 255, 0.1);
+
+  margin-bottom: -4px;
+  /* Slight overlap to tighten stack */
 }
 
-.book:nth-child(4n+1) {
-  height: 160px;
-  background-color: #2c3e50;
+/* Organic Variations: Height, Color, Tilt, Margin */
+
+/* Stack Variations: Vary width, color, and x-offset for pile realism */
+
+/* Decrease local Z-index to try and layer correctly? 
+   Actually, standard stacking context means later elements are on top.
+   So shadow of Book 1 is covered by Book 2. 
+   We need negative margins or explicit Z-indices if we want top books to cast shadow on bottom ones.
+   Applying decreasing z-index for first 10 items.
+*/
+.book:nth-child(1) {
+  z-index: 20;
 }
 
-.book:nth-child(4n+2) {
-  height: 145px;
-  background-color: #8e44ad;
+.book:nth-child(2) {
+  z-index: 19;
 }
 
-.book:nth-child(4n+3) {
-  height: 170px;
-  background-color: #c0392b;
+.book:nth-child(3) {
+  z-index: 18;
 }
 
-.book:nth-child(4n+4) {
-  height: 155px;
-  background-color: #27ae60;
+.book:nth-child(4) {
+  z-index: 17;
+}
+
+.book:nth-child(5) {
+  z-index: 16;
+}
+
+.book:nth-child(6) {
+  z-index: 15;
+}
+
+.book:nth-child(7) {
+  z-index: 14;
+}
+
+.book:nth-child(8) {
+  z-index: 13;
+}
+
+.book:nth-child(9) {
+  z-index: 12;
+}
+
+.book:nth-child(10) {
+  z-index: 11;
+}
+
+.book:nth-child(5n+1) {
+  width: 90%;
+  background-color: #3e2723;
+  transform: translateX(-5px) rotate(-0.5deg);
+}
+
+.book:nth-child(5n+2) {
+  width: 95%;
+  background-color: #263238;
+  transform: translateX(4px) rotate(0.5deg);
+}
+
+.book:nth-child(5n+3) {
+  width: 85%;
+  background-color: #4a1414;
+  transform: translateX(-2px) rotate(-0.2deg);
+}
+
+.book:nth-child(5n+4) {
+  width: 92%;
+  background-color: #1b3a28;
+  transform: translateX(6px) rotate(0.4deg);
+}
+
+.book:nth-child(5n+5) {
+  width: 88%;
+  background-color: #424242;
+  transform: translateX(0px) rotate(0deg);
 }
 
 .book.gold {
   background-color: var(--dorado);
   color: var(--azul);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
 }
 
 .book span {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  transform: rotate(180deg);
-  font-size: 0.85rem;
+  display: block;
+  font-size: 0.9rem;
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-height: 90%;
-  padding: 5px 0;
 }
 
 .book:hover {
-  transform: translateY(-20px) scale(1.1);
-  box-shadow: 0 15px 15px rgba(0, 0, 0, 0.4);
-  z-index: 10;
+  transform: translateX(20px) scale(1.05) !important;
+  z-index: 100 !important;
+  box-shadow: -10px 10px 20px rgba(0, 0, 0, 0.4), 0 0 5px rgba(255, 255, 255, 0.2);
 }
 
+.book:hover span {
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.book:hover span {
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Tooltip is less necessary if text is readable, but we keep it for truncated text */
 .book::after {
   content: attr(data-title);
   position: absolute;
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background: #333;
+  background: #111;
   color: white;
-  padding: 5px 10px;
+  padding: 6px 12px;
   border-radius: 4px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
   transition: 0.2s;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  z-index: 20;
 }
 
 .book:hover::after {
@@ -1975,13 +2082,16 @@ blockquote {
 
 @media (max-width: 600px) {
   .shelf-books {
-    gap: 2px;
     padding: 0 10px;
+    width: 100%;
   }
 
   .book {
-    width: 30px;
-    font-size: 0.7rem;
+    width: 95% !important;
+    /* Nearly full width */
+    height: 45px !important;
+    font-size: 0.85rem;
+    margin-bottom: -2px;
   }
 }
 
