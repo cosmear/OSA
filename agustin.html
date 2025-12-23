@@ -247,82 +247,54 @@
         const path = document.getElementById('timeline-path');
 
         if (!timeline || !path || items.length === 0) return;
-
-        // Si es móvil (pantalla chica), tal vez no queramos la línea zigzag compleja
-        // o la hagamos recta. Por ahora, intentemos dibujarla siempre y que CSS controle visibilidad.
+        
+        // Si es mobile, no dibujamos nada con JS, el CSS se encarga (línea recta).
+        if (window.innerWidth <= 900) return;
 
         const timelineRect = timeline.getBoundingClientRect();
         let d = "";
 
-        // Coordenadas del punto anterior
+        // Coordenadas
         let prevX, prevY;
+        
+        const isDesktop = window.innerWidth > 900;
 
         items.forEach((item, index) => {
-          // Encontrar el "punto" (before) es difícil desde JS porque es pseudo-elemento.
-          // Vamos a asumir que el punto está en una posición predecible relativa al item.
-          // O mejor, agregamos un elemento real .dot en el HTML? 
-          // No, usemos el centro del borde interior del item como referencia.
-
           const rect = item.getBoundingClientRect();
-
-          // Calcular posición relativa al contenedor timeline
+          
+          // Posición relativa al timeline
           const relativeTop = rect.top - timelineRect.top;
-          const relativeHeight = rect.height;
-
+          
           // Determinar si es left o right
           const isLeft = item.classList.contains('left');
 
-          // Punto de conexión: 
-          // Si es Left: borde derecho, centrado verticalmente o un poco más arriba?
-          // Usemos un offset fijo desde el top del item para que se vea ordenado (ej: 40px, donde está el título)
+          // Punto de conexión vertical (offset visual desde el top del item)
           const dotOffsetY = 40;
           const y = relativeTop + dotOffsetY;
 
-          // X: Si es Left, está a la izquierda (50% - gap). Si es Right, a la derecha (50% + gap).
-          // En el CSS actual: width 50%.
-          // Left item termina en 50%. Right item empieza en 50%.
-          // Queremos que la línea vaya de un lado a otro.
-          // Vamos a poner los puntos un poco metidos en el contenido.
-          // Left: rect.right - 20 (padding)
-          // Right: rect.left + 20
-
+          // Punto de conexión horizontal
           let x;
-          if (window.innerWidth > 900) {
-            // Desktop
-            if (isLeft) {
-              // El item termina en el centro (50% del timeline).
-              // Queremos el punto cerca del centro.
-              // rect.right es el centro de la pantalla (aprox).
-              // Usemos timelineRect.width / 2 como eje.
-              x = (timelineRect.width / 2);
-              // Pero queremos zigzag. Entonces el punto debe estar DESPLAZADO del centro.
-              // Left item: punto en su borde derecho (centro).
-              // Right item: punto en su borde izquierdo (centro).
-              // Si todos están en el centro, es una línea recta.
-              // PARA ZIGZAG: El punto debe estar "adentro" del item.
-              x = isLeft ? (timelineRect.width / 2) - 40 : (timelineRect.width / 2) + 40;
-            } else {
-              x = (timelineRect.width / 2) + 40;
-            }
+          
+          if (isDesktop) {
+             // ZIGZAG: desplazados del centro
+             // Centro del timeline
+             const center = timelineRect.width / 2;
+             // Desplazamiento
+             const offset = 40; 
+             x = isLeft ? (center - offset) : (center + offset);
           } else {
-            // Mobile: Todo a la izquierda. Línea recta vertical a la izquierda.
-            x = 26; // Coincide con el CSS mobile left: 26px
+             // Mobile: línea recta a la izquierda
+             x = 26; 
           }
 
           if (index === 0) {
             d += `M ${x} ${y}`;
           } else {
-            // Curva suave hacia el siguiente punto
-            // Control points para curva Bezier
+            // Curva suave
             const cp1x = prevX;
             const cp1y = (prevY + y) / 2;
             const cp2x = x;
             const cp2y = (prevY + y) / 2;
-
-            // O una línea recta simple para zigzag duro? El usuario pidió "zigzag".
-            // "camino de la vida... linea mas zigzag".
-            // Probemos curva suave tipo "camino" (winding road) o zigzag recto.
-            // Vamos con curva suave (C) que se ve más "camino".
             d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${x} ${y}`;
           }
 
@@ -331,13 +303,112 @@
         });
 
         path.setAttribute('d', d);
+
+        // === CONFIGURACIÓN ANIMACIÓN DE DIBUJO ===
+        
+        if (isDesktop) {
+          // Solo animar en desktop
+          const pathLength = path.getTotalLength();
+          path.style.strokeDasharray = pathLength;
+          path.style.strokeDashoffset = pathLength;
+          path.style.transition = 'none'; // reset transition if any
+          
+          updateScrollAnimation();
+        } else {
+          // En mobile, dejar visible
+          path.style.strokeDasharray = 'none';
+          path.style.strokeDashoffset = '0';
+        }
       }
 
-      // Ejecutar al cargar y al redimensionar
-      window.addEventListener('load', drawTimelinePath);
+      function updateScrollAnimation() {
+        if (window.innerWidth <= 900) return; // No animar en mobile
+
+        const path = document.getElementById('timeline-path');
+        const timeline = document.querySelector('.timeline');
+        if (!path || !timeline) return;
+
+        const pathLength = path.getTotalLength();
+        
+        // Calcular cuánto del timeline es visible
+        // Usamos la posición del timeline respecto a la ventana
+        const rect = timeline.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        // Start: cuando el top del timeline entra por abajo
+        // End: cuando el bottom del timeline sale por arriba? 
+        // Mejor: queremos que se dibuje MIENTRAS el usuario hace scroll sobre él.
+        // Digamos que el "lápiz" está en el centro de la pantalla (o un poco más abajo, ej 80%).
+        
+        const drawPoint = windowHeight * 0.75; // Punto de "dibujado" en la pantalla
+        
+        // Distancia desde el inicio del timeline hasta el punto de dibujado
+        // rect.top es la distancia del borde superior del timeline al borde superior de la ventana.
+        // Si rect.top es positivo (timeline abajo), distance < 0 (no dibujado).
+        // Si rect.top es 0 (timeline arriba), distance = drawPoint.
+        
+        let scrollPercentage = (drawPoint - rect.top) / rect.height;
+
+        // Ajuste fino para que empiece y termine bien
+        // Podemos clavar offsets. Pero la lógica simple suele funcionar.
+        // Queremos pathLength dibujado = scrollPercentage * pathLength ??? 
+        // No exactamente, la altura del path ~= altura del timeline.
+        
+        // Altura real del path (aprox)
+        const pathHeight = rect.height; 
+        
+        // Cuántos píxeles hemos "recorrido" dentro del timeline con nuestro drawPoint
+        let scrolledPixels = drawPoint - rect.top;
+
+        // Limitar
+        if (scrolledPixels < 0) scrolledPixels = 0;
+        if (scrolledPixels > pathHeight) scrolledPixels = pathHeight;
+
+        // Mapear píxeles verticales a longitud de curva? 
+        // Como es una curva, la longitud es > altura. 
+        // Factor de corrección simple: pathLength / pathHeight
+        const drawRatio = pathLength / pathHeight;
+        
+        let drawLength = scrolledPixels * drawRatio;
+
+        // Invertimos para strokeDashoffset:
+        // offset = pathLength - drawLength
+        // Si drawLength = 0 -> offset = pathLength (oculto)
+        // Si drawLength = pathLength -> offset = 0 (visible)
+        
+        path.style.strokeDashoffset = Math.max(0, pathLength - drawLength);
+      }
+
+      function observeTimelineItems() {
+        const items = document.querySelectorAll('.timeline-item');
+        
+        const observer = new IntersectionObserver((entries) => {
+           entries.forEach(entry => {
+             if (entry.isIntersecting) {
+               entry.target.classList.add('visible');
+             }
+           });
+        }, {
+           root: null,
+           threshold: 0.1, // Al ver el 10% del item
+           rootMargin: "0px 0px -50px 0px" // Un poco antes de que salga del todo
+        });
+
+        items.forEach(item => observer.observe(item));
+      }
+
+      // Inicialización
+      window.addEventListener('load', () => {
+         drawTimelinePath();
+         observeTimelineItems();
+      });
+      
       window.addEventListener('resize', drawTimelinePath);
-      // También por si las imágenes cargan tarde y cambian alturas
-      window.addEventListener('scroll', drawTimelinePath); 
+      
+      // Scroll Loop optimizado
+      window.addEventListener('scroll', () => {
+         updateScrollAnimation();
+      });
     </script>
   </main>
 

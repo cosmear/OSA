@@ -1220,6 +1220,16 @@ blockquote {
   padding: 20px 40px;
   z-index: 1;
   /* Above SVG */
+  
+  /* Animation Initial State */
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .timeline-item.left {
@@ -1493,42 +1503,74 @@ blockquote {
   }
 
   /* ============================
-   RESPONSIVE TIMELINE
+   RESPONSIVE TIMELINE (Redesign Mobile/Tablet)
    ============================ */
 
   @media (max-width: 900px) {
 
-    /* En móvil, volvemos a una línea más recta o simple */
-    #timeline-path {
-      stroke-width: 2;
-      stroke-dasharray: 5, 5;
+    /* Ocultar la línea SVG compleja en móvil */
+    .timeline-path-svg {
+      display: none;
     }
 
-    .timeline-item {
-      width: 100%;
-      padding: 18px 20px 18px 60px;
+    /* Crear línea recta CSS simple a la izquierda */
+    .timeline {
+      position: relative;
+    }
+    
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 20px; /* Posición de la línea */
+      width: 4px;
+      background: var(--dorado);
+      display: block; /* Forzar display block */
+      opacity: 0.3;
+      border-radius: 2px;
     }
 
+    /* Resetear items para que ocupen todo el ancho y se alineen a la derecha de la línea */
+    .timeline-item,
     .timeline-item.left,
     .timeline-item.right {
+      width: 100%;
       left: 0;
       text-align: left;
+      padding: 10px 0 30px 50px; /* Gap a la izquierda para la línea */
+      opacity: 1 !important; /* Sin animación de fade in */
+      transform: none !important;
+      transition: none !important;
     }
 
-    .timeline-item::before {
-      left: 16px;
-      /* Center at 26px to match JS */
-      right: auto;
+    /* Posicionar los puntos (dots) sobre la línea CSS */
+    .timeline-item::before,
+    .timeline-item.left::before,
+    .timeline-item.right::before {
+      left: 13px; /* Centrado en la línea de 20px -> 20 + 2 - 7(radio) = 15 aprox. Ajuste visual: 13px */
+      right: auto; 
+      top: 25px; /* Alinear con primera línea de texto o título */
+      margin: 0;
+      z-index: 5;
     }
 
-    .timeline-item.left::before {
-      right: auto;
-      /* Reset desktop style */
-    }
-
-    .timeline-item.right .timeline-content {
-      border-right: none;
+    /* Estilo uniforme para las tarjetas de contenido */
+    .timeline-content {
       border-left: 4px solid var(--dorado);
+      border-right: none;
+      /* Opcional: añadir una flechita CSS si quieres un estilo "burbuja de chat", pero simple es mejor */
+    }
+    
+    .timeline-item.right .timeline-content {
+        border-right: none;
+        border-left: 4px solid var(--dorado);
+    }
+
+    /* Ajuste de botón Volver si aplica */
+    .btn-volver {
+       display: inline-block;
+       margin-top: 30px;
     }
   }
 
