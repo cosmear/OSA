@@ -18,37 +18,7 @@
 </head>
 
 <body>
-  <header class="site-header">
-
-    <!-- Navbar -->
-    <div class="navbar">
-      <div class="container nav-inner">
-        <a href="index.html" class="logo">
-          <img src="imagenes/logo_new.png" alt="Orden de San Agustín Argentina">
-        </a>
-
-        <button class="hamburger" aria-label="Abrir menú">
-          <i class="fas fa-bars"></i>
-        </button>
-
-        <nav id="main-nav">
-          <ul>
-            <li><a href="index.html">Inicio</a></li>
-            <li class="dropdown">
-              <a href="agustin.html">San Agustín <i class="fas fa-caret-down"></i></a>
-              <ul class="dropdown-menu">
-                <li><a href="agustin.html">Vida</a></li>
-                <li><a href="ObrasSA.html">Obras</a></li>
-              </ul>
-            </li>
-            <li><a href="Estructura.html">Nosotros</a></li>
-            <li><a href="pastoral.html">Pastoral</a></li>
-            <li><a href="contacto.html">Contacto</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </header>
+  <div id="header-container"></div>
 
   <!-- === HERO === -->
   <section class="noticia-hero parallax">
@@ -142,69 +112,9 @@
   </section>
 
   <!-- === FOOTER === -->
-  <footer class="footer">
-    <div class="footer-container">
-      <!-- Columna 1 -->
-      <div class="footer-col brand">
-        <img src="imagenes/logo_new.png" alt="Orden de San Agustín Argentina" class="footer-logo" />
-        <p>
-          Promovemos la vida comunitaria, la oración y el servicio
-          en el espíritu de San Agustín.
-        </p>
-      </div>
-
-      <!-- Columna 2 -->
-      <div class="footer-col contact">
-        <h4>Contacto</h4>
-        <p>Email: <a href="mailto:secretariaviacarg@sanagustin.org">secretariaviacarg@sanagustin.org</a></p>
-        <p>Tel: 4802 4724 / 4801 9724</p>
-      </div>
-
-      <!-- Columna 3 -->
-      <div class="footer-col social">
-        <h4>Seguinos</h4>
-        <ul class="social-icons">
-          <li class="icon-content">
-            <a data-social="whatsapp" aria-label="Whatsapp" href="https://api.whatsapp.com/send?phone=+5491123456789"
-              target="_blank">
-              <div class="filled"></div>
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path fill="currentColor"
-                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.347s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.999-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.886 9.884" />
-              </svg>
-            </a>
-            <div class="tooltip">WhatsApp</div>
-          </li>
-
-          <li class="icon-content">
-            <a data-social="instagram" aria-label="Instagram" href="https://instagram.com/" target="_blank">
-              <div class="filled"></div>
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.056 1.97.24 2.427.403a4.92 4.92 0 0 1 1.75 1.145 4.92 4.92 0 0 1 1.145 1.75c.163.457.347 1.257.403 2.427.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.97-.403 2.427a4.92 4.92 0 0 1-1.145 1.75 4.92 4.92 0 0 1-1.75 1.145c-.457.163-1.257.347-2.427.403-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.97-.24-2.427-.403a4.92 4.92 0 0 1-1.75-1.145 4.92 4.92 0 0 1-1.145-1.75c-.163-.457-.347-1.257-.403-2.427-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.056-1.17.24-1.97.403-2.427a4.92 4.92 0 0 1 1.145-1.75 4.92 4.92 0 0 1 1.75-1.145c.457-.163 1.257-.347 2.427-.403C8.416 2.175 8.796 2.163 12 2.163zm0 1.622c-3.17 0-3.549.012-4.796.07-.995.046-1.538.212-1.897.353-.477.185-.818.406-1.178.766-.36.36-.581.701-.766 1.178-.141.359-.307.902-.353 1.897-.058 1.247-.07 1.626-.07 4.796s.012 3.549.07 4.796c.046.995.212 1.538.353 1.897.185.477.406.818.766 1.178.36.36.701.581 1.178.766.359.141.902.307 1.897.353 1.247.058 1.626.07 4.796.07s3.549-.012 4.796-.07c.995-.046 1.538-.212 1.897-.353a3.297 3.297 0 0 0 1.178-.766 3.297 3.297 0 0 0 .766-1.178c.141-.359.307-.902.353-1.897.058-1.247.07-1.626.07-4.796s-.012-3.549-.07-4.796c-.046-.995-.212-1.538-.353-1.897a3.297 3.297 0 0 0-.766-1.178 3.297 3.297 0 0 0-1.178-.766c-.359-.141-.902-.307-1.897-.353-1.247-.058-1.626-.07-4.796-.07zm0 3.905a5.932 5.932 0 1 1 0 11.864 5.932 5.932 0 0 1 0-11.864zm0 1.622a4.31 4.31 0 1 0 0 8.62 4.31 4.31 0 0 0 0-8.62zm5.993-2.412a1.386 1.386 0 1 1 0 2.772 1.386 1.386 0 0 1 0-2.772z" />
-              </svg>
-            </a>
-            <div class="tooltip">Instagram</div>
-          </li>
-
-          <li class="icon-content">
-            <a data-social="facebook" aria-label="Facebook" href="https://facebook.com/" target="_blank">
-              <div class="filled"></div>
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M23.998 11.999C23.998 5.372 18.626 0 11.999 0 5.372 0 0 5.372 0 11.999c0 5.99 4.388 10.954 10.124 11.854V15.47H7.078v-3.468h3.046V9.356c0-3.007 1.791-4.668 4.532-4.668 1.313 0 2.686.234 2.686.234v2.953h-1.513c-1.491 0-1.956.925-1.956 1.874v2.251h3.328l-.532 3.468h-2.796v8.385c5.736-.9 10.124-5.864 10.124-11.854Z" />
-              </svg>
-            </a>
-            <div class="tooltip">Facebook</div>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      © 2025 Orden de San Agustín Argentina — Todos los derechos reservados
-    </div>
-  </footer>
+  <div id="footer-container"></div>
+  <script src="layout.js"></script>
+  <script src="java.js"></script>
 
   <script>
     // Efecto parallax simple
@@ -215,18 +125,7 @@
       }
     });
 
-    // Menú hamburguesa
-    const hamburger = document.querySelector('.hamburger');
-    const nav = document.getElementById('main-nav');
-
-    if (hamburger && nav) {
-      nav.classList.add('nav-closed');
-
-      hamburger.addEventListener('click', () => {
-        nav.classList.toggle('nav-open');
-        nav.classList.toggle('nav-closed');
-      });
-    }
+    // Menú hamburguesa logic removed as it is handled in layout.js
   </script>
 
 </body>
