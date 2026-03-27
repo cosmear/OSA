@@ -85,13 +85,21 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto 80px;
         }
 
         .servicios-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 80px;
+        }
+
+        .frailes-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
@@ -138,6 +146,21 @@
 
         .org-card.vicario .person-name {
             font-size: 1.2rem;
+        }
+
+        .org-card.fraile-card {
+            padding: 35px 25px;
+        }
+
+        .org-card.fraile-card .profile-photo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 18px;
+        }
+
+        .org-card.fraile-card .person-name {
+            margin-bottom: 0;
+            font-size: 1.05rem;
         }
 
         /* Profile Photo */
@@ -194,7 +217,8 @@
             }
 
             .consejo-section,
-            .servicios-section {
+            .servicios-section,
+            .frailes-section {
                 gap: 20px;
                 margin-bottom: 50px;
             }
@@ -254,7 +278,7 @@
                 <!-- CONSEJERO 1 -->
                 <article class="org-card">
                     <div class="profile-photo">
-                        <img src="imagenes/Diego Corbalan.JPG" alt="Consejero 1">
+                        <img src="imagenes/Pablo Hernando Moreno 1.JPG" alt="Consejero 1">
                     </div>
                     <div class="role-title">Consejero</div>
                     <div class="person-name">P. Diego Corbalan, OSA</div>
@@ -267,7 +291,7 @@
                 <!-- CONSEJERO 2 -->
                 <article class="org-card">
                     <div class="profile-photo">
-                        <img src="imagenes/Pablo Hernando Moreno 1.JPG" alt="Consejero 2">
+                        <img src="imagenes/Diego Corbalan.JPG" alt="Consejero 2">
                     </div>
                     <div class="role-title">Consejero</div>
                     <div class="person-name">P. Pablo Hernando Moreno, OSA</div>
@@ -278,6 +302,18 @@
                 </article>
 
                 <!-- CONSEJERO 3 -->
+                <article class="org-card">
+                    <div class="profile-photo">
+                        <img src="imagenes/consejero3.jpg" alt="Consejero 3">
+                    </div>
+                    <div class="role-title">Consejero</div>
+                    <div class="person-name">P. Nombre Apellido, OSA</div>
+                    <p class="area-text">
+                        Ayuda a cuidar la unidad del carisma agustiniano y la comunión entre
+                        las distintas casas y presencias.
+                    </p>
+                </article>
+                 <!-- CONSEJERO 3 -->
                 <article class="org-card">
                     <div class="profile-photo">
                         <img src="imagenes/consejero3.jpg" alt="Consejero 3">
@@ -327,10 +363,10 @@
                 <!-- FORMACIÓN -->
                 <article class="org-card">
                     <div class="profile-photo">
-                        <img src="imagenes/Oscar Fabian.jpeg" alt="Responsable de Formación">
+                        <img src="" alt="Responsable de Formación">
                     </div>
                     <div class="role-title">Responsable de Formación</div>
-                    <div class="person-name">P. Oscar Fabian, OSA</div>
+                    <div class="person-name">P. , OSA</div>
                     <p class="area-text">
                         Acompaña el camino de los jóvenes en formación y la actualización permanente
                         de los religiosos, en clave agustiniana.
@@ -361,6 +397,41 @@
                         Articula el acompañamiento pastoral en los colegios agustinianos, cuidando
                         la identidad y el estilo educativo de la red.
                     </p>
+                </article>
+            </section>
+
+            <div class="section-header">
+                <h2>Nuestros Frailes</h2>
+                <div class="line"></div>
+            </div>
+
+            <section class="frailes-section">
+                <article class="org-card fraile-card">
+                    <div class="profile-photo">
+                        <img src="imagenes/HabitosFryJoseDomingo.jpg" alt="Fray Maximiliano Gutiérrez">
+                    </div>
+                    <div class="person-name">Fray Maximiliano Gutiérrez</div>
+                </article>
+
+                <article class="org-card fraile-card">
+                    <div class="profile-photo">
+                        <img src="imagenes/Javier Otaka.jpg" alt="P. Javier Otaka, OSA">
+                    </div>
+                    <div class="person-name">Fray Javier Otaka, OSA</div>
+                </article>
+
+                <article class="org-card fraile-card">
+                    <div class="profile-photo">
+                        <img src="imagenes/Oscar Fabian.jpeg" alt="P. Oscar Fabian, OSA">
+                    </div>
+                    <div class="person-name">Fray Oscar Fabian, OSA</div>
+                </article>
+
+                <article class="org-card fraile-card">
+                    <div class="profile-photo">
+                        <img src="imagenes/Maximiliano Ramirez 1.jpg" alt="Fray Maximiliano Ramírez">
+                    </div>
+                    <div class="person-name">Fray Maximiliano Ramírez</div>
                 </article>
             </section>
         </div>

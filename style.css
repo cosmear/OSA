@@ -2718,12 +2718,19 @@ blockquote {
   margin-top: 40px;
 }
 
+.section-pastoral-page .pastoral-grid-search {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .section-pastoral-page .pastoral-feature {
   background: #fdfdfd;
   border: 1px solid #eee;
   border-radius: 8px;
   padding: 30px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   transition: all 0.3s ease;
 }
 
@@ -2733,27 +2740,37 @@ blockquote {
   border-color: var(--dorado-claro);
 }
 
+.section-pastoral-page .pastoral-feature-icon {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(197, 162, 74, 0.12);
+  color: var(--dorado);
+  box-shadow: inset 0 0 0 1px rgba(197, 162, 74, 0.2);
+}
+
+.section-pastoral-page .pastoral-feature-icon i {
+  font-size: 1.8rem;
+}
+
+.section-pastoral-page .pastoral-feature-icon svg {
+  width: 30px;
+  height: 30px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .section-pastoral-page .pastoral-feature h4 {
   color: var(--azul);
   font-size: 1.2rem;
   margin-bottom: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-.section-pastoral-page .pastoral-feature h4 i {
-  font-size: 2rem;
-  color: var(--dorado);
-  background: rgba(197, 162, 74, 0.1); /* Fondo dorado sutil */
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  margin-bottom: 5px;
 }
 
 .section-pastoral-page .pastoral-feature p {
@@ -2834,10 +2851,20 @@ blockquote {
 }
 
 /* Grid Steps (Números o Iconos grandes) */
+.section-pastoral-page .pastoral-grid-steps {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .section-pastoral-page .pastoral-grid-steps .pastoral-feature {
   background: var(--azul);
   color: white;
   border: none;
+}
+
+.section-pastoral-page .pastoral-grid-steps .pastoral-feature-icon {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--dorado-claro);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
 }
 
 .section-pastoral-page .pastoral-grid-steps .pastoral-feature h4 {
@@ -2988,6 +3015,16 @@ blockquote {
 
   .section-pastoral-page .pastoral-actions {
     flex-direction: column;
+  }
+
+  .section-pastoral-page .pastoral-grid-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .section-pastoral-page .pastoral-grid-search {
+    grid-template-columns: 1fr;
   }
 }
 
