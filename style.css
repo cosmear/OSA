@@ -1090,7 +1090,7 @@ body {
 }
 
 .noticia-container {
-  max-width: 850px;
+  width: min(100% - 40px, 850px);
   margin: auto;
   line-height: 1.8;
   color: #333;
@@ -1179,7 +1179,53 @@ blockquote {
   position: relative;
   z-index: 2;
   text-align: center;
+  width: min(100% - 40px, 800px);
   max-width: 800px;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+}
+
+.noticia-hero .hero-content h1,
+.noticia-hero .hero-content h2,
+.noticia-hero .hero-content .fecha {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.hero-mobile-break {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .hero-mobile-break {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .noticia-hero {
+    min-height: 560px;
+  }
+
+  .noticia-hero .hero-content {
+    width: calc(100% - 32px);
+    padding: 12px 0;
+  }
+
+  .noticia-hero .hero-content h1 {
+    font-size: 1.65rem;
+    line-height: 1.18;
+  }
+
+  .noticia-hero .hero-content h2 {
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+
+  .noticia-container {
+    width: calc(100% - 32px);
+    font-size: 1rem;
+  }
 }
 
 .timeline-section {
