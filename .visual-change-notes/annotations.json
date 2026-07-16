@@ -1,0 +1,269 @@
+{
+  "schemaVersion": "1.0.0",
+  "project": {
+    "name": "OSA"
+  },
+  "pages": [
+    {
+      "pageId": "http://127.0.0.1:5174/",
+      "annotations": [
+        {
+          "id": "4527b3c1-e345-4cbc-a72a-7531e4b3d520",
+          "pageId": "http://127.0.0.1:5174/",
+          "status": "open",
+          "element": {
+            "tagName": "div",
+            "id": null,
+            "classes": [
+              "subtitulo"
+            ],
+            "attributes": {
+              "data-vcn-key": "div-ae17aa80",
+              "data-vcn-file": "index.html",
+              "data-vcn-line": "347",
+              "data-vcn-column": "9"
+            },
+            "textSnippet": "Colegios",
+            "parent": "div.container",
+            "ancestors": [
+              "div.container",
+              "section.section-colegios",
+              "main",
+              "body",
+              "html"
+            ],
+            "siblings": {
+              "previous": null,
+              "next": "div.grid-red"
+            },
+            "nearestHeading": "Colegios",
+            "selectors": {
+              "source": "[data-vcn-key=\"div-ae17aa80\"]",
+              "primary": "[data-vcn-key=\"div-ae17aa80\"]",
+              "semantic": "div.subtitulo",
+              "structural": "[data-vcn-key=\"div-e2dc604f\"] > div:nth-of-type(1)",
+              "xpath": "/html[1]/body[1]/main[1]/section[3]/div[1]/div[1]",
+              "primaryMatchCount": 1,
+              "stabilityScore": 100,
+              "ambiguous": false
+            },
+            "sourceLocation": {
+              "method": "html-instrumentation",
+              "confidence": "confirmed",
+              "file": "index.html",
+              "line": 347,
+              "column": 9,
+              "component": null
+            },
+            "viewport": {
+              "width": 1878,
+              "height": 971
+            },
+            "scroll": {
+              "x": 0,
+              "y": 1800
+            },
+            "normalizedRect": {
+              "x": 0.2137912673056443,
+              "y": 0.5521208805355304,
+              "width": 0.564430244941427,
+              "height": 0.03691426364572606
+            },
+            "rect": {
+              "x": 401.5,
+              "y": 536.109375,
+              "width": 1060,
+              "height": 35.84375
+            },
+            "url": "http://127.0.0.1:5174/",
+            "title": "Orden de San Agustín Argentina | Educación, Parroquias y Misión",
+            "capturedAt": "2026-07-10T17:06:17.528Z"
+          },
+          "notes": [
+            {
+              "id": "95dddbf7-b0e1-4491-91d1-d036f2db9135",
+              "text": "colegios",
+              "order": 0,
+              "createdAt": "2026-07-10T17:06:24.049Z",
+              "updatedAt": "2026-07-10T17:06:24.049Z"
+            }
+          ],
+          "createdAt": "2026-07-10T17:06:24.049Z",
+          "updatedAt": "2026-07-10T17:06:24.049Z",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "pageId": "http://127.0.0.1:5174/agustin.html",
+      "annotations": [
+        {
+          "id": "3feab652-3ba2-4830-bb8e-cf961f628b17",
+          "pageId": "http://127.0.0.1:5174/agustin.html",
+          "status": "open",
+          "element": {
+            "tagName": "h1",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "data-vcn-key": "h1-5a371d32",
+              "data-vcn-file": "agustin.html",
+              "data-vcn-line": "48",
+              "data-vcn-column": "9"
+            },
+            "textSnippet": "San Agustín: un camino de búsqueda y encuentro",
+            "parent": "div.container",
+            "ancestors": [
+              "div.container",
+              "section.subpage-hero",
+              "main",
+              "body",
+              "html"
+            ],
+            "siblings": {
+              "previous": null,
+              "next": "p"
+            },
+            "nearestHeading": "San Agustín: un camino de búsqueda y encuentro",
+            "selectors": {
+              "source": "[data-vcn-key=\"h1-5a371d32\"]",
+              "primary": "[data-vcn-key=\"h1-5a371d32\"]",
+              "semantic": null,
+              "structural": "[data-vcn-key=\"div-b7bb626b\"] > h1:nth-of-type(1)",
+              "xpath": "/html[1]/body[1]/main[1]/section[1]/div[1]/h1[1]",
+              "primaryMatchCount": 1,
+              "stabilityScore": 100,
+              "ambiguous": false
+            },
+            "sourceLocation": {
+              "method": "html-instrumentation",
+              "confidence": "confirmed",
+              "file": "agustin.html",
+              "line": 48,
+              "column": 9,
+              "component": null
+            },
+            "viewport": {
+              "width": 1878,
+              "height": 971
+            },
+            "scroll": {
+              "x": 0,
+              "y": 0
+            },
+            "normalizedRect": {
+              "x": 0.2137912673056443,
+              "y": 0.12358393408856849,
+              "width": 0.564430244941427,
+              "height": 0.052716271884655
+            },
+            "rect": {
+              "x": 401.5,
+              "y": 120,
+              "width": 1060,
+              "height": 51.1875
+            },
+            "url": "http://127.0.0.1:5174/agustin.html",
+            "title": "San Agustín: Vida y Obra | Orden de San Agustín Argentina",
+            "capturedAt": "2026-07-10T17:06:52.343Z"
+          },
+          "notes": [
+            {
+              "id": "4ea7c54a-5995-492c-aaeb-b376c64a9395",
+              "text": "mejorar",
+              "order": 0,
+              "createdAt": "2026-07-10T17:06:59.832Z",
+              "updatedAt": "2026-07-10T17:06:59.832Z"
+            }
+          ],
+          "createdAt": "2026-07-10T17:06:59.832Z",
+          "updatedAt": "2026-07-10T17:06:59.832Z",
+          "warnings": []
+        },
+        {
+          "id": "7ee089b1-0f01-4753-b985-1e0252371db2",
+          "pageId": "http://127.0.0.1:5174/agustin.html",
+          "status": "open",
+          "element": {
+            "tagName": "h2",
+            "id": null,
+            "classes": [],
+            "attributes": {
+              "data-vcn-key": "h2-1ff08de5",
+              "data-vcn-file": "agustin.html",
+              "data-vcn-line": "69",
+              "data-vcn-column": "15"
+            },
+            "textSnippet": "Tagaste, 354",
+            "parent": "div.timeline-content",
+            "ancestors": [
+              "div.timeline-content",
+              "div.timeline-item.left.visible",
+              "div.timeline",
+              "div.container",
+              "section.timeline-section"
+            ],
+            "siblings": {
+              "previous": "span.timeline-label",
+              "next": "p"
+            },
+            "nearestHeading": "Tagaste, 354",
+            "selectors": {
+              "source": "[data-vcn-key=\"h2-1ff08de5\"]",
+              "primary": "[data-vcn-key=\"h2-1ff08de5\"]",
+              "semantic": null,
+              "structural": "[data-vcn-key=\"div-c6b54693\"] > h2:nth-of-type(1)",
+              "xpath": "/html[1]/body[1]/main[1]/section[2]/div[1]/div[1]/div[1]/div[1]/h2[1]",
+              "primaryMatchCount": 1,
+              "stabilityScore": 100,
+              "ambiguous": false
+            },
+            "sourceLocation": {
+              "method": "html-instrumentation",
+              "confidence": "confirmed",
+              "file": "agustin.html",
+              "line": 69,
+              "column": 15,
+              "component": null
+            },
+            "viewport": {
+              "width": 1878,
+              "height": 971
+            },
+            "scroll": {
+              "x": 0,
+              "y": 0
+            },
+            "normalizedRect": {
+              "x": 0.24893503727369543,
+              "y": 0.42134397528321316,
+              "width": 0.21405750798722045,
+              "height": 0.03163619979402678
+            },
+            "rect": {
+              "x": 467.5,
+              "y": 409.125,
+              "width": 402,
+              "height": 30.71875
+            },
+            "url": "http://127.0.0.1:5174/agustin.html",
+            "title": "San Agustín: Vida y Obra | Orden de San Agustín Argentina",
+            "capturedAt": "2026-07-10T17:24:44.237Z"
+          },
+          "notes": [
+            {
+              "id": "e5938284-42bd-419a-b112-eb9077d58e2b",
+              "text": "cambiar texto a tagaste 456",
+              "order": 0,
+              "createdAt": "2026-07-10T17:24:56.690Z",
+              "updatedAt": "2026-07-10T17:24:56.690Z"
+            }
+          ],
+          "createdAt": "2026-07-10T17:24:56.690Z",
+          "updatedAt": "2026-07-10T17:24:56.690Z",
+          "warnings": []
+        }
+      ]
+    }
+  ]
+}
