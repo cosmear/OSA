@@ -37,12 +37,130 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <script src="https://kit.fontawesome.com/4f3f57c0c0.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
   <div id="header-container"></div>
+
+  <div class="novena-modal" id="novena-modal" hidden>
+    <div class="novena-modal__backdrop" data-novena-close></div>
+    <section class="novena-dialog" role="dialog" aria-modal="true" aria-labelledby="novena-title"
+      aria-describedby="novena-description">
+      <header class="novena-dialog__header">
+        <div class="novena-brand">
+          <span class="novena-brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <path d="M24 41C17 35 8 29 8 19.5A9.5 9.5 0 0 1 24 12a9.5 9.5 0 0 1 16 7.5C40 29 31 35 24 41Z" />
+              <path d="M24 37c-5.6-4.8-12-9.4-12-17.3a5.7 5.7 0 0 1 10.3-3.4L24 19l1.7-2.7A5.7 5.7 0 0 1 36 19.7C36 27.6 29.6 32.2 24 37Z" />
+              <path d="M29 13 38 8l-5 9" />
+              <path d="M22 8c0-2.8 2.6-3.5 1.7-6 3.5 2.3 4.7 5 2.3 8" />
+            </svg>
+          </span>
+          <span>Novena a San Agustín</span>
+        </div>
+        <button class="novena-icon-button" type="button" data-novena-close aria-label="Cerrar novena">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m6 6 12 12M18 6 6 18" />
+          </svg>
+        </button>
+      </header>
+
+      <div class="novena-dialog__body">
+        <div class="novena-intro">
+          <div>
+            <h2 id="novena-title">Volver al corazón</h2>
+            <div class="novena-ornament" aria-hidden="true"><span></span><i>♡</i><span></span></div>
+            <p id="novena-description">
+              Nueve días para recorrer nuestra historia, orar en comunidad y renovar el deseo de buscar a Dios.
+            </p>
+          </div>
+
+          <div class="novena-today" aria-live="polite">
+            <span class="novena-today__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                <path d="M16 3v4M8 3v4M3 10h18"></path>
+                <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"></path>
+              </svg>
+            </span>
+            <div>
+              <strong id="novena-status-title">El camino comienza pronto</strong>
+              <p id="novena-status-copy">El primer paso se habilita el 19 de agosto.</p>
+            </div>
+          </div>
+
+          <blockquote>
+            “Que esta novena nos ayude a volver al corazón y renovar nuestro deseo de buscar a Dios.”
+          </blockquote>
+
+          <div class="novena-prayers" aria-label="Oraciones de la novena">
+            <button class="novena-prayer" type="button" data-novena-prayer="start">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 21V9M9 12l3-3 3 3M7 21h10M8 5.5A4 4 0 0 1 12 2a4 4 0 0 1 4 3.5" />
+              </svg>
+              <span><small>Para comenzar</small>Oración inicial</span>
+            </button>
+            <button class="novena-prayer" type="button" data-novena-prayer="end">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3v18M5 9h14M7 21h10" />
+              </svg>
+              <span><small>Para cerrar</small>Oración final</span>
+            </button>
+          </div>
+        </div>
+
+        <nav class="novena-path" aria-label="Camino de los nueve días">
+          <p class="novena-path__heading">Tu camino</p>
+          <ol id="novena-days"></ol>
+        </nav>
+
+        <div class="novena-viewer">
+          <div class="novena-viewer__topline">
+            <div>
+              <span id="novena-viewer-kicker">Oración de inicio</span>
+              <strong id="novena-viewer-title">Prepará el corazón</strong>
+            </div>
+            <span class="novena-viewer__date" id="novena-viewer-date">Antes de cada reflexión</span>
+          </div>
+
+          <a class="novena-flyer" id="novena-flyer-link" href="#" target="_blank" rel="noopener noreferrer"
+            aria-label="Abrir la oración de inicio en tamaño completo">
+            <img id="novena-flyer-image" src="" alt="" width="1080" height="1350">
+            <span class="novena-flyer__zoom">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"></circle>
+                <path d="m16 16 5 5M11 8v6M8 11h6"></path>
+              </svg>
+              Ampliar
+            </span>
+          </a>
+
+          <div class="novena-viewer__actions">
+            <button class="novena-secondary-action" type="button" data-novena-close>Continuar en el sitio</button>
+            <a class="novena-primary-action" id="novena-open-full" href="#" target="_blank" rel="noopener noreferrer">
+              Ver reflexión
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14M14 7l5 5-5 5" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <button class="novena-launcher" id="novena-launcher" type="button" hidden aria-haspopup="dialog"
+    aria-controls="novena-modal">
+    <span class="novena-launcher__mark" aria-hidden="true">♡</span>
+    <span><strong>Novena 2026</strong><small>Volver al corazón</small></span>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 6l6 6-6 6" />
+    </svg>
+  </button>
 
 
 
@@ -745,6 +863,7 @@
       });
     })();
   </script>
+  <script src="novena.js"></script>
   <script src="layout.js"></script>
   <script src="java.js"></script>
 </body>

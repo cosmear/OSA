@@ -8,6 +8,1019 @@
   --fuente: "Montserrat", sans-serif;
 }
 
+/* =========================
+   NOVENA SAN AGUSTÍN 2026
+   ========================= */
+.novena-modal {
+  --novena-blue: #172b68;
+  --novena-blue-soft: #33439a;
+  --novena-red: #df111d;
+  --novena-orange: #f28a00;
+  --novena-ink: #20243a;
+  --novena-muted: #6d7180;
+  --novena-line: #dfe2ea;
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+.novena-modal[hidden] {
+  display: none;
+}
+
+.novena-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.novena-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(115deg, rgba(10, 23, 57, 0.9), rgba(45, 24, 49, 0.82)),
+    rgba(9, 16, 37, 0.78);
+  backdrop-filter: blur(8px);
+}
+
+.novena-dialog {
+  position: relative;
+  width: min(1180px, 100%);
+  height: min(800px, calc(100vh - 48px));
+  max-height: 800px;
+  overflow: hidden;
+  color: var(--novena-ink);
+  background:
+    radial-gradient(circle at 4% 4%, rgba(242, 138, 0, 0.08), transparent 24%),
+    #fff;
+  border: 1px solid rgba(255, 255, 255, 0.56);
+  border-radius: 24px;
+  box-shadow: 0 30px 90px rgba(3, 10, 30, 0.42);
+  transform: translateY(18px) scale(0.985);
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.novena-modal.is-open .novena-dialog {
+  transform: translateY(0) scale(1);
+}
+
+.novena-dialog__header {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px 0 28px;
+  border-bottom: 1px solid #eceef3;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.novena-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--novena-blue);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.novena-brand__mark {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+}
+
+.novena-brand__mark svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: var(--novena-red);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.6;
+}
+
+.novena-brand__mark svg path:nth-child(2) {
+  stroke: var(--novena-blue-soft);
+  stroke-width: 1.5;
+}
+
+.novena-brand__mark svg path:last-child {
+  stroke: var(--novena-orange);
+}
+
+.novena-icon-button {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #e1e4eb;
+  border-radius: 50%;
+  color: var(--novena-blue);
+  background: #fff;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, transform 160ms ease, background 160ms ease;
+}
+
+.novena-icon-button:hover {
+  color: var(--novena-red);
+  border-color: #f0b8bc;
+  background: #fff7f7;
+  transform: rotate(4deg);
+}
+
+.novena-icon-button svg {
+  width: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 1.8;
+}
+
+.novena-dialog__body {
+  height: calc(100% - 76px);
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 280px 222px minmax(400px, 1fr);
+}
+
+.novena-intro,
+.novena-path,
+.novena-viewer {
+  min-height: 0;
+}
+
+.novena-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 34px 28px 28px;
+  overflow-y: auto;
+  border-right: 1px solid var(--novena-line);
+}
+
+.novena-intro h2 {
+  max-width: 230px;
+  margin: 0;
+  color: var(--novena-blue);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2.25rem, 3vw, 3.25rem);
+  font-weight: 700;
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+}
+
+.novena-ornament {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 210px;
+  margin: 20px 0 17px;
+  color: var(--novena-orange);
+}
+
+.novena-ornament span {
+  width: 74px;
+  height: 1px;
+  background: currentColor;
+}
+
+.novena-ornament i {
+  font-family: Georgia, serif;
+  font-size: 1.3rem;
+  font-style: normal;
+  line-height: 1;
+}
+
+.novena-intro #novena-description {
+  max-width: 230px;
+  margin: 0;
+  color: #525665;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.novena-today {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.novena-today__icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--novena-orange);
+  border-radius: 50%;
+  color: var(--novena-orange);
+}
+
+.novena-today__icon svg {
+  width: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+
+.novena-today strong {
+  display: block;
+  margin: 1px 0 5px;
+  color: #d87400;
+  font-size: 0.92rem;
+  line-height: 1.25;
+}
+
+.novena-today p {
+  margin: 0;
+  color: var(--novena-muted);
+  font-size: 0.75rem;
+  line-height: 1.55;
+}
+
+.novena-intro blockquote {
+  margin: 0;
+  padding: 15px 0 0 17px;
+  border-top: 1px solid var(--novena-line);
+  border-left: 2px solid var(--novena-orange);
+  color: #575b6a;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.03rem;
+  font-style: italic;
+  line-height: 1.35;
+}
+
+.novena-prayers {
+  display: grid;
+  gap: 9px;
+  margin-top: auto;
+}
+
+.novena-prayer {
+  min-height: 58px;
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 11px;
+  align-items: center;
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #d9dce5;
+  border-radius: 11px;
+  color: var(--novena-blue);
+  text-align: left;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.novena-prayer:hover,
+.novena-prayer.is-selected {
+  border-color: #8e9ad0;
+  background: #f5f7ff;
+  transform: translateX(2px);
+}
+
+.novena-prayer svg {
+  width: 25px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.4;
+}
+
+.novena-prayer span {
+  font-family: var(--fuente);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.novena-prayer small {
+  display: block;
+  margin-bottom: 2px;
+  color: #8a8e9b;
+  font-size: 0.63rem;
+  font-weight: 500;
+}
+
+.novena-path {
+  padding: 22px 18px 20px 22px;
+  overflow-y: auto;
+  border-right: 1px solid var(--novena-line);
+  background: linear-gradient(180deg, #fff, #fafbfe);
+}
+
+.novena-path__heading {
+  margin: 0 0 9px 9px;
+  color: #8a8e9d;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.novena-path ol {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.novena-path ol::before {
+  content: "";
+  position: absolute;
+  top: 25px;
+  bottom: 25px;
+  left: 26px;
+  width: 1px;
+  background: #cfd4e5;
+}
+
+.novena-day {
+  position: relative;
+}
+
+.novena-day__button {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 34px;
+  gap: 7px;
+  align-items: center;
+  width: 100%;
+  min-height: 54px;
+  padding: 4px 0;
+  border: 0;
+  border-radius: 12px;
+  color: var(--novena-blue);
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--fuente);
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.novena-day__button:not(:disabled):hover {
+  background: #f0f3ff;
+  transform: translateX(2px);
+}
+
+.novena-day__button.is-selected {
+  background: #eef2ff;
+}
+
+.novena-day__button:disabled {
+  color: #9296a3;
+  cursor: not-allowed;
+}
+
+.novena-day__number {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  margin-left: 5px;
+  border: 1.5px solid #8491c7;
+  border-radius: 50%;
+  color: var(--novena-blue);
+  font-size: 0.92rem;
+  font-weight: 700;
+  background: #fff;
+  box-shadow: 0 0 0 4px #fff;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.novena-day__button:disabled .novena-day__number {
+  border-color: #c8ccd7;
+  color: #999daa;
+  background: #f7f8fa;
+}
+
+.novena-day__button.is-current .novena-day__number,
+.novena-day__button[aria-current="step"] .novena-day__number {
+  border-color: var(--novena-orange);
+  color: #fff;
+  background: var(--novena-blue);
+  box-shadow: 0 0 0 4px #fff, 0 0 0 6px rgba(242, 138, 0, 0.35);
+}
+
+.novena-day__copy {
+  min-width: 0;
+}
+
+.novena-day__copy strong {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 3px;
+  font-size: 0.76rem;
+  line-height: 1.2;
+}
+
+.novena-day__copy span {
+  display: -webkit-box;
+  overflow: hidden;
+  color: #656978;
+  font-size: 0.62rem;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.novena-day__button:disabled .novena-day__copy span {
+  display: none;
+}
+
+.novena-day__lock {
+  width: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.novena-day__date {
+  color: #8a8e9a;
+  font-size: 0.56rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.novena-day__date b {
+  display: block;
+  color: var(--novena-orange);
+  font-size: 0.7rem;
+}
+
+.novena-viewer {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 26px 24px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(23, 43, 104, 0.035), transparent 20%),
+    #fff;
+}
+
+.novena-viewer__topline {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 40px;
+}
+
+.novena-viewer__topline span {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--novena-orange);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.novena-viewer__topline strong {
+  display: block;
+  overflow: hidden;
+  max-width: 420px;
+  color: var(--novena-blue);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.28rem;
+  line-height: 1.05;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.novena-viewer__topline .novena-viewer__date {
+  flex: 0 0 auto;
+  margin: 0 0 3px;
+  color: #8b8e99;
+  letter-spacing: 0;
+  text-align: right;
+  text-transform: none;
+}
+
+.novena-flyer {
+  position: relative;
+  min-height: 0;
+  flex: 1 1 auto;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 15px;
+  outline: 1px solid #e0e2e9;
+  outline-offset: -1px;
+  background:
+    linear-gradient(135deg, rgba(23, 43, 104, 0.95), rgba(72, 36, 52, 0.92) 55%, rgba(223, 17, 29, 0.9));
+  box-shadow: 0 18px 42px rgba(20, 29, 67, 0.16);
+  cursor: zoom-in;
+}
+
+.novena-flyer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.16;
+  background-image: repeating-linear-gradient(110deg, transparent 0 6px, rgba(255, 255, 255, 0.22) 7px);
+  pointer-events: none;
+}
+
+.novena-flyer img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #fff;
+}
+
+.novena-flyer__zoom {
+  position: absolute;
+  z-index: 2;
+  right: 14px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 11px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.67rem;
+  font-weight: 600;
+  background: rgba(15, 27, 65, 0.82);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.novena-flyer:hover .novena-flyer__zoom,
+.novena-flyer:focus-visible .novena-flyer__zoom {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.novena-flyer__zoom svg {
+  width: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 1.6;
+}
+
+.novena-viewer__actions {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.75fr) minmax(190px, 1fr);
+  gap: 12px;
+}
+
+.novena-secondary-action,
+.novena-primary-action {
+  min-height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 18px;
+  border-radius: 9px;
+  font-family: var(--fuente);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.novena-secondary-action {
+  border: 1.5px solid #8c96c7;
+  color: var(--novena-blue);
+  background: #fff;
+}
+
+.novena-primary-action {
+  border: 0;
+  color: #fff;
+  background: linear-gradient(105deg, var(--novena-blue), #263d91);
+  box-shadow: 0 8px 20px rgba(23, 43, 104, 0.22);
+}
+
+.novena-secondary-action:hover,
+.novena-primary-action:hover {
+  transform: translateY(-1px);
+}
+
+.novena-primary-action:hover {
+  box-shadow: 0 12px 25px rgba(23, 43, 104, 0.3);
+}
+
+.novena-primary-action svg {
+  width: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.novena-launcher {
+  position: fixed;
+  z-index: 1200;
+  left: 22px;
+  bottom: 22px;
+  display: grid;
+  grid-template-columns: 42px 1fr 22px;
+  gap: 11px;
+  align-items: center;
+  min-width: 230px;
+  min-height: 70px;
+  padding: 9px 14px 9px 10px;
+  border: 1.5px solid var(--dorado);
+  border-radius: 999px;
+  color: #192c68;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 30px rgba(18, 31, 70, 0.18);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transform: translateY(0);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.novena-launcher[hidden] {
+  display: none;
+}
+
+.novena-launcher:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 34px rgba(18, 31, 70, 0.24);
+}
+
+.novena-launcher__mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  font-family: Georgia, serif;
+  font-size: 1.6rem;
+  background: linear-gradient(140deg, #df111d, #a70f27);
+}
+
+.novena-launcher span:nth-child(2) {
+  display: grid;
+}
+
+.novena-launcher strong {
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+
+.novena-launcher small {
+  margin-top: 2px;
+  color: #d87400;
+  font-size: 0.65rem;
+  font-style: italic;
+}
+
+.novena-launcher > svg {
+  width: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+body.novena-is-open {
+  overflow: hidden;
+}
+
+.novena-modal button:focus-visible,
+.novena-modal a:focus-visible,
+.novena-launcher:focus-visible {
+  outline: 3px solid rgba(242, 138, 0, 0.55);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1080px) {
+  .novena-dialog__body {
+    grid-template-columns: 262px 190px minmax(340px, 1fr);
+  }
+
+  .novena-intro {
+    padding-inline: 23px;
+  }
+
+  .novena-intro blockquote {
+    display: none;
+  }
+
+  .novena-viewer {
+    padding-inline: 20px;
+  }
+}
+
+@media (max-width: 860px) {
+  .novena-modal {
+    padding: 0;
+  }
+
+  .novena-dialog {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .novena-dialog__header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    height: 68px;
+    padding-inline: 18px 14px;
+  }
+
+  .novena-dialog__body {
+    height: calc(100% - 68px);
+    display: block;
+    overflow-y: auto;
+  }
+
+  .novena-intro {
+    display: block;
+    padding: 28px 22px 22px;
+    overflow: visible;
+    text-align: center;
+    border: 0;
+  }
+
+  .novena-intro h2,
+  .novena-intro #novena-description {
+    max-width: 470px;
+    margin-inline: auto;
+  }
+
+  .novena-intro h2 {
+    font-size: 2.6rem;
+  }
+
+  .novena-ornament {
+    justify-content: center;
+    margin-inline: auto;
+  }
+
+  .novena-today {
+    max-width: 430px;
+    margin: 24px auto 0;
+    text-align: left;
+  }
+
+  .novena-intro blockquote {
+    display: none;
+  }
+
+  .novena-viewer {
+    min-height: 670px;
+    padding: 12px 18px 20px;
+    overflow: visible;
+  }
+
+  .novena-flyer {
+    min-height: 520px;
+  }
+
+  .novena-path {
+    position: static;
+    top: auto;
+    left: auto;
+    z-index: auto;
+    width: 100%;
+    max-height: none;
+    padding: 13px 0 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border: 0;
+    border-top: 1px solid var(--novena-line);
+    border-bottom: 1px solid var(--novena-line);
+    box-shadow: none;
+    transition: none;
+    scrollbar-width: none;
+  }
+
+  .novena-path::-webkit-scrollbar {
+    display: none;
+  }
+
+  .novena-path__heading {
+    margin: 0 18px 7px;
+  }
+
+  .novena-path ol {
+    display: flex;
+    gap: 0;
+    width: max-content;
+    padding: 0 14px;
+  }
+
+  .novena-path ol::before {
+    top: 27px;
+    right: 35px;
+    bottom: auto;
+    left: 35px;
+    width: auto;
+    height: 1px;
+  }
+
+  .novena-day {
+    width: 82px;
+  }
+
+  .novena-day__button {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-content: start;
+    min-height: 100px;
+    gap: 5px;
+    padding: 4px;
+    text-align: center;
+  }
+
+  .novena-day__button:not(:disabled):hover {
+    transform: translateY(-2px);
+  }
+
+  .novena-day__number {
+    margin: 0;
+  }
+
+  .novena-day__copy {
+    display: none;
+  }
+
+  .novena-day__date {
+    position: absolute;
+    top: 57px;
+  }
+
+  .novena-prayers {
+    grid-template-columns: 1fr 1fr;
+    max-width: 570px;
+    margin: 18px auto 0;
+  }
+
+  .novena-viewer::after {
+    content: "";
+    display: block;
+  }
+}
+
+@media (max-height: 760px) and (min-width: 861px) {
+  .novena-intro {
+    gap: 18px;
+    padding-top: 24px;
+    padding-bottom: 20px;
+  }
+
+  .novena-intro blockquote {
+    display: none;
+  }
+
+  .novena-prayer {
+    min-height: 52px;
+  }
+}
+
+@media (max-width: 520px) {
+  .novena-brand {
+    font-size: 1.25rem;
+  }
+
+  .novena-brand__mark {
+    width: 32px;
+    height: 32px;
+  }
+
+  .novena-icon-button {
+    width: 39px;
+    height: 39px;
+  }
+
+  .novena-intro {
+    padding: 23px 18px 18px;
+  }
+
+  .novena-intro h2 {
+    font-size: 2.3rem;
+  }
+
+  .novena-ornament {
+    margin-block: 14px;
+  }
+
+  .novena-intro #novena-description {
+    max-width: 340px;
+    font-size: 0.79rem;
+    line-height: 1.55;
+  }
+
+  .novena-today {
+    margin-top: 20px;
+  }
+
+  .novena-viewer {
+    min-height: 600px;
+    padding-inline: 12px;
+  }
+
+  .novena-viewer__topline {
+    padding-inline: 4px;
+  }
+
+  .novena-viewer__topline strong {
+    max-width: 260px;
+    font-size: 1.12rem;
+  }
+
+  .novena-viewer__topline .novena-viewer__date {
+    display: none;
+  }
+
+  .novena-flyer {
+    min-height: 450px;
+    border-radius: 11px;
+  }
+
+  .novena-viewer__actions {
+    grid-template-columns: 1fr;
+  }
+
+  .novena-secondary-action {
+    display: none;
+  }
+
+  .novena-primary-action {
+    min-height: 52px;
+  }
+
+  .novena-flyer__zoom {
+    opacity: 1;
+    transform: none;
+  }
+
+  .novena-launcher {
+    left: 12px;
+    bottom: 12px;
+    min-width: 0;
+    min-height: 56px;
+    grid-template-columns: 36px 1fr 18px;
+    padding-block: 7px;
+  }
+
+  .novena-launcher__mark {
+    width: 36px;
+    height: 36px;
+    font-size: 1.3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .novena-modal,
+  .novena-dialog,
+  .novena-modal *,
+  .novena-launcher {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
