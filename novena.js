@@ -8,63 +8,62 @@
   const CAMPAIGN_END = 20260828;
   const CAMPAIGN_VISIBLE_FROM = 20260701;
   const STORAGE_KEY = "osa-novena-san-agustin-2026-v1-seen";
-  const ASSET_ROOT =
-    "Novena San Agustín 2026-20260729T182852Z-1-001/Novena San Agustín 2026";
+  const ASSET_ROOT = "imagenes/novena-san-agustin-2026";
 
   const days = [
     {
       day: 1,
       date: 19,
       title: "Las raíces: Agustín, pastor del corazón inquieto",
-      file: "Novena Dia (1).png",
+      file: "dia-1.png",
     },
     {
       day: 2,
       date: 20,
       title: "Raíces en América: los primeros misioneros agustinos",
-      file: "Novena Dia (2).png",
+      file: "dia-2.png",
     },
     {
       day: 3,
       date: 21,
       title: "La llegada a Buenos Aires: providencia y perseverancia",
-      file: "Novena Dia (3).png",
+      file: "dia-3.png",
     },
     {
       day: 4,
       date: 22,
       title: "La primera residencia: pequeños comienzos, grande misión",
-      file: "Novena Dia (4).png",
+      file: "dia-4.png",
     },
     {
       day: 5,
       date: 23,
       title: "La iglesia y el colegio: fe y cultura unidas",
-      file: "Novena Dia (5).png",
+      file: "dia-5.png",
     },
     {
       day: 6,
       date: 24,
       title: "Expansión por el país: una presencia que fructifica",
-      file: "Novena Dia (6).png",
+      file: "dia-6.png",
     },
     {
       day: 7,
       date: 25,
       title: "La Prelatura de Cafayate: la Iglesia en las periferias",
-      file: "Novena Dia (7).png",
+      file: "dia-7.png",
     },
     {
       day: 8,
       date: 26,
       title: "La unificación: un solo corazón orientado hacia Dios",
-      file: "Novena Dia (8).png",
+      file: "dia-8.png",
     },
     {
       day: 9,
       date: 27,
       title: "125 años: memoria, gratitud y misión",
-      file: "Novena Dia (9).png",
+      file: "dia-9.png",
     },
   ];
 
@@ -73,14 +72,14 @@
       kicker: "Oración de inicio",
       title: "Prepará el corazón",
       dateLabel: "Antes de cada reflexión",
-      file: "1.Oración Inicio.png",
+      file: "oracion-inicio.png",
       alt: "Oración de inicio de la Novena a San Agustín",
     },
     end: {
       kicker: "Oración de cierre",
       title: "Tarde te amé",
       dateLabel: "Al terminar cada día",
-      file: "2.Oración Cierre.png",
+      file: "oracion-cierre.png",
       alt: "Oración de cierre de la Novena a San Agustín",
     },
   };

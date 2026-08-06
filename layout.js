@@ -1,4 +1,19 @@
 
+// Site icons are shared by every page that loads this layout.
+if (!document.querySelector('link[rel="icon"]')) {
+  const favicon = document.createElement("link");
+  favicon.rel = "icon";
+  favicon.href = "favicon.ico";
+  document.head.appendChild(favicon);
+}
+
+if (!document.querySelector('link[rel="apple-touch-icon"]')) {
+  const touchIcon = document.createElement("link");
+  touchIcon.rel = "apple-touch-icon";
+  touchIcon.href = "apple-touch-icon.png";
+  document.head.appendChild(touchIcon);
+}
+
 // Header HTML content
 const headerContent = `
   <header class="site-header">
