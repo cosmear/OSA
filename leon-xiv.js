@@ -1,16 +1,16 @@
 /* =========================================================
-   LEÓN XIV EN ARGENTINA · micrositio OSA Argentina
+   LEÓN XIV EN ARGENTINA · especial OSA Argentina (V2)
    ---------------------------------------------------------
    Un solo archivo para todo el especial:
 
-     · popup + lanzador de la portada        (necesita #leo-mount)
-     · menú interno del micrositio            (necesita #leo-subnav)
-     · landing, días, agenda y participar     (necesita #leo-app)
+     · aviso discreto en la portada de OSA    (necesita #leo-mount)
+     · menú interno del especial              (necesita #leo-subnav)
+     · portada, días, agenda y participar     (necesita #leo-app)
+     · enlace temporal en el menú global de OSA
 
-   Cada página es una cáscara: el <head>, el <h1> y un aviso por si el
-   JavaScript no corre. Todo lo demás se arma acá desde leon-xiv-data.js,
-   que sigue siendo la única fuente del itinerario. Ninguna página repite
-   datos oficiales.
+   Cada página es una cáscara: el <head>, un resumen sin JavaScript y los
+   scripts. Todo lo demás se arma acá desde leon-xiv-data.js, la única
+   fuente del itinerario y de las reglas de inscripción.
 
    El estado "ahora / próximo" compara la hora de Buenos Aires con el
    cronograma publicado. No hay seguimiento en vivo ni red.
@@ -28,6 +28,7 @@
   const LANDING = DATA.campaign.pageUrl;
   const AGENDA_PAGE = "leon-xiv-agenda.html";
   const PARTICIPAR_PAGE = "leon-xiv-participar.html";
+  const REG = DATA.registration || null;
 
   /* -------------------------------------------------------
      Utilidades
@@ -41,9 +42,13 @@
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
 
-  const clamp = (value, min, max) => (value < min ? min : value > max ? max : value);
-
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  /* Solo se aceptan URLs http(s) o rutas relativas del propio sitio. */
+  const safeUrl = (value) => {
+    const url = String(value || "").trim();
+    if (/^https?:\/\//i.test(url)) return url;
+    if (/^[\w.\-/#?=&%]+$/.test(url) && !/^[a-z]+:/i.test(url)) return url;
+    return "#";
+  };
 
   const isLocalPreviewHost = () =>
     window.location.hostname === "localhost" ||
@@ -96,7 +101,8 @@
     return parts ? absMinutes(parts) : null;
   }
 
-  /* Hora actual de Buenos Aires, con override de previsualización local. */
+  /* Hora actual de Buenos Aires. `?leoDate=AAAA-MM-DDTHH:mm` solo funciona
+     en localhost / 127.0.0.1 para previsualizar las fases. */
   function readNowParts() {
     if (isLocalPreviewHost()) {
       const raw = new URLSearchParams(window.location.search).get("leoDate");
@@ -154,11 +160,14 @@
   });
 
   const OPEN_EVENTS = SCHEDULE.filter((event) => event.open);
+  /* Encuentros que no son celebraciones abiertas pero tienen reglas propias. */
+  const RESTRICTED_EVENTS = SCHEDULE.filter((event) => !event.open && event.access);
 
   const ARRIVAL = at(DATA.campaign.arrival);
   const DEPARTURE = at(DATA.campaign.departure);
   const FIRST_DAY = DATA.campaign.firstDay;
   const LAST_DAY = DATA.campaign.lastDay;
+  const REG_DEADLINE = REG ? at(REG.deadline) : null;
 
   function buildState() {
     const parts = readNowParts();
@@ -191,6 +200,14 @@
       Math.ceil((firstDayStart - absMinutes({ ...parts, hour: 0, minute: 0 })) / 1440)
     );
 
+    /* Inscripción: "open" hasta el plazo informado; después, "closed"
+       (se remite al sitio oficial); terminada la visita, "past". */
+    let registration = "none";
+    if (REG && REG_DEADLINE !== null) {
+      if (phase === "POST") registration = "past";
+      else registration = now <= REG_DEADLINE ? "open" : "closed";
+    }
+
     return {
       now,
       today,
@@ -201,12 +218,13 @@
       nextOpenEvent,
       todayDay,
       daysToStart,
+      registration,
       minutesToArrival: Math.max(0, ARRIVAL - now),
     };
   }
 
   function statusText(state) {
-    if (state.phase === "POST") return "Reviví la visita";
+    if (state.phase === "POST") return "La visita terminó";
 
     if (state.phase === "PRE") {
       return state.daysToStart === 1 ? "Falta 1 día" : `Faltan ${state.daysToStart} días`;
@@ -215,12 +233,12 @@
     if (!state.inCountry) {
       const hours = Math.floor(state.minutesToArrival / 60);
       const minutes = state.minutesToArrival % 60;
-      if (hours >= 1) return `Llega hoy · faltan ${hours} h ${minutes} min`;
-      if (state.minutesToArrival > 0) return `Llega hoy · faltan ${minutes} min`;
+      if (hours >= 1) return `Hoy llega a Buenos Aires · faltan ${hours} h ${minutes} min`;
+      if (state.minutesToArrival > 0) return `Hoy llega a Buenos Aires · faltan ${minutes} min`;
       return "Llegando a Buenos Aires";
     }
 
-    return `HOY · ${dayLabel(state.todayDay || DATA.days[0])}`;
+    return `Hoy, ${dayLabel(state.todayDay || DATA.days[0]).toLowerCase()}`;
   }
 
   /* -------------------------------------------------------
@@ -229,51 +247,70 @@
 
   const ICON = {
     arrow:
-      '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m12 5 7 7-7 7"/></svg>',
+      '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h13"/><path d="m12 5 7 7-7 7"/></svg>',
     external:
-      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4 11 13"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
-    info:
-      '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>',
-    close:
-      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>',
+      '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4 11 13"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
   };
 
-  const statusMarkup = (state) =>
-    `<span class="leo-status" data-phase="${esc(state.phase)}">
-       <span class="leo-status__dot" aria-hidden="true"></span>
-       <span>${esc(statusText(state))}</span>
-     </span>`;
+  const NEW_TAB = '<span class="leo-sr-only">(se abre en una pestaña nueva)</span>';
 
   const placeLine = (event) => [event.venue, event.city].filter(Boolean).join(" · ");
 
+  const timeTag = (event) =>
+    `<time datetime="${esc(event.date)}T${esc(event.time)}">${esc(event.time)}</time>`;
+
   const mapLink = (event) =>
     event.maps
-      ? `<a class="leo-maplink" href="${esc(event.maps)}" target="_blank" rel="noopener noreferrer">
-           Ver ubicación ${ICON.external}
-           <span class="leo-sr-only">(se abre en una pestaña nueva)</span>
+      ? `<a class="leo-maplink" href="${esc(safeUrl(event.maps))}" target="_blank" rel="noopener noreferrer">
+           Ver ubicación${ICON.external}${NEW_TAB}
          </a>`
       : "";
 
-  /* Marca de estado de un punto del programa. */
+  const accessInfo = (event) =>
+    REG && event.access && REG.access && REG.access[event.access]
+      ? REG.access[event.access]
+      : null;
+
+  const portalLink = (label, cls = "leo-btn leo-btn--primary") =>
+    REG
+      ? `<a class="${cls}" href="${esc(safeUrl(REG.portalUrl))}" target="_blank" rel="noopener noreferrer">
+           ${esc(label)}${ICON.external}${NEW_TAB}
+         </a>`
+      : "";
+
+  /* Frase corta sobre el plazo de inscripción, según la fecha. */
+  function registrationLine(state) {
+    if (!REG) return "";
+    if (state.registration === "open") {
+      return `Inscripción gratuita en el sitio oficial hasta el ${esc(REG.deadlineLabel)}.`;
+    }
+    if (state.registration === "closed") {
+      return `El plazo de inscripción informado venció el ${esc(REG.deadlineLabel)}. Consultá novedades en el sitio oficial.`;
+    }
+    return "";
+  }
+
+  /* Marca de estado de un punto del programa (solo durante la visita). */
   function eventFlag(event, state) {
     if (state.phase !== "DURING") return { cls: "", flag: "" };
     if (state.currentEvent === event) {
       return {
         cls: "is-now",
-        flag: '<span class="leo-flag leo-flag--now">Ahora, según el cronograma</span>',
+        flag: '<span class="leo-flag leo-flag--now">Ahora, según el programa</span>',
       };
     }
     if (state.nextEvent === event) {
-      return { cls: "", flag: '<span class="leo-flag leo-flag--next">Próximo</span>' };
+      return { cls: "is-next", flag: '<span class="leo-flag leo-flag--next">Próximo</span>' };
     }
     if (event.startsAt < state.now) {
-      return { cls: "is-past", flag: '<span class="leo-flag leo-flag--past">Finalizado</span>' };
+      // Lo ya ocurrido se atenúa en gris; el lector de pantalla lo escucha.
+      return { cls: "is-past", flag: '<span class="leo-sr-only">(ya pasó, según el programa)</span>' };
     }
     return { cls: "", flag: "" };
   }
 
   /* =======================================================
-     MENÚ INTERNO DEL MICROSITIO
+     MENÚ INTERNO DEL ESPECIAL
      ======================================================= */
 
   const currentFile = () => window.location.pathname.split("/").pop() || "index.html";
@@ -283,17 +320,15 @@
     if (!mount) return;
 
     const here = currentFile();
-    const mark = (href) => (href === here ? ' aria-current="page"' : "");
+    const dayPages = DATA.days.map((day) => day.page);
+    const mark = (href, alsoFor = []) =>
+      href === here || alsoFor.includes(here) ? ' aria-current="page"' : "";
 
-    const todayHref =
-      state.phase === "DURING" && state.todayDay ? state.todayDay.page : AGENDA_PAGE;
-
-    const days = DATA.days
-      .map(
-        (day) =>
-          `<li><a href="${esc(day.page)}"${mark(day.page)}>${esc(day.dayNumber)}</a></li>`
-      )
-      .join("");
+    /* "Hoy" solo existe durante la visita y lleva al día en curso. */
+    const today =
+      state.phase === "DURING" && state.todayDay
+        ? `<li><a class="leo-subnav__today" href="${esc(state.todayDay.page)}"${mark(state.todayDay.page)}>Hoy</a></li>`
+        : "";
 
     mount.className = "leo-subnav";
     mount.innerHTML = `
@@ -301,12 +336,11 @@
            aria-label="Secciones del especial León XIV en Argentina">
         <a class="leo-subnav__brand" href="${esc(LANDING)}">León XIV en Argentina</a>
         <ul>
-          <li><a href="${esc(LANDING)}"${mark(LANDING)}>Inicio</a></li>
-          <li><a href="${esc(AGENDA_PAGE)}"${mark(AGENDA_PAGE)}>Agenda</a></li>
-          <li><a href="${esc(todayHref)}">Hoy</a></li>
+          <li><a href="${esc(LANDING)}"${mark(LANDING)}>La visita</a></li>
+          ${today}
+          <li><a href="${esc(AGENDA_PAGE)}"${mark(AGENDA_PAGE, state.phase === "DURING" ? [] : dayPages)}>Agenda</a></li>
           <li><a href="${esc(PARTICIPAR_PAGE)}"${mark(PARTICIPAR_PAGE)}>Participar</a></li>
         </ul>
-        <ul class="leo-subnav__days" aria-label="Días de la visita">${days}</ul>
       </div>`;
   }
 
@@ -314,7 +348,7 @@
      BLOQUES REUTILIZABLES
      ======================================================= */
 
-  /* HOY / PRÓXIMO. Existe en las tres fases, con distinto contenido. */
+  /* HOY / PRÓXIMO. Banda clara y compacta; cambia con la fase. */
   function todayMarkup(state) {
     if (state.phase === "DURING") {
       const current = state.currentEvent;
@@ -322,257 +356,212 @@
       const day = state.todayDay;
 
       const slot = (label, event, fallback) =>
-        event
-          ? `<div class="leo-today__slot">
-               <span class="leo-today__label">${esc(label)}</span>
-               <p class="leo-today__time">${esc(event.time)}</p>
-               <p class="leo-today__title">${esc(event.title)}</p>
-               <p class="leo-today__place">${esc(placeLine(event))}</p>
-             </div>`
-          : `<div class="leo-today__slot">
-               <span class="leo-today__label">${esc(label)}</span>
-               <p class="leo-today__place">${esc(fallback)}</p>
-             </div>`;
+        `<div class="leo-today__slot">
+           <p class="leo-today__label">${esc(label)}</p>
+           ${
+             event
+               ? `<p class="leo-today__event">
+                    <span class="leo-today__time">${timeTag(event)}</span>
+                    <span class="leo-today__title">${esc(event.title)}</span>
+                  </p>
+                  ${placeLine(event) ? `<p class="leo-today__place">${esc(placeLine(event))}</p>` : ""}`
+               : `<p class="leo-today__place">${esc(fallback)}</p>`
+           }
+         </div>`;
 
+      const nextFallback = "No quedan puntos del programa en la Argentina.";
       return `
-        <div class="leo-shell leo-today__inner">
-          ${slot("Ahora, según el cronograma", current, "Entre un punto y otro del programa.")}
-          ${slot("Próximo", next, "No quedan puntos del programa en la Argentina.")}
-          <div class="leo-today__aside">
-            <p class="leo-today__day">${esc(day ? dayLabel(day) : DATA.campaign.title)}</p>
-            <a class="leo-btn leo-btn--primary" href="${esc(day ? day.page : AGENDA_PAGE)}">
-              Ver la agenda de hoy ${ICON.arrow}
-            </a>
-            <p class="leo-today__note">
-              Comparamos la hora de Buenos Aires con el programa oficial.
-              No es un seguimiento en vivo: los horarios pueden variar.
-            </p>
-          </div>
+        <div class="leo-shell leo-today__inner leo-today__inner--during">
+          <h2 class="leo-today__heading">${esc(statusText(state))}</h2>
+          ${slot("Ahora, según el programa", current, state.inCountry ? "No hay una actividad prevista en este momento." : "El Papa todavía no llegó a la Argentina.")}
+          ${slot("Próximo", next, nextFallback)}
+          <p class="leo-today__note">
+            Calculado con la hora de Buenos Aires y el programa oficial. No es un
+            seguimiento en vivo: los horarios pueden variar.
+            ${day && currentFile() !== day.page ? `<a class="leo-link" href="${esc(day.page)}">Ver el programa de hoy${ICON.arrow}</a>` : ""}
+          </p>
         </div>`;
     }
 
     if (state.phase === "POST") {
       return `
         <div class="leo-shell leo-today__inner">
-          <div class="leo-today__slot">
-            <span class="leo-today__label">La visita terminó</span>
-            <p class="leo-today__title">
-              El Papa León XIV estuvo en la Argentina del ${esc(DATA.campaign.datesLabelLong)}.
-            </h3>
-            <p class="leo-today__place">Queda el programa oficial completo, día por día.</p>
-          </div>
-          <div class="leo-today__slot"></div>
-          <div class="leo-today__aside">
-            <a class="leo-btn leo-btn--primary" href="${esc(AGENDA_PAGE)}">
-              Ver los cuatro días ${ICON.arrow}
-            </a>
-          </div>
+          <h2 class="leo-today__heading">La visita terminó</h2>
+          <p class="leo-today__text">
+            León XIV estuvo en la Argentina del ${esc(DATA.campaign.datesLabelLong)}.
+            El programa oficial queda acá como archivo, día por día.
+          </p>
+          <a class="leo-link" href="${esc(AGENDA_PAGE)}">Ver el programa completo${ICON.arrow}</a>
         </div>`;
     }
 
     // PRE
-    const next = state.nextOpenEvent || OPEN_EVENTS[0];
+    const first = SCHEDULE[0];
+    const reg = registrationLine(state);
     return `
       <div class="leo-shell leo-today__inner">
-        <div class="leo-today__slot">
-          <span class="leo-today__label">Próximo gran encuentro</span>
-          <p class="leo-today__time">${esc(next.time)}</p>
-          <p class="leo-today__title">${esc(next.title)}</h3>
-          <p class="leo-today__place">${esc(placeLine(next))}</p>
-        </div>
-        <div class="leo-today__slot">
-          <span class="leo-today__label">Cuándo</span>
-          <p class="leo-today__title">${esc(dayLabel(next))}</h3>
-          <p class="leo-today__place">${esc(statusText(state))} para el inicio de la visita.</p>
-        </div>
-        <div class="leo-today__aside">
-          <a class="leo-btn leo-btn--primary" href="${esc(next.page)}">
-            Ver ese día ${ICON.arrow}
-          </a>
-          <p class="leo-today__note">
-            Las indicaciones de acceso todavía no fueron publicadas.
-          </p>
-        </div>
+        <h2 class="leo-today__heading">${esc(statusText(state))}</h2>
+        <p class="leo-today__text">
+          La visita empieza el ${esc(dayLabel(DATA.days[0]).toLowerCase())}: el Papa llega a
+          Buenos Aires a las ${esc(DATA.campaign.arrival.slice(11))}, procedente de ${esc(first.city.split(",")[0])}.
+          ${reg ? `<br><span class="leo-today__reg">${reg}</span>` : ""}
+        </p>
+        <a class="leo-link" href="${esc(PARTICIPAR_PAGE)}">Cómo participar${ICON.arrow}</a>
       </div>`;
   }
 
-  /* Los cuatro días. */
+  /* Los cuatro días: un mismo patrón para los cuatro. */
   function daysMarkup(state) {
     return DATA.days
       .map((day) => {
         const chapter = day.chapter || {};
         const isToday = state.phase === "DURING" && state.today === day.date;
-        const photo = chapter.photo
-          ? `<figure class="leo-daycard__photo" aria-hidden="true">
-               <img src="${esc(chapter.photo)}" alt="" loading="lazy" decoding="async">
-             </figure>`
-          : "";
         return `
-          <li>
-            <a class="leo-daycard ${isToday ? "is-today" : ""}" href="${esc(day.page)}">
-              ${photo}
-              <p class="leo-daycard__num">${esc(day.dayNumber)}
-                <span>${esc(day.weekday)} · Noviembre</span>
-              </p>
-              <p class="leo-daycard__city">${esc(day.cardCities || day.citiesLabel)}</p>
-              <p class="leo-daycard__what">${esc(chapter.title || day.summary)}</p>
-              <span class="leo-daycard__go">Ver el día ${ICON.arrow}</span>
+          <li class="leo-day${isToday ? " is-today" : ""}">
+            <a class="leo-day__link" href="${esc(day.page)}"${isToday ? ' aria-current="date"' : ""}>
+              <span class="leo-day__date">
+                <span class="leo-day__num">${esc(dayNum(day))}</span>
+                <span class="leo-day__weekday">${esc(day.weekday)}${isToday ? " · hoy" : ""}</span>
+              </span>
+              <span class="leo-day__body">
+                <span class="leo-day__city">${esc(day.citiesLabel)}</span>
+                <span class="leo-day__title">${esc(chapter.title || day.summary)}</span>
+                <span class="leo-day__summary">${esc(day.summary)}</span>
+                <span class="leo-day__go">Ver el día${ICON.arrow}</span>
+              </span>
             </a>
           </li>`;
       })
       .join("");
   }
 
-  /* Encuentros destacados: exactamente los abiertos al público. */
-  function picksMarkup() {
-    return OPEN_EVENTS.map(
-      (event) => `
-        <li>
-          <a class="leo-pick" href="${esc(event.page)}">
-            <span class="leo-pick__when">
-              <span class="leo-pick__date">${esc(dayNum(event))} nov</span>
-              <span class="leo-pick__time">${esc(event.time)}</span>
-            </span>
-            <span class="leo-pick__what">
-              <span class="leo-pick__title">${esc(event.title)}</span>
-              <span class="leo-pick__place">${esc(placeLine(event))}</span>
-            </span>
-            <svg class="leo-pick__go" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M5 12h13"/><path d="m12 5 7 7-7 7"/>
-            </svg>
-          </a>
-        </li>`
-    ).join("");
+  /* Encuentros destacados: las celebraciones abiertas, en filas de agenda. */
+  function picksMarkup(state) {
+    return OPEN_EVENTS.map((event) => {
+      const access = accessInfo(event);
+      const showAccess = access && state.registration !== "past";
+      return `
+        <li class="leo-row">
+          <p class="leo-row__when">
+            <span class="leo-row__date">${esc(event.weekday)} ${esc(dayNum(event))}</span>
+            <span class="leo-row__time">${timeTag(event)}</span>
+          </p>
+          <div class="leo-row__body">
+            <h3 class="leo-row__title"><a href="${esc(event.page)}">${esc(event.title)}</a></h3>
+            <p class="leo-row__place">${esc(placeLine(event))}</p>
+            ${showAccess ? `<p class="leo-row__access">${esc(access.label)}</p>` : ""}
+          </div>
+        </li>`;
+    }).join("");
   }
 
-  function sourcesMarkup() {
-    return (DATA.sources || [])
+  const sourceList = (list) =>
+    (list || [])
       .map(
         (source) => `
-        <li>
-          <div class="leo-source">
-            <a href="${esc(source.url)}" target="_blank" rel="noopener noreferrer">
-              ${esc(source.label)}
-              <span class="leo-sr-only">(se abre en una pestaña nueva)</span>
-            </a>
-            <span>${esc(source.publisher)}</span>
-          </div>
+        <li class="leo-source">
+          <a href="${esc(safeUrl(source.url))}" target="_blank" rel="noopener noreferrer">
+            ${esc(source.label)}${NEW_TAB}
+          </a>
+          <span>${esc(source.publisher)}</span>
         </li>`
       )
       .join("");
-  }
 
-  function participationMarkup() {
-    return OPEN_EVENTS.map(
-      (event) => `
-        <li class="leo-participation__item">
-          <p class="leo-participation__when">
-            ${esc(event.weekday)} ${esc(dayNum(event))} de ${esc(event.monthLabel)} · ${esc(event.time)}
-          </p>
-          <h2 class="leo-participation__title">${esc(event.title)}</h2>
-          <p class="leo-participation__place">${esc(placeLine(event))}</p>
-          ${mapLink(event)}
-          <p class="leo-pending">
-            ${ICON.info}
-            <span>Información de acceso por confirmar</span>
-          </p>
-          <a class="leo-link" href="${esc(event.page)}">Ver el día completo ${ICON.arrow}</a>
-        </li>`
-    ).join("");
-  }
-
-  const sourcesSection = () => `
-    <section class="leo-section leo-section--alt" id="fuentes">
+  const sourcesSection = (withRegistration = false) => `
+    <footer class="leo-section leo-sources-block" id="fuentes" aria-labelledby="leo-fuentes-title">
       <div class="leo-shell leo-shell--narrow">
-        <div class="leo-section__head">
-          <div>
-            <span class="leo-eyebrow">De dónde sale esta información</span>
-            <h2 class="leo-section__title">Fuentes oficiales</h2>
-          </div>
-        </div>
-        <ul class="leo-sources">${sourcesMarkup()}</ul>
+        <h2 class="leo-small-title" id="leo-fuentes-title">Fuentes</h2>
+        <ul class="leo-sources">
+          ${sourceList(DATA.sources)}
+          ${withRegistration && REG ? sourceList(REG.sources) : ""}
+        </ul>
         <p class="leo-updated">
-          Programa contrastado con la fuente oficial el
-          <b>${esc(DATA.updatedAtLabel)}</b>. Si la Santa Sede o la organización
-          local publican cambios, esta página se actualiza.
+          Programa contrastado con la Santa Sede el ${esc(DATA.updatedAtLabel)}.
+          ${withRegistration && REG ? `Datos de inscripción revisados el ${esc(REG.verifiedAtLabel)}.` : ""}
+          Ante cualquier diferencia, vale lo que publiquen la Santa Sede y la
+          organización local.
         </p>
       </div>
-    </section>`;
+    </footer>`;
 
   /* =======================================================
      PÁGINAS
      ======================================================= */
 
   function renderLanding(app, state) {
+    const photo = (DATA.days[1] && DATA.days[1].chapter) || {};
+    const reg = state.registration === "open";
+
     app.innerHTML = `
-      <section class="leo-hero">
-        <div class="leo-hero__bg" aria-hidden="true"></div>
-        <figure class="leo-hero__photo" aria-hidden="true">
-          <img src="imagenes/papa-leon.jpg" alt="" width="1200" height="265"
-               fetchpriority="high" decoding="async">
-        </figure>
-        <div class="leo-shell leo-hero__inner">
-          <span class="leo-eyebrow">${esc(DATA.campaign.eyebrow)}</span>
-          <h1 class="leo-hero__title">León XIV en Argentina</h1>
-          <p class="leo-hero__date">8 — 11 noviembre 2026</p>
-          <p class="leo-hero__cities">${esc(DATA.campaign.citiesLabel.replace(/·/g, "·"))}</p>
-          <p class="leo-hero__status">${statusMarkup(state)}</p>
-          <div class="leo-hero__actions">
-            <a class="leo-btn leo-btn--primary" href="${esc(AGENDA_PAGE)}">
-              Ver agenda completa ${ICON.arrow}
-            </a>
-            <a class="leo-btn leo-btn--ghost" href="#hoy">Qué pasa hoy</a>
+      <header class="leo-hero">
+        <div class="leo-shell leo-hero__grid">
+          <div class="leo-hero__text">
+            <p class="leo-hero__kicker">Viaje apostólico a Uruguay, Argentina y Perú</p>
+            <h1 class="leo-hero__title">León XIV en Argentina</h1>
+            <p class="leo-hero__date">${esc(DATA.campaign.datesLabelLong)}</p>
+            <p class="leo-hero__cities">Buenos Aires, Claypole, Córdoba y Luján</p>
+            <div class="leo-hero__actions">
+              <a class="leo-btn leo-btn--primary" href="${esc(AGENDA_PAGE)}">Ver agenda${ICON.arrow}</a>
+              ${state.phase === "POST" ? "" : `<a class="leo-link" href="${esc(PARTICIPAR_PAGE)}">Cómo participar${ICON.arrow}</a>`}
+            </div>
           </div>
+          <figure class="leo-hero__figure">
+            <img src="${esc(photo.photo || "imagenes/papa-700x450.jpg")}"
+                 alt="${esc(photo.photoAlt || "El Papa León XIV")}"
+                 width="700" height="450" fetchpriority="high" decoding="async">
+            <figcaption>${esc(photo.photoCaption || "")}</figcaption>
+          </figure>
         </div>
-      </section>
+      </header>
 
-      <section class="leo-today" id="hoy">${todayMarkup(state)}</section>
+      <section class="leo-today" id="hoy" data-phase="${esc(state.phase)}" aria-label="Estado de la visita">${todayMarkup(state)}</section>
 
-      <section class="leo-section" id="dias">
+      <section class="leo-section" id="dias" aria-labelledby="leo-dias-title">
         <div class="leo-shell">
           <div class="leo-section__head">
-            <div>
-              <span class="leo-eyebrow">Elegí un día</span>
-              <h2 class="leo-section__title">La visita en 4 días</h2>
-            </div>
-            <a class="leo-link" href="${esc(AGENDA_PAGE)}">Cronograma completo ${ICON.arrow}</a>
+            <h2 class="leo-section__title" id="leo-dias-title">La visita, día por día</h2>
           </div>
-          <ul class="leo-days" data-leo-in>${daysMarkup(state)}</ul>
+          <ol class="leo-days">${daysMarkup(state)}</ol>
         </div>
       </section>
 
-      <section class="leo-section leo-section--alt" id="destacados">
+      <section class="leo-section leo-section--alt" id="destacados" aria-labelledby="leo-dest-title">
         <div class="leo-shell">
           <div class="leo-section__head">
-            <div>
-              <span class="leo-eyebrow">Abiertos a los fieles</span>
-              <h2 class="leo-section__title">Encuentros destacados</h2>
-              <p class="leo-section__lead">
-                Las cuatro celebraciones del programa oficial abiertas a la
-                participación. Las indicaciones de acceso todavía no fueron publicadas.
-              </p>
-            </div>
-            <a class="leo-link" href="${esc(PARTICIPAR_PAGE)}">Cómo participar ${ICON.arrow}</a>
+            <h2 class="leo-section__title" id="leo-dest-title">Celebraciones abiertas a los fieles</h2>
+            <p class="leo-section__lead">
+              ${state.phase === "POST"
+                ? "Las cuatro celebraciones abiertas del programa oficial."
+                : `Las cuatro celebraciones del programa abiertas a la participación. ${registrationLine(state)}`}
+            </p>
           </div>
-          <ul class="leo-picks" data-leo-in>${picksMarkup()}</ul>
+          <ol class="leo-rows">${picksMarkup(state)}</ol>
+          ${state.phase === "POST" ? "" : `
+          <p class="leo-section__foot">
+            ${reg ? portalLink("Inscribirse en el sitio oficial") : ""}
+            <a class="leo-link" href="${esc(PARTICIPAR_PAGE)}">Requisitos y cómo participar${ICON.arrow}</a>
+          </p>`}
         </div>
       </section>
 
-      <section class="leo-section" id="osa">
+      <section class="leo-section" id="osa" aria-labelledby="leo-osa-title">
         <div class="leo-shell">
           <div class="leo-osa">
-            <figure class="leo-osa__figure" data-leo-in>
+            <figure class="leo-osa__figure">
               <img src="imagenes/papa-leon-agustinos-madrid.jpeg"
                    alt="El Papa León XIV junto a religiosos agustinos y miembros de la familia agustiniana en Madrid"
                    width="750" height="422" loading="lazy" decoding="async">
-              <figcaption>León XIV con la familia agustiniana, durante su viaje a España.</figcaption>
+              <figcaption>
+                León XIV con la familia agustiniana en Madrid, el 7 de junio de 2026,
+                durante su viaje apostólico a España.
+              </figcaption>
             </figure>
-            <div>
-              <span class="leo-eyebrow">Por qué lo seguimos desde acá</span>
-              <h2 class="leo-section__title">Un Papa agustino</h2>
+            <div class="leo-osa__text">
+              <h2 class="leo-section__title" id="leo-osa-title">Un Papa agustino</h2>
               <blockquote class="leo-quote">
-                Un solo corazón y una sola alma orientados hacia Dios.
-                <cite>Regla de San Agustín</cite>
+                <p>Un solo corazón y una sola alma orientados hacia Dios.</p>
+                <footer>Regla de San Agustín</footer>
               </blockquote>
               <p>
                 Robert Francis Prevost profesó en la Orden de San Agustín, fue Prior
@@ -580,31 +569,16 @@
                 nombre de León XIV. En 2004 ya había estado en Buenos Aires, en el
                 Congreso Agustiniano de Teología.
               </p>
-              <a class="leo-btn leo-btn--quiet" href="noticia-prevost.html">
-                Leer sobre el Congreso de 2004 ${ICON.arrow}
-              </a>
+              <p class="leo-osa__links">
+                <a class="leo-link" href="noticia-prevost.html">El Congreso Agustiniano de 2004${ICON.arrow}</a>
+                <a class="leo-link" href="noticia-papa-leon-agustinos-madrid.html">El encuentro en Madrid${ICON.arrow}</a>
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="leo-section leo-section--alt">
-        <div class="leo-shell">
-          <div class="leo-cta">
-            <div>
-              <span class="leo-eyebrow">23 puntos del programa</span>
-              <p class="leo-cta__title">El cronograma oficial completo</p>
-            </div>
-            <a class="leo-btn leo-btn--primary" href="${esc(AGENDA_PAGE)}">
-              Ver agenda ${ICON.arrow}
-            </a>
-          </div>
-        </div>
-      </section>
-
-      ${sourcesSection()}`;
-
-    initHeroParallax(app);
+      ${sourcesSection(state.phase !== "POST")}`;
   }
 
   function renderDay(app, state, dayId) {
@@ -620,18 +594,16 @@
     const events = SCHEDULE.filter((event) => event.dayId === day.id)
       .map((event) => {
         const { cls, flag } = eventFlag(event, state);
-        const meta = [];
-        if (event.category) meta.push(`<span class="leo-tag">${esc(event.category)}</span>`);
-        if (flag) meta.push(flag);
+        const access = state.registration !== "past" ? accessInfo(event) : null;
+        const meta = [event.category, access ? access.label : ""].filter(Boolean).join(" · ");
         return `
           <li class="leo-event ${cls}">
-            <p class="leo-event__time">
-              <time datetime="${esc(event.date)}T${esc(event.time)}">${esc(event.time)}</time>
-            </p>
+            <p class="leo-event__time">${timeTag(event)}</p>
             <div class="leo-event__body">
               <h3 class="leo-event__title">${esc(event.title)}</h3>
               ${placeLine(event) ? `<p class="leo-event__place">${esc(placeLine(event))}</p>` : ""}
-              ${meta.length ? `<p class="leo-event__meta">${meta.join("")}</p>` : ""}
+              ${meta ? `<p class="leo-event__meta">${esc(meta)}</p>` : ""}
+              ${flag ? `<p class="leo-event__flags">${flag}</p>` : ""}
               ${mapLink(event)}
             </div>
           </li>`;
@@ -644,43 +616,40 @@
              <span class="leo-pager__dir">${esc(dir)}</span>
              <span class="leo-pager__name">${esc(dayLabel(target))}</span>
            </a>`
-        : '<span class="leo-pager__empty"></span>';
+        : '<span class="leo-pager__empty" aria-hidden="true"></span>';
 
     app.innerHTML = `
       <header class="leo-dayhead">
-        <div class="leo-shell">
-          <p class="leo-dayhead__num">${esc(day.dayNumber)}<em>${esc(day.weekday)} · Noviembre 2026</em></p>
-          <p class="leo-dayhead__route">${esc(day.route)}</p>
+        <div class="leo-shell leo-shell--narrow">
+          <p class="leo-dayhead__date">
+            <span class="leo-dayhead__num">${esc(dayNum(day))}</span>
+            <span>${esc(day.weekday)} ${esc(dayNum(day))} de noviembre de 2026${isToday ? " · hoy" : ""}</span>
+          </p>
           <h1 class="leo-dayhead__title">${esc(chapter.title || dayLabel(day))}</h1>
+          <p class="leo-dayhead__route">${esc(day.route)}</p>
           <p class="leo-dayhead__standfirst">${esc(chapter.standfirst || day.summary)}</p>
-          ${isToday ? '<p class="leo-dayhead__chip">Hoy</p>' : ""}
         </div>
       </header>
 
-      <section class="leo-section">
+      ${isToday ? `<section class="leo-today" data-phase="DURING" aria-label="Estado de la visita">${todayMarkup(state)}</section>` : ""}
+
+      <section class="leo-section leo-section--tight" aria-labelledby="leo-crono-title">
         <div class="leo-shell leo-shell--narrow">
-          <div class="leo-section__head">
-            <div>
-              <span class="leo-eyebrow">${esc(dayLabel(day))}</span>
-              <h2 class="leo-section__title">Cronograma del día</h2>
-            </div>
-            <a class="leo-link" href="${esc(AGENDA_PAGE)}#${esc(day.id)}">Ver en la agenda completa ${ICON.arrow}</a>
+          <div class="leo-section__head leo-section__head--row">
+            <h2 class="leo-section__title leo-section__title--sm" id="leo-crono-title">Programa del día</h2>
+            <a class="leo-link" href="${esc(AGENDA_PAGE)}#${esc(day.id)}">Agenda completa${ICON.arrow}</a>
           </div>
 
           <ol class="leo-timeline">${events}</ol>
 
           <div class="leo-pager" role="navigation" aria-label="Navegación entre días">
-            ${pagerLink(prev, "← Día anterior", "leo-pager__link--prev")}
-            <a class="leo-pager__link leo-pager__link--center" href="${esc(LANDING)}">
-              <span class="leo-pager__dir">Volver</span>
-              <span class="leo-pager__name">León XIV en Argentina</span>
-            </a>
-            ${pagerLink(next, "Día siguiente →", "leo-pager__link--next")}
+            ${pagerLink(prev, "Día anterior", "leo-pager__link--prev")}
+            ${pagerLink(next, "Día siguiente", "leo-pager__link--next")}
           </div>
         </div>
       </section>
 
-      ${sourcesSection()}`;
+      ${sourcesSection(false)}`;
   }
 
   function renderAgenda(app, state) {
@@ -689,38 +658,33 @@
         const rows = SCHEDULE.filter((event) => event.dayId === day.id)
           .map((event) => {
             const { cls, flag } = eventFlag(event, state);
+            const where = placeLine(event);
             return `
               <li class="leo-agenda__row ${cls}">
-                <span class="leo-agenda__time">
-                  <time datetime="${esc(event.date)}T${esc(event.time)}">${esc(event.time)}</time>
-                </span>
-                <span class="leo-agenda__what">${esc(event.title)}</span>
-                <span class="leo-agenda__where">${esc(placeLine(event))}</span>
-                ${flag ? `<span class="leo-agenda__flags">${flag}</span>` : ""}
+                <span class="leo-agenda__time">${timeTag(event)}</span>
+                <span class="leo-agenda__what">${esc(event.title)}${flag ? ` ${flag}` : ""}</span>
+                <span class="leo-agenda__where">${esc(where)}</span>
               </li>`;
           })
           .join("");
 
         const isToday = state.phase === "DURING" && state.today === day.date;
         return `
-          <div class="leo-agenda__day" data-leo-day="${esc(day.id)}">
-            <div class="leo-agenda__head" id="${esc(day.id)}">
-              <div>
-                <h2 class="leo-agenda__daytitle">${esc(dayLabel(day))}</h2>
-                <span class="leo-agenda__route">${esc(day.route)}</span>
-              </div>
-              <div class="leo-agenda__flags">
-                ${isToday ? '<span class="leo-flag leo-flag--now">Hoy</span>' : ""}
-                <a class="leo-link" href="${esc(day.page)}">Ver el día ${ICON.arrow}</a>
-              </div>
+          <section class="leo-agenda__day" data-leo-day="${esc(day.id)}" aria-labelledby="${esc(day.id)}">
+            <div class="leo-agenda__head">
+              <h2 class="leo-agenda__daytitle" id="${esc(day.id)}">
+                ${esc(dayLabel(day))}${isToday ? ' <span class="leo-flag leo-flag--now">Hoy</span>' : ""}
+              </h2>
+              <p class="leo-agenda__route">${esc(day.route)}</p>
+              <a class="leo-link" href="${esc(day.page)}">Ver el día${ICON.arrow}</a>
             </div>
             <ol class="leo-agenda__list">${rows}</ol>
-          </div>`;
+          </section>`;
       })
       .join("");
 
     const filters = [{ id: "todos", label: "Todos" }]
-      .concat(DATA.days.map((day) => ({ id: day.id, label: day.dayNumber })))
+      .concat(DATA.days.map((day) => ({ id: day.id, label: day.shortLabel || dayNum(day) })))
       .map(
         (item, i) =>
           `<button type="button" data-leo-filter="${esc(item.id)}"
@@ -729,122 +693,142 @@
       .join("");
 
     app.innerHTML = `
-      <section class="leo-section">
+      <section class="leo-section leo-section--top">
         <div class="leo-shell leo-shell--narrow">
           <div class="leo-section__head">
-            <div>
-              <span class="leo-eyebrow">8 al 11 de noviembre de 2026</span>
-              <h1 class="leo-section__title">Agenda oficial completa</h1>
-              <p class="leo-section__lead">
-                Los 23 puntos del programa en la Argentina, con los horarios tal como
-                figuran en la publicación de la Santa Sede.
-              </p>
-            </div>
-            <a class="leo-link" href="${esc(LANDING)}">Volver a León XIV en Argentina ${ICON.arrow}</a>
+            <h1 class="leo-section__title">Agenda oficial</h1>
+            <p class="leo-section__lead">
+              Los ${SCHEDULE.length} puntos del programa en la Argentina, del ${esc(DATA.campaign.datesLabelLong)},
+              con los horarios publicados por la Santa Sede (hora de Argentina).
+            </p>
           </div>
 
-          <div class="leo-filter" role="group" aria-label="Filtrar por día">${filters}</div>
+          <div class="leo-filter" role="group" aria-label="Filtrar la agenda por día">${filters}</div>
+          <p class="leo-sr-only" id="leo-filter-status" role="status" aria-live="polite"></p>
           <div id="leo-agenda-groups">${groups}</div>
         </div>
       </section>
 
-      ${sourcesSection()}`;
+      ${sourcesSection(false)}`;
 
     // Filtro por día: solo muestra u oculta, sin estado en la URL.
     const groupsRoot = app.querySelector("#leo-agenda-groups");
+    const status = app.querySelector("#leo-filter-status");
     app.querySelectorAll("[data-leo-filter]").forEach((button) => {
       button.addEventListener("click", () => {
         const value = button.getAttribute("data-leo-filter");
         app.querySelectorAll("[data-leo-filter]").forEach((other) => {
           other.setAttribute("aria-pressed", String(other === button));
         });
+        let visible = 0;
         groupsRoot.querySelectorAll(".leo-agenda__day").forEach((group) => {
           group.hidden = value !== "todos" && group.getAttribute("data-leo-day") !== value;
+          if (!group.hidden) visible += group.querySelectorAll(".leo-agenda__row").length;
         });
+        if (status) {
+          status.textContent =
+            value === "todos"
+              ? `Mostrando los ${visible} puntos del programa.`
+              : `Mostrando ${visible} puntos del ${button.textContent.trim()}.`;
+        }
       });
     });
   }
 
   function renderParticipar(app, state) {
+    const past = state.registration === "past";
+
+    const openRows = OPEN_EVENTS.map((event) => {
+      const access = past ? null : accessInfo(event);
+      return `
+        <li class="leo-row leo-row--detail">
+          <p class="leo-row__when">
+            <span class="leo-row__date">${esc(event.weekday)} ${esc(dayNum(event))}</span>
+            <span class="leo-row__time">${timeTag(event)}</span>
+          </p>
+          <div class="leo-row__body">
+            <h3 class="leo-row__title">${esc(event.title)}</h3>
+            <p class="leo-row__place">${esc(placeLine(event))}</p>
+            ${access ? `<p class="leo-row__access">${esc(access.label)}</p>
+                        <p class="leo-row__detail">${esc(access.detail)}${event.accessNote ? ` ${esc(event.accessNote)}` : ""}</p>` : ""}
+            <p class="leo-row__links">
+              ${mapLink(event)}
+              <a class="leo-link" href="${esc(event.page)}">Programa de ese día${ICON.arrow}</a>
+            </p>
+          </div>
+        </li>`;
+    }).join("");
+
+    const restrictedRows = RESTRICTED_EVENTS.map((event) => {
+      const access = accessInfo(event);
+      return `
+        <li class="leo-row leo-row--detail">
+          <p class="leo-row__when">
+            <span class="leo-row__date">${esc(event.weekday)} ${esc(dayNum(event))}</span>
+            <span class="leo-row__time">${timeTag(event)}</span>
+          </p>
+          <div class="leo-row__body">
+            <h3 class="leo-row__title">${esc(event.title)}</h3>
+            <p class="leo-row__place">${esc(placeLine(event))}</p>
+            <p class="leo-row__access">${esc(access.label)}</p>
+            <p class="leo-row__detail">${event.accessNote ? `${esc(event.accessNote)} ` : ""}${esc(access.detail)}</p>
+          </div>
+        </li>`;
+    }).join("");
+
+    let notice;
+    if (past) {
+      notice = `<p class="leo-notice">La visita terminó. Esta página queda como registro de las celebraciones abiertas del programa.</p>`;
+    } else if (state.registration === "open") {
+      notice = `
+        <div class="leo-notice leo-notice--action">
+          <p><strong>La inscripción es gratuita y se hace en el sitio oficial de la visita, hasta el ${esc(REG.deadlineLabel)}.</strong>
+             Este sitio no toma inscripciones ni datos personales.</p>
+          ${portalLink(`Ir a ${REG.portalLabel}`)}
+        </div>`;
+    } else {
+      notice = `
+        <div class="leo-notice">
+          <p><strong>El plazo de inscripción informado venció el ${esc(REG.deadlineLabel)}.</strong>
+             Para saber si hay novedades o cómo acceder sin inscripción previa, consultá el sitio oficial.</p>
+          ${portalLink(`Consultar ${REG.portalLabel}`, "leo-btn leo-btn--quiet")}
+        </div>`;
+    }
+
     app.innerHTML = `
-      <section class="leo-section">
-        <div class="leo-shell">
+      <section class="leo-section leo-section--top">
+        <div class="leo-shell leo-shell--narrow">
           <div class="leo-section__head">
-            <div>
-              <span class="leo-eyebrow">Para los fieles</span>
-              <h1 class="leo-section__title">Quiero participar</h1>
-              <p class="leo-section__lead">
-                Estas son las celebraciones del programa oficial abiertas a la
-                participación. Las indicaciones de acceso, los horarios de apertura y
-                cualquier requisito dependen de la organización local: todavía no
-                fueron publicados. Cuando haya información oficial, la vas a encontrar acá.
-              </p>
-            </div>
-            <a class="leo-link" href="${esc(LANDING)}">Volver a León XIV en Argentina ${ICON.arrow}</a>
+            <h1 class="leo-section__title">Cómo participar</h1>
+            <p class="leo-section__lead">
+              Qué celebraciones del programa están abiertas a los fieles, qué
+              encuentros piden inscripción obligatoria y dónde inscribirse.
+            </p>
           </div>
 
-          <ul class="leo-participation">${participationMarkup()}</ul>
+          ${REG ? notice : ""}
 
+          <h2 class="leo-section__title leo-section__title--sm">Celebraciones abiertas</h2>
+          <ol class="leo-rows">${openRows}</ol>
+
+          ${!past && restrictedRows ? `
+          <h2 class="leo-section__title leo-section__title--sm">Encuentros con inscripción obligatoria</h2>
+          <ol class="leo-rows">${restrictedRows}</ol>` : ""}
+
+          ${!past && REG ? `
+          <h2 class="leo-section__title leo-section__title--sm">Condiciones generales de inscripción</h2>
+          <ul class="leo-rules">${REG.rules.map((rule) => `<li>${esc(rule)}</li>`).join("")}</ul>
           <p class="leo-updated">
-            No difundimos indicaciones de acceso, sectores, acreditaciones, capacidad
-            ni transporte especial que no estén publicadas por una fuente oficial.
-          </p>
+            Según lo informado el 22 de octubre de 2026 y revisado el ${esc(REG.verifiedAtLabel)}.
+            Las condiciones pueden cambiar: la referencia es siempre el sitio oficial.
+            No difundimos sectores, horarios de apertura ni transporte que no estén publicados por una fuente oficial.
+          </p>` : ""}
         </div>
       </section>
 
-      <section class="leo-today">${todayMarkup(state)}</section>
+      ${state.phase === "DURING" ? `<section class="leo-today" data-phase="DURING" aria-label="Estado de la visita">${todayMarkup(state)}</section>` : ""}
 
-      ${sourcesSection()}`;
-  }
-
-  /* -------------------------------------------------------
-     Movimiento discreto
-     ------------------------------------------------------- */
-
-  function initEntrances(root) {
-    const targets = root.querySelectorAll("[data-leo-in]");
-    if (!targets.length) return;
-
-    if (reduceMotion.matches || typeof IntersectionObserver === "undefined") {
-      targets.forEach((target) => target.classList.add("is-in"));
-      return;
-    }
-
-    document.documentElement.classList.add("leo-anim");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-in");
-          observer.unobserve(entry.target);
-        });
-      },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
-    );
-    targets.forEach((target) => observer.observe(target));
-  }
-
-  /* Parallax corto del hero: solo mientras el hero está en pantalla. */
-  function initHeroParallax(root) {
-    const hero = root.querySelector(".leo-hero");
-    if (!hero || reduceMotion.matches) return;
-
-    let queued = false;
-    const update = () => {
-      queued = false;
-      const rect = hero.getBoundingClientRect();
-      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
-      const shift = clamp(-rect.top / Math.max(1, rect.height), 0, 1);
-      hero.style.setProperty("--leo-shift", shift.toFixed(3));
-    };
-    const onScroll = () => {
-      if (queued) return;
-      queued = true;
-      window.requestAnimationFrame(update);
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    update();
+      ${sourcesSection(true)}`;
   }
 
   /* Alto del header sticky de OSA: el menú interno se ancla debajo. */
@@ -855,166 +839,43 @@
   }
 
   /* =======================================================
-     POPUP DE PORTADA
+     AVISO EN LA PORTADA DE OSA
+     -------------------------------------------------------
+     Reemplaza al popup de la V1: no se abre solo, no tapa contenido y
+     no usa localStorage. index.html trae el mismo aviso en HTML para
+     quien no tiene JavaScript; acá solo se actualiza el estado o se
+     oculta fuera de la ventana de la campaña.
      ======================================================= */
 
-  function initPopup(state) {
+  function initHomeNotice(state) {
     const mount = document.getElementById("leo-mount");
     if (!mount) return;
 
     const campaign = DATA.campaign;
-    const campaignIsVisible =
-      state.today >= campaign.visibleFrom && state.today <= campaign.archiveUntil;
+    const visible = state.today >= campaign.visibleFrom && state.today <= campaign.archiveUntil;
+    if (!visible) {
+      mount.hidden = true;
+      return;
+    }
+
+    mount.hidden = false;
+    /* Antes de la visita se deja el aviso estático de index.html tal cual:
+       reescribirlo movería el contenido de la portada (CLS). */
+    if (state.phase === "PRE" && mount.querySelector(".leo-homebar")) return;
+
+    const detail =
+      state.phase === "DURING" ? statusText(state) : "Archivo de la visita y programa completo";
 
     mount.innerHTML = `
-      <div class="leo-modal" id="leo-modal" hidden>
-        <button class="leo-modal__backdrop" type="button" data-leo-close
-                tabindex="-1" aria-hidden="true"></button>
-        <section class="leo-dialog" role="dialog" aria-modal="true"
-                 aria-labelledby="leo-dialog-title" aria-describedby="leo-dialog-lead">
-          <button class="leo-dialog__close" type="button" data-leo-close
-                  aria-label="Cerrar el aviso de la visita">${ICON.close}</button>
-
-          <div class="leo-dialog__visual">
-            <figure class="leo-dialog__photo">
-              <img src="imagenes/papa-leon.jpg" alt="" aria-hidden="true"
-                   width="1200" height="265" decoding="async">
-            </figure>
-            <img class="leo-dialog__logo" src="imagenes/logo_new.png"
-                 alt="Orden de San Agustín Argentina" width="1265" height="420">
-            <p>
-              <span class="leo-dialog__datenum">08&nbsp;—&nbsp;11</span>
-              <span class="leo-dialog__datemeta">Noviembre 2026</span>
-            </p>
-          </div>
-
-          <div class="leo-dialog__panel">
-            <span class="leo-eyebrow">${esc(campaign.eyebrow)}</span>
-            <h2 class="leo-dialog__title" id="leo-dialog-title">${esc(campaign.title)}</h2>
-            <p class="leo-dialog__lead" id="leo-dialog-lead">${esc(campaign.popupLead)}</p>
-            <p class="leo-dialog__status">${statusMarkup(state)}</p>
-            <p class="leo-dialog__cities">${esc(campaign.citiesLabel)}</p>
-            <div class="leo-dialog__actions">
-              <a class="leo-btn leo-btn--primary" href="${esc(LANDING)}">
-                Ver la visita ${ICON.arrow}
-              </a>
-              <button class="leo-dialog__dismiss" type="button" data-leo-close>Ahora no</button>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <button class="leo-launcher" id="leo-launcher" type="button" hidden
-              aria-haspopup="dialog" aria-controls="leo-modal">
-        <span class="leo-launcher__mark" aria-hidden="true">8—11</span>
-        <span class="leo-launcher__copy">
-          <strong>León XIV en Argentina</strong>
-          <small>${esc(statusText(state))}</small>
-        </span>
-        ${ICON.arrow}
-      </button>
-    `;
-
-    const modal = mount.querySelector("#leo-modal");
-    const dialog = mount.querySelector(".leo-dialog");
-    const launcher = mount.querySelector("#leo-launcher");
-    const closeButton = mount.querySelector(".leo-dialog__close");
-
-    let lastFocused = null;
-    let closeTimer = null;
-
-    const focusable = () =>
-      [...dialog.querySelectorAll('button:not([disabled]):not([tabindex="-1"]), a[href]')]
-        .filter((element) => element.getClientRects().length > 0);
-
-    const setSeen = () => {
-      try {
-        window.localStorage.setItem(campaign.storageKey, "true");
-      } catch (error) {
-        /* Si el navegador bloquea el almacenamiento, el popup sigue siendo usable. */
-      }
-    };
-
-    const hasSeen = () => {
-      try {
-        return window.localStorage.getItem(campaign.storageKey) === "true";
-      } catch (error) {
-        return false;
-      }
-    };
-
-    const openModal = () => {
-      if (closeTimer) {
-        window.clearTimeout(closeTimer);
-        closeTimer = null;
-      }
-      lastFocused = document.activeElement;
-      modal.hidden = false;
-      // Reflow forzado: la transición arranca sin depender de
-      // requestAnimationFrame, que no corre si la pestaña no pinta.
-      void modal.offsetWidth;
-      modal.classList.add("is-open");
-      document.body.classList.add("leo-is-open");
-      closeButton.focus({ preventScroll: true });
-      setSeen();
-    };
-
-    const closeModal = () => {
-      modal.classList.remove("is-open");
-      document.body.classList.remove("leo-is-open");
-      const restore = () => {
-        modal.hidden = true;
-        // Si el popup se abrió solo, el foco previo era <body>: devolverlo
-        // al lanzador deja al teclado en un punto útil.
-        const target =
-          lastFocused &&
-          lastFocused !== document.body &&
-          typeof lastFocused.focus === "function" &&
-          document.contains(lastFocused)
-            ? lastFocused
-            : launcher;
-        target.focus({ preventScroll: true });
-      };
-      if (reduceMotion.matches) restore();
-      else closeTimer = window.setTimeout(restore, 280);
-    };
-
-    modal.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        closeModal();
-        return;
-      }
-      if (event.key !== "Tab") return;
-
-      const items = focusable();
-      if (!items.length) return;
-      const first = items[0];
-      const last = items[items.length - 1];
-
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    });
-
-    mount.querySelectorAll("[data-leo-close]").forEach((element) => {
-      element.addEventListener("click", closeModal);
-    });
-
-    launcher.addEventListener("click", () => openModal());
-
-    if (!campaignIsVisible) return;
-
-    launcher.hidden = false;
-    const forceOpen = new URLSearchParams(window.location.search).get("leo") === "1";
-
-    if (!hasSeen() || forceOpen) {
-      window.setTimeout(openModal, reduceMotion.matches ? 0 : 700);
-    }
+      <aside class="leo-homebar" aria-label="Especial León XIV en Argentina">
+        <div class="leo-homebar__inner">
+          <p class="leo-homebar__text">
+            <strong>León XIV en Argentina</strong>
+            <span>${esc(campaign.datesLabelLong)} · ${esc(detail)}</span>
+          </p>
+          <a class="leo-homebar__link" href="${esc(LANDING)}">Agenda y cómo participar${ICON.arrow}</a>
+        </div>
+      </aside>`;
   }
 
   /* -------------------------------------------------------
@@ -1049,7 +910,7 @@
   function start() {
     const state = buildState();
 
-    initPopup(state);
+    initHomeNotice(state);
 
     const app = document.getElementById("leo-app");
     if (app) {
@@ -1060,7 +921,6 @@
       else if (kind === "participar") renderParticipar(app, state);
 
       renderSubnav(state);
-      initEntrances(app);
 
       measureHeadroom();
       window.addEventListener("resize", measureHeadroom, { passive: true });
@@ -1068,7 +928,7 @@
 
       // El contenido recién existe ahora: si se llegó por un ancla, reubicar.
       if (window.location.hash) {
-        const target = document.getElementById(window.location.hash.slice(1));
+        const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
         if (target) window.requestAnimationFrame(() => target.scrollIntoView());
       }
     }

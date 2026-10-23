@@ -154,8 +154,19 @@
     </section>
   </div>
 
-  <!-- León XIV en Argentina: leon-xiv.js monta acá el popup y el lanzador. -->
-  <div id="leo-mount"></div>
+  <!-- León XIV en Argentina: aviso discreto (sin popup). leon-xiv.js actualiza
+       el estado y lo oculta fuera de la ventana de la campaña. -->
+  <div id="leo-mount">
+    <aside class="leo-homebar" aria-label="Especial León XIV en Argentina">
+      <div class="leo-homebar__inner">
+        <p class="leo-homebar__text">
+          <strong>León XIV en Argentina</strong>
+          <span>8 al 11 de noviembre de 2026 · Buenos Aires, Córdoba y Luján</span>
+        </p>
+        <a class="leo-homebar__link" href="leon-xiv-argentina.html">Agenda y cómo participar</a>
+      </div>
+    </aside>
+  </div>
 
   <button class="novena-launcher" id="novena-launcher" type="button" hidden aria-haspopup="dialog"
     aria-controls="novena-modal">

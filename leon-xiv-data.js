@@ -4,24 +4,28 @@
   ÚNICA fuente de verdad del especial. El popup de la portada y la página
   leon-xiv-argentina.html leen desde acá. No dupliques estos datos.
 
-  Regla de integridad: solo se carga información publicada por la Santa Sede
-  (ver `sources`). Horarios, sedes y nombres se transcriben tal cual.
-  Todo lo operativo local (accesos, sectores, acreditaciones, transporte,
-  transmisiones) queda como "por confirmar" hasta que exista fuente oficial.
+  Regla de integridad: el programa (horarios, sedes, nombres) se transcribe
+  tal cual de la Santa Sede (ver `sources`). Las reglas de inscripción y
+  acceso vienen de la organización local según fuentes fechadas
+  (ver `registration.sources`) y caducan solas: después de
+  `registration.deadline` la web deja de anunciar la inscripción como abierta.
+  Lo que no está verificado se remite al sitio oficial, sin inventar.
 
   Horarios expresados en hora de Argentina (America/Argentina/Buenos_Aires).
 */
 window.LEON_XIV_ARGENTINA_2026 = {
-  version: 1,
+  version: 2,
 
   // Fecha de la última revisión del programa contra la fuente oficial.
-  updatedAt: "2026-09-21",
-  updatedAtLabel: "21 de septiembre de 2026",
+  // (23/10/2026: el programa de vatican.va coincide punto por punto.)
+  updatedAt: "2026-10-23",
+  updatedAtLabel: "23 de octubre de 2026",
 
   campaign: {
-    // Clave de localStorage del popup. Subí el sufijo -vN para que vuelva a abrirse solo.
+    // Clave de localStorage del popup de la V1. La V2 ya no abre un popup:
+    // se conserva solo como referencia histórica, no se lee ni se escribe.
     storageKey: "osa-leon-xiv-argentina-2026-v1-seen",
-    // Desde cuándo se muestra el lanzador y puede autoabrirse el popup.
+    // Desde cuándo se muestra el aviso del especial en la portada de OSA.
     visibleFrom: "2026-09-21",
     // Tramo argentino del viaje.
     firstDay: "2026-11-08",
@@ -29,7 +33,7 @@ window.LEON_XIV_ARGENTINA_2026 = {
     // Llegada a Aeroparque y salida hacia Lima (hora de Argentina).
     arrival: "2026-11-08T16:30",
     departure: "2026-11-11T14:00",
-    // Hasta cuándo el especial conserva el lanzador en la portada.
+    // Hasta cuándo el especial conserva el aviso en la portada y el enlace del menú.
     archiveUntil: "2026-12-31",
     datesLabel: "8 — 11 NOV 2026",
     datesLabelLong: "8 al 11 de noviembre de 2026",
@@ -53,6 +57,58 @@ window.LEON_XIV_ARGENTINA_2026 = {
       url: "https://press.vatican.va/content/salastampa/es/bollettino/pubblico/2026/09/21/210926d.html",
     },
   ],
+
+  /*
+    Inscripción y acceso (organización local de la visita).
+    - `deadline`: fin del plazo informado, hora de Argentina. Pasada esa hora
+      la web muestra el plazo como vencido y remite al sitio oficial.
+    - `verifiedAt`: cuándo se contrastó por última vez con las fuentes.
+    - `access`: tipos usados por el campo `access` de cada evento.
+    Si el plazo se extiende o cambian las reglas, actualizar acá con su fuente.
+  */
+  registration: {
+    portalUrl: "https://www.elpapaenargentina.com.ar/",
+    portalLabel: "elpapaenargentina.com.ar",
+    deadline: "2026-10-28T23:59",
+    deadlineLabel: "miércoles 28 de octubre",
+    verifiedAt: "2026-10-23",
+    verifiedAtLabel: "23 de octubre de 2026",
+    // Condiciones generales informadas el 22/10/2026 (ver fuentes).
+    rules: [
+      "La inscripción es gratuita y se hace solo en el sitio oficial.",
+      "Pueden inscribirse mayores de 16 años; a los menores los inscribe un adulto responsable.",
+      "Se puede inscribir una persona o un grupo de hasta 20 personas.",
+      "El correo electrónico se valida con un código; después el sistema sugiere una puerta de acceso.",
+      "Completar el formulario no garantiza un lugar en las actividades con cupo: requieren confirmación de la organización.",
+      "Para los sectores reservados a personas con discapacidad hay un formulario específico con documentación (por ejemplo, el Certificado Único de Discapacidad) y se envía un código QR.",
+    ],
+    access: {
+      recomendada: {
+        label: "Inscripción recomendada",
+        detail: "Para las misas la inscripción se recomienda pero no es obligatoria. El acceso es libre y no hace falta código QR.",
+      },
+      obligatoria: {
+        label: "Inscripción obligatoria, con cupo",
+        detail: "Requiere aprobación de la organización. Quienes quedan admitidos reciben por correo un código QR personal e intransferible.",
+      },
+      consultar: {
+        label: "Condiciones en el sitio oficial",
+        detail: "Está incluida en la inscripción para los encuentros con jóvenes. Consultá las condiciones actualizadas en el sitio oficial.",
+      },
+    },
+    sources: [
+      {
+        label: "Visita León XIV: continúan las inscripciones para participar de los encuentros con el Papa",
+        publisher: "AICA · 22 de octubre de 2026",
+        url: "https://aica.org/imprimir-noticia.php?id=76104",
+      },
+      {
+        label: "Siguen abiertas las inscripciones para la visita de León XIV",
+        publisher: "Canal C (Córdoba) · 22 de octubre de 2026",
+        url: "https://canalc.com.ar/visita-leon-xiv-inscripciones-misa-fadea-cordoba/",
+      },
+    ],
+  },
 
   // Lugares del recorrido argentino. Los enlaces abren Google Maps (sin SDK ni API).
   route: [
@@ -91,7 +147,9 @@ window.LEON_XIV_ARGENTINA_2026 = {
     - `time`: hora de Argentina, formato HH:mm.
     - `category`: solo cuando surge con claridad del programa oficial.
     - `open: true`: celebración abierta al público según su propia naturaleza.
-      NO implica acceso libre ni inscripción: eso sigue sin confirmar.
+      Describe el evento, NO garantiza el ingreso.
+    - `access`: clave de `registration.access` cuando hay reglas verificadas.
+    - `accessNote`: matiz verificado de ese evento (opcional).
   */
   days: [
     {
@@ -196,6 +254,7 @@ window.LEON_XIV_ARGENTINA_2026 = {
           city: "Buenos Aires",
           category: "Celebración",
           open: true,
+          access: "recomendada",
         },
         {
           time: "16:10",
@@ -266,6 +325,8 @@ window.LEON_XIV_ARGENTINA_2026 = {
           city: "Córdoba",
           category: "Celebración",
           open: true,
+          access: "recomendada",
+          accessNote: "Según la organización local, la misma inscripción incluye la vigilia previa en el predio, el lunes 9.",
         },
         {
           time: "15:15",
@@ -273,6 +334,8 @@ window.LEON_XIV_ARGENTINA_2026 = {
           venue: "Catedral de Córdoba",
           city: "Córdoba",
           category: "Encuentro",
+          access: "obligatoria",
+          accessNote: "Para obispos, sacerdotes, diáconos, consagrados, seminaristas y agentes de pastoral. Es una inscripción aparte de la de la Misa.",
         },
         {
           time: "16:55",
@@ -295,6 +358,7 @@ window.LEON_XIV_ARGENTINA_2026 = {
           city: "Buenos Aires",
           category: "Celebración",
           open: true,
+          access: "consultar",
         },
       ],
     },
@@ -332,6 +396,7 @@ window.LEON_XIV_ARGENTINA_2026 = {
           city: "Luján",
           category: "Celebración",
           open: true,
+          access: "recomendada",
         },
         {
           time: "13:30",
