@@ -1,0 +1,2110 @@
+/* =========================================================
+   LEÓN XIV EN ARGENTINA · micrositio OSA Argentina
+   Namespace: .leo-*  ·  Consume los tokens de style.css (:root)
+
+   Prioridad: información → navegación → claridad.
+   El movimiento es discreto: entradas suaves, hover y un parallax
+   corto en el hero. Nada anclado durante varias pantallas.
+   ========================================================= */
+
+.leo-modal,
+.leo-launcher,
+.leo-page,
+.leo-subnav {
+  --leo-azul: var(--azul, #151f43);
+  --leo-azul-900: #0c1230;
+  --leo-azul-950: #070b1f;
+  --leo-azul-700: #1f2c5d;
+  --leo-dorado: var(--dorado, #c5a24a);
+  --leo-dorado-claro: var(--dorado-claro, #e0c878);
+  /* Dorado con contraste AA sobre blanco (4.9:1). */
+  --leo-dorado-texto: #8a6d1f;
+  --leo-ink: #1b1f31;
+  --leo-muted: #5b6070;
+  --leo-muted-dark: rgba(255, 255, 255, 0.74);
+  --leo-line: #e2e4ea;
+  --leo-line-dark: rgba(224, 200, 120, 0.26);
+  --leo-surface-alt: var(--gris, #f4f4f4);
+  --leo-serif: "Cormorant Garamond", Georgia, serif;
+  --leo-sans: "Montserrat", Helvetica, Arial, sans-serif;
+  --leo-shell: 1140px;
+  --leo-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------------------------------------------------------
+   Base
+   --------------------------------------------------------- */
+
+.leo-page {
+  font-family: var(--leo-sans);
+  color: var(--leo-ink);
+  background: #fff;
+  overflow-x: clip;
+}
+
+.leo-shell {
+  width: 100%;
+  max-width: var(--leo-shell);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.leo-shell--narrow {
+  max-width: 880px;
+}
+
+.leo-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.leo-eyebrow {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--leo-dorado-texto);
+}
+
+.leo-hero .leo-eyebrow,
+.leo-section--dark .leo-eyebrow,
+.leo-today .leo-eyebrow,
+.leo-daycard .leo-eyebrow {
+  color: var(--leo-dorado-claro);
+}
+
+.leo-num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* Secciones ------------------------------------------------ */
+
+.leo-section {
+  padding: clamp(48px, 7vh, 88px) 0;
+  background: #fff;
+}
+
+.leo-section--alt {
+  background: var(--leo-surface-alt);
+}
+
+.leo-section--dark {
+  background: var(--leo-azul-950);
+  color: #fff;
+}
+
+.leo-section__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px 28px;
+  margin-bottom: clamp(24px, 3.6vh, 40px);
+}
+
+.leo-section__title {
+  margin: 10px 0 0;
+  font-family: var(--leo-serif);
+  font-size: clamp(1.75rem, 3.6vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  color: var(--leo-azul);
+}
+
+.leo-section--dark .leo-section__title {
+  color: #fff;
+}
+
+.leo-section__lead {
+  margin: 12px 0 0;
+  max-width: 62ch;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--leo-muted);
+}
+
+.leo-section--dark .leo-section__lead {
+  color: var(--leo-muted-dark);
+}
+
+/* Botones y enlaces ---------------------------------------- */
+
+.leo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  min-height: 52px;
+  padding: 14px 26px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  font-family: var(--leo-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 240ms var(--leo-ease),
+    color 240ms var(--leo-ease), border-color 240ms var(--leo-ease);
+}
+
+.leo-btn svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  transition: transform 280ms var(--leo-ease);
+}
+
+.leo-btn:hover svg {
+  transform: translateX(4px);
+}
+
+.leo-btn--primary {
+  background: var(--leo-dorado);
+  border-color: var(--leo-dorado);
+  color: var(--leo-azul-950);
+}
+
+.leo-btn--primary:hover {
+  background: var(--leo-dorado-claro);
+  border-color: var(--leo-dorado-claro);
+}
+
+.leo-btn--ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+.leo-btn--ghost:hover {
+  border-color: var(--leo-dorado-claro);
+  color: var(--leo-dorado-claro);
+}
+
+.leo-btn--quiet {
+  background: transparent;
+  border-color: rgba(21, 31, 67, 0.26);
+  color: var(--leo-azul);
+}
+
+.leo-btn--quiet:hover {
+  border-color: var(--leo-azul);
+  background: rgba(21, 31, 67, 0.04);
+}
+
+.leo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--leo-azul);
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 0 calc(100% - 10px);
+  background-repeat: no-repeat;
+  transition: background-size 380ms var(--leo-ease);
+}
+
+.leo-link:hover {
+  background-size: 0% 1px;
+}
+
+.leo-link svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 280ms var(--leo-ease);
+}
+
+.leo-link:hover svg {
+  transform: translate(3px, -3px);
+}
+
+.leo-section--dark .leo-link {
+  color: var(--leo-dorado-claro);
+}
+
+.leo-btn:focus-visible,
+.leo-page a:focus-visible,
+.leo-page button:focus-visible,
+.leo-subnav a:focus-visible,
+.leo-modal a:focus-visible,
+.leo-modal button:focus-visible,
+.leo-launcher:focus-visible {
+  outline: 3px solid var(--leo-dorado);
+  outline-offset: 3px;
+}
+
+.leo-hero a:focus-visible,
+.leo-section--dark a:focus-visible,
+.leo-today a:focus-visible {
+  outline-color: var(--leo-dorado-claro);
+}
+
+/* Estado PRE / DURANTE / POST ------------------------------- */
+
+.leo-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 17px;
+  border: 1px solid var(--leo-line-dark);
+  border-radius: 999px;
+  background: rgba(224, 200, 120, 0.09);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--leo-dorado-claro);
+}
+
+.leo-status__dot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--leo-dorado-claro);
+}
+
+.leo-status[data-phase="DURING"] {
+  border-color: rgba(224, 200, 120, 0.56);
+  background: rgba(224, 200, 120, 0.17);
+  color: #fff;
+}
+
+.leo-status[data-phase="POST"] {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.leo-status[data-phase="POST"] .leo-status__dot {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+/* =========================================================
+   MENÚ INTERNO DEL ESPECIAL
+   Sticky debajo del header de OSA. En mobile, barra scrolleable.
+   ========================================================= */
+
+.leo-subnav {
+  position: sticky;
+  top: var(--leo-headroom, 0px);
+  z-index: 900;
+  background: var(--leo-azul-950);
+  border-bottom: 1px solid var(--leo-line-dark);
+  font-family: var(--leo-sans);
+}
+
+.leo-subnav__inner {
+  display: flex;
+  align-items: center;
+  gap: 8px 26px;
+  min-height: 54px;
+}
+
+.leo-subnav .leo-subnav__brand {
+  display: none;
+  font-family: var(--leo-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.leo-subnav__brand:hover {
+  color: var(--leo-dorado-claro);
+}
+
+.leo-subnav ul {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.leo-subnav ul::-webkit-scrollbar {
+  display: none;
+}
+
+.leo-subnav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 10px 13px;
+  white-space: nowrap;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.72);
+  border-bottom: 2px solid transparent;
+  transition: color 200ms var(--leo-ease), border-color 200ms var(--leo-ease);
+}
+
+.leo-subnav a:hover {
+  color: #fff;
+}
+
+.leo-subnav a[aria-current] {
+  color: var(--leo-dorado-claro);
+  border-bottom-color: var(--leo-dorado);
+}
+
+/* Los números de día quedan agrupados y algo separados del resto. */
+.leo-subnav__days {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+  padding-left: 14px;
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.leo-subnav__days a {
+  padding: 10px 11px;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 900px) {
+  .leo-subnav .leo-subnav__brand {
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 899px) {
+  /* Una sola barra horizontal scrolleable: los grupos no se comprimen. */
+  .leo-subnav__inner {
+    min-height: 50px;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .leo-subnav__inner::-webkit-scrollbar {
+    display: none;
+  }
+
+  .leo-subnav__inner > ul {
+    flex: none;
+    overflow: visible;
+  }
+
+  .leo-subnav__days {
+    margin-left: 0;
+    margin-right: 8px;
+    padding-left: 10px;
+  }
+}
+
+/* =========================================================
+   HERO — un viewport como máximo
+   ========================================================= */
+
+.leo-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--leo-azul-950);
+  color: #fff;
+  isolation: isolate;
+}
+
+.leo-hero__inner {
+  display: grid;
+  align-content: center;
+  gap: clamp(14px, 2.2vh, 24px);
+  min-height: clamp(420px, calc(86vh - var(--leo-headroom, 0px)), 720px);
+  padding: clamp(40px, 6vh, 72px) 0 clamp(36px, 5vh, 62px);
+}
+
+.leo-hero__bg {
+  position: absolute;
+  inset: -6% 0;
+  z-index: -2;
+  background:
+    radial-gradient(64% 86% at 16% 6%, rgba(197, 162, 74, 0.24), transparent 60%),
+    radial-gradient(70% 90% at 94% 96%, rgba(31, 44, 93, 0.9), transparent 64%);
+}
+
+/* Fotografía: panel derecho que sangra. Parallax corto. */
+.leo-hero__photo {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  width: min(56%, 720px);
+  height: min(84%, 560px);
+  margin: 0;
+  overflow: hidden;
+  transform: translate3d(0, calc(var(--leo-shift, 0) * -26px), 0);
+}
+
+.leo-hero__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 44% 32%;
+  opacity: 0.8;
+  filter: saturate(0.76) contrast(1.06);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 44%),
+    linear-gradient(to bottom, transparent 2%, #000 32%, #000 84%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 44%),
+    linear-gradient(to bottom, transparent 2%, #000 32%, #000 84%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+.leo-hero__title {
+  margin: 0;
+  font-family: var(--leo-serif);
+  font-size: clamp(2.5rem, 7vw, 5.2rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  max-width: 14ch;
+}
+
+.leo-hero__date {
+  margin: 6px 0 0;
+  font-family: var(--leo-serif);
+  font-size: clamp(1.5rem, 3.4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--leo-dorado-claro);
+}
+
+.leo-hero__cities {
+  margin: 0;
+  font-size: clamp(0.7rem, 1.2vw, 0.82rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.leo-hero__status {
+  margin: 6px 0 0;
+}
+
+.leo-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 12px 0 0;
+}
+
+@media (min-width: 900px) {
+  .leo-hero__title,
+  .leo-hero__date,
+  .leo-hero__cities,
+  .leo-hero__status,
+  .leo-hero__actions {
+    max-width: 60%;
+  }
+}
+
+/* =========================================================
+   HOY / PRÓXIMO — la pieza más útil durante la visita
+   ========================================================= */
+
+.leo-today {
+  background: var(--leo-azul-900);
+  color: #fff;
+  border-top: 2px solid var(--leo-dorado);
+}
+
+.leo-today[hidden] {
+  display: none;
+}
+
+.leo-today__inner {
+  display: grid;
+  gap: clamp(20px, 3vw, 40px);
+  padding: clamp(28px, 4.4vh, 48px) 0;
+}
+
+.leo-today__slot {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+
+.leo-today__label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--leo-dorado-claro);
+}
+
+.leo-today__time {
+  font-family: var(--leo-serif);
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  font-weight: 700;
+  line-height: 0.9;
+  color: var(--leo-dorado-claro);
+  font-variant-numeric: tabular-nums;
+}
+
+.leo-today__title {
+  margin: 0;
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.leo-today__place {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.leo-today__aside {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  padding-top: 20px;
+  border-top: 1px solid var(--leo-line-dark);
+}
+
+.leo-today__day {
+  font-family: var(--leo-serif);
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.leo-today__note {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+@media (min-width: 860px) {
+  .leo-today__inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(250px, 0.8fr);
+    align-items: start;
+  }
+
+  .leo-today__aside {
+    padding-top: 0;
+    padding-left: clamp(20px, 3vw, 36px);
+    border-top: 0;
+    border-left: 1px solid var(--leo-line-dark);
+  }
+}
+
+/* =========================================================
+   LOS CUATRO DÍAS — cuatro accesos grandes
+   ========================================================= */
+
+.leo-days {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.leo-daycard {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 8px;
+  height: 100%;
+  min-height: 230px;
+  padding: clamp(20px, 2.6vw, 30px);
+  overflow: hidden;
+  color: #fff;
+  text-decoration: none;
+  background: var(--leo-azul-700);
+  isolation: isolate;
+}
+
+.leo-daycard__photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  margin: 0;
+}
+
+.leo-daycard__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+  filter: grayscale(0.45) contrast(1.05);
+  transition: transform 700ms var(--leo-ease), opacity 400ms var(--leo-ease);
+}
+
+.leo-daycard:hover .leo-daycard__photo img {
+  transform: scale(1.06);
+  opacity: 0.42;
+}
+
+.leo-daycard__num {
+  font-family: var(--leo-serif);
+  font-size: clamp(3rem, 5.2vw, 4.2rem);
+  font-weight: 700;
+  line-height: 0.82;
+  letter-spacing: -0.03em;
+  color: var(--leo-dorado-claro);
+  font-variant-numeric: tabular-nums;
+}
+
+.leo-daycard__num span {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--leo-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.leo-daycard__city {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.leo-daycard__what {
+  align-self: start;
+  font-family: var(--leo-serif);
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.12;
+  color: var(--leo-dorado-claro);
+}
+
+.leo-daycard__go {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  align-self: end;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.leo-daycard__go svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: var(--leo-dorado-claro);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 280ms var(--leo-ease);
+}
+
+.leo-daycard:hover .leo-daycard__go svg {
+  transform: translateX(4px);
+}
+
+/* Las cuatro tarjetas son una serie, no cuatro cards iguales: cada una
+   tiene su propio fondo, tenga o no fotografía disponible. */
+.leo-days > li:nth-child(1) .leo-daycard {
+  background:
+    radial-gradient(90% 85% at 100% 100%, rgba(197, 162, 74, 0.3), transparent 62%),
+    var(--leo-azul-700);
+}
+
+.leo-days > li:nth-child(2) .leo-daycard {
+  background: var(--leo-azul-950);
+  box-shadow: inset 0 2px 0 var(--leo-dorado);
+}
+
+.leo-days > li:nth-child(3) .leo-daycard {
+  background: linear-gradient(155deg, var(--leo-azul-700), var(--leo-azul-950) 74%);
+}
+
+.leo-days > li:nth-child(4) .leo-daycard {
+  background: var(--leo-azul-950);
+}
+
+.leo-days > li:nth-child(4) .leo-daycard .leo-daycard__num {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--leo-dorado);
+}
+
+.leo-days > li:nth-child(4) .leo-daycard .leo-daycard__num span {
+  -webkit-text-stroke: 0;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.leo-daycard.is-today::after {
+  content: "Hoy";
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--leo-dorado);
+  color: var(--leo-azul-950);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 619px) {
+  .leo-daycard {
+    min-height: 190px;
+    padding: 18px 20px;
+  }
+
+  .leo-daycard__num {
+    font-size: 2.6rem;
+  }
+}
+
+@media (min-width: 620px) {
+  .leo-days {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .leo-days {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* =========================================================
+   ENCUENTROS DESTACADOS
+   ========================================================= */
+
+.leo-picks {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--leo-line);
+}
+
+.leo-pick {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 6px clamp(16px, 2.4vw, 28px);
+  padding: clamp(18px, 2.4vw, 26px) clamp(16px, 2vw, 24px);
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+  transition: background-color 240ms var(--leo-ease);
+}
+
+.leo-pick:hover {
+  background: var(--leo-surface-alt);
+}
+
+.leo-pick__when {
+  display: grid;
+  gap: 2px;
+  min-width: 92px;
+}
+
+.leo-pick__date {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--leo-dorado-texto);
+}
+
+.leo-pick__time {
+  font-family: var(--leo-serif);
+  font-size: clamp(1.7rem, 3.2vw, 2.3rem);
+  font-weight: 700;
+  line-height: 0.95;
+  color: var(--leo-azul);
+  font-variant-numeric: tabular-nums;
+}
+
+.leo-pick__what {
+  display: grid;
+  gap: 3px;
+}
+
+.leo-pick__title {
+  margin: 0;
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-weight: 600;
+  line-height: 1.32;
+  color: var(--leo-ink);
+}
+
+.leo-pick__place {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--leo-muted);
+}
+
+.leo-pick__go {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  fill: none;
+  stroke: var(--leo-dorado-texto);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 280ms var(--leo-ease);
+}
+
+.leo-pick:hover .leo-pick__go {
+  transform: translateX(4px);
+}
+
+@media (max-width: 560px) {
+  .leo-pick {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .leo-pick__when {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+}
+
+/* =========================================================
+   PÁGINA DE DÍA
+   ========================================================= */
+
+.leo-dayhead {
+  padding: clamp(32px, 5vh, 56px) 0 clamp(26px, 4vh, 44px);
+  background: var(--leo-azul-950);
+  color: #fff;
+}
+
+.leo-dayhead__num {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  font-family: var(--leo-serif);
+  font-size: clamp(3.4rem, 9vw, 6rem);
+  font-weight: 700;
+  line-height: 0.84;
+  letter-spacing: -0.03em;
+  color: var(--leo-dorado-claro);
+  font-variant-numeric: tabular-nums;
+}
+
+.leo-dayhead__num em {
+  font-family: var(--leo-sans);
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.leo-dayhead__title {
+  margin: 14px 0 0;
+  font-family: var(--leo-serif);
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: #fff;
+}
+
+.leo-dayhead__route {
+  margin: 10px 0 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--leo-dorado-claro);
+}
+
+.leo-dayhead__standfirst {
+  margin: 14px 0 0;
+  max-width: 56ch;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--leo-muted-dark);
+}
+
+.leo-dayhead__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 7px 15px;
+  border-radius: 999px;
+  background: var(--leo-dorado);
+  color: var(--leo-azul-950);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Cronología del día ---------------------------------------- */
+
+.leo-timeline {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.leo-event {
+  position: relative;
+  display: grid;
+  gap: 6px 26px;
+  padding: 20px 0 20px 30px;
+  border-top: 1px solid var(--leo-line);
+}
+
+.leo-event::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--leo-line);
+}
+
+.leo-event::after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 28px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--leo-line);
+}
+
+.leo-event:first-child::before {
+  top: 20px;
+}
+
+.leo-event:last-child::before {
+  bottom: auto;
+  height: 28px;
+}
+
+.leo-event__time {
+  margin: 0;
+  font-family: var(--leo-serif);
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  font-weight: 700;
+  line-height: 0.95;
+  color: var(--leo-azul);
+  font-variant-numeric: tabular-nums;
+}
+
+.leo-event__body {
+  display: grid;
+  gap: 7px;
+  align-content: start;
+}
+
+.leo-event__title {
+  margin: 0;
+  font-size: clamp(1rem, 1.7vw, 1.16rem);
+  font-weight: 600;
+  line-height: 1.38;
+  color: var(--leo-ink);
+}
+
+.leo-event__place {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--leo-muted);
+}
+
+.leo-event__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin: 2px 0 0;
+}
+
+.leo-tag {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--leo-muted);
+}
+
+.leo-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.leo-flag--now {
+  background: var(--leo-azul);
+  color: var(--leo-dorado-claro);
+}
+
+.leo-flag--next {
+  background: rgba(197, 162, 74, 0.22);
+  color: #6f5615;
+}
+
+.leo-flag--past {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--leo-muted);
+}
+
+.leo-event.is-now {
+  background: rgba(197, 162, 74, 0.07);
+  border-left: 2px solid var(--leo-dorado);
+  padding-left: 28px;
+}
+
+.leo-event.is-now::after {
+  background: var(--leo-dorado);
+  border-color: var(--leo-dorado);
+}
+
+.leo-event.is-past {
+  opacity: 0.58;
+}
+
+.leo-maplink {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  font-size: 0.79rem;
+  font-weight: 700;
+  color: var(--leo-azul);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.leo-maplink svg {
+  width: 13px;
+  height: 13px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.leo-maplink:hover {
+  color: var(--leo-dorado-texto);
+}
+
+@media (min-width: 680px) {
+  .leo-event {
+    grid-template-columns: 120px minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+/* Paginación entre días ------------------------------------- */
+
+.leo-pager {
+  display: grid;
+  gap: 2px;
+  margin-top: clamp(32px, 5vh, 56px);
+}
+
+.leo-pager__link {
+  display: grid;
+  gap: 5px;
+  padding: 20px 22px;
+  background: var(--leo-surface-alt);
+  color: inherit;
+  text-decoration: none;
+  transition: background-color 240ms var(--leo-ease);
+}
+
+.leo-pager__link:hover {
+  background: #e9ebf0;
+}
+
+.leo-pager__link--next {
+  text-align: right;
+}
+
+.leo-pager__link--center {
+  text-align: center;
+  background: var(--leo-azul-950);
+  color: #fff;
+}
+
+.leo-pager__link--center:hover {
+  background: var(--leo-azul-700);
+}
+
+.leo-pager__dir {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--leo-dorado-texto);
+}
+
+.leo-pager__link--center .leo-pager__dir {
+  color: var(--leo-dorado-claro);
+}
+
+.leo-pager__name {
+  font-family: var(--leo-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.leo-pager__empty {
+  padding: 20px 22px;
+  background: var(--leo-surface-alt);
+  opacity: 0.45;
+}
+
+@media (min-width: 720px) {
+  .leo-pager {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+  }
+}
+
+/* =========================================================
+   AGENDA COMPLETA
+   ========================================================= */
+
+.leo-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: clamp(22px, 3vh, 32px);
+}
+
+.leo-filter button {
+  min-height: 46px;
+  padding: 11px 18px;
+  border: 1px solid var(--leo-line);
+  border-radius: 999px;
+  background: #fff;
+  font-family: var(--leo-sans);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--leo-azul);
+  cursor: pointer;
+  transition: background-color 200ms var(--leo-ease),
+    border-color 200ms var(--leo-ease), color 200ms var(--leo-ease);
+}
+
+.leo-filter button:hover {
+  border-color: var(--leo-azul);
+}
+
+.leo-filter button[aria-pressed="true"] {
+  background: var(--leo-azul);
+  border-color: var(--leo-azul);
+  color: #fff;
+}
+
+.leo-agenda__day {
+  margin-bottom: clamp(26px, 4vh, 44px);
+}
+
+.leo-agenda__day[hidden] {
+  display: none;
+}
+
+.leo-agenda__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 18px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--leo-azul);
+  scroll-margin-top: calc(var(--leo-headroom, 0px) + 70px);
+}
+
+.leo-agenda__daytitle {
+  margin: 0;
+  font-family: var(--leo-serif);
+  font-size: clamp(1.4rem, 3vw, 1.95rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--leo-azul);
+}
+
+.leo-agenda__route {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--leo-muted);
+}
+
+.leo-agenda__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.leo-agenda__row {
+  display: grid;
+  gap: 3px 22px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--leo-line);
+}
+
+.leo-agenda__row.is-now {
+  background: rgba(197, 162, 74, 0.09);
+  box-shadow: inset 2px 0 0 var(--leo-dorado);
+  padding-left: 14px;
+}
+
+.leo-agenda__row.is-past {
+  opacity: 0.55;
+}
+
+.leo-agenda__time {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--leo-azul);
+  font-variant-numeric: tabular-nums;
+}
+
+.leo-agenda__what {
+  font-size: 0.97rem;
+  line-height: 1.45;
+  color: var(--leo-ink);
+}
+
+.leo-agenda__where {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--leo-muted);
+}
+
+.leo-agenda__flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+@media (min-width: 720px) {
+  .leo-agenda__row {
+    grid-template-columns: 78px minmax(0, 1.25fr) minmax(0, 1fr);
+    align-items: baseline;
+  }
+
+  .leo-agenda__flags {
+    grid-column: 2 / -1;
+  }
+}
+
+/* =========================================================
+   PARTICIPAR
+   ========================================================= */
+
+.leo-participation {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--leo-line);
+}
+
+.leo-participation__item {
+  display: grid;
+  gap: 11px;
+  align-content: start;
+  padding: clamp(22px, 2.8vw, 32px);
+  background: #fff;
+}
+
+.leo-participation__when {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--leo-dorado-texto);
+}
+
+.leo-participation__title {
+  margin: 0;
+  font-family: var(--leo-serif);
+  font-size: clamp(1.4rem, 2.8vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.12;
+  color: var(--leo-azul);
+}
+
+.leo-participation__place {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--leo-muted);
+}
+
+.leo-pending {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 2px 0 0;
+  padding: 12px 14px;
+  background: var(--leo-surface-alt);
+  border-left: 2px solid var(--leo-muted);
+  font-size: 0.83rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #43485a;
+}
+
+.leo-pending svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  margin-top: 1px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (min-width: 720px) {
+  .leo-participation {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================================================
+   BLOQUE OSA · FUENTES · CTA
+   ========================================================= */
+
+.leo-osa {
+  display: grid;
+  gap: clamp(22px, 4vw, 48px);
+  align-items: center;
+}
+
+.leo-osa__figure {
+  margin: 0;
+  overflow: hidden;
+}
+
+.leo-osa__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 700ms var(--leo-ease);
+}
+
+.leo-osa__figure:hover img {
+  transform: scale(1.04);
+}
+
+.leo-osa__figure figcaption {
+  margin-top: 10px;
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: var(--leo-muted);
+}
+
+.leo-osa p {
+  margin: 0 0 16px;
+  max-width: 58ch;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #3b4053;
+}
+
+.leo-quote {
+  margin: 0 0 18px;
+  padding-left: 20px;
+  border-left: 2px solid var(--leo-dorado);
+  font-family: var(--leo-serif);
+  font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--leo-azul);
+}
+
+.leo-quote cite {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--leo-sans);
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--leo-muted);
+}
+
+@media (min-width: 860px) {
+  .leo-osa {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  }
+}
+
+/* Llamada a la agenda -------------------------------------- */
+
+.leo-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px 32px;
+  padding: clamp(26px, 4vw, 40px);
+  background: var(--leo-azul-950);
+  color: #fff;
+}
+
+.leo-cta__title {
+  margin: 8px 0 0;
+  font-family: var(--leo-serif);
+  font-size: clamp(1.4rem, 3vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* Fuentes --------------------------------------------------- */
+
+.leo-sources {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.leo-source {
+  display: grid;
+  gap: 5px;
+  padding: 18px 0;
+  border-top: 1px solid var(--leo-line);
+}
+
+.leo-sources li:last-child .leo-source {
+  border-bottom: 1px solid var(--leo-line);
+}
+
+.leo-source a {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--leo-azul);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.leo-source a:hover {
+  color: var(--leo-dorado-texto);
+}
+
+.leo-source span {
+  font-size: 0.78rem;
+  color: var(--leo-muted);
+}
+
+.leo-updated {
+  margin: 22px 0 0;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: var(--leo-muted);
+}
+
+.leo-updated b {
+  color: var(--leo-azul);
+}
+
+.leo-noscript {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.leo-noscript .leo-fallback {
+  margin-top: 20px;
+}
+
+.leo-fallback {
+  padding: 20px 22px;
+  border-left: 2px solid var(--leo-dorado);
+  background: var(--leo-surface-alt);
+  font-size: 0.93rem;
+  line-height: 1.6;
+  color: var(--leo-muted);
+}
+
+.leo-fallback a {
+  color: var(--leo-azul);
+}
+
+/* =========================================================
+   POPUP DE PORTADA
+   ========================================================= */
+
+.leo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 3200;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 280ms var(--leo-ease);
+}
+
+.leo-modal[hidden] {
+  display: none;
+}
+
+.leo-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.leo-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  background: rgba(7, 11, 31, 0.86);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+
+.leo-dialog {
+  position: relative;
+  display: grid;
+  width: min(900px, 100%);
+  max-height: calc(100vh - 48px);
+  max-height: calc(100dvh - 48px);
+  overflow: auto;
+  background: #fff;
+  box-shadow: 0 36px 90px rgba(5, 9, 26, 0.5);
+  transform: translateY(18px) scale(0.985);
+  transition: transform 460ms var(--leo-ease);
+}
+
+.leo-modal.is-open .leo-dialog {
+  transform: none;
+}
+
+.leo-dialog__visual {
+  position: relative;
+  display: grid;
+  align-content: end;
+  gap: 14px;
+  min-height: 230px;
+  padding: 28px 26px;
+  background: var(--leo-azul-950);
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.leo-dialog__visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: radial-gradient(90% 90% at 0% 0%, rgba(197, 162, 74, 0.3), transparent 62%);
+}
+
+.leo-dialog__photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  margin: 0;
+  overflow: hidden;
+}
+
+.leo-dialog__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 24%;
+  opacity: 0.42;
+  filter: saturate(0.7) contrast(1.06);
+  -webkit-mask-image: linear-gradient(to top, transparent 4%, #000 58%);
+  mask-image: linear-gradient(to top, transparent 4%, #000 58%);
+  transform: scale(1.1);
+  transition: transform 1600ms var(--leo-ease);
+}
+
+.leo-modal.is-open .leo-dialog__photo img {
+  transform: scale(1);
+}
+
+.leo-dialog__logo {
+  position: absolute;
+  top: 22px;
+  left: 26px;
+  width: 100px;
+  height: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}
+
+.leo-dialog__datenum {
+  font-family: var(--leo-serif);
+  font-size: clamp(2.8rem, 8vw, 4.2rem);
+  font-weight: 700;
+  line-height: 0.88;
+  color: var(--leo-dorado-claro);
+  font-variant-numeric: tabular-nums;
+}
+
+.leo-dialog__datemeta {
+  display: block;
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--leo-line-dark);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.leo-dialog__panel {
+  position: relative;
+  display: grid;
+  align-content: center;
+  padding: 32px 26px 34px;
+}
+
+.leo-dialog__title {
+  margin: 12px 0 0;
+  font-family: var(--leo-serif);
+  font-size: clamp(1.9rem, 4.8vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.015em;
+  color: var(--leo-azul);
+  text-transform: uppercase;
+}
+
+.leo-dialog__lead {
+  margin: 14px 0 0;
+  max-width: 40ch;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--leo-muted);
+}
+
+.leo-dialog__status {
+  margin: 20px 0 0;
+}
+
+.leo-dialog .leo-status {
+  border-color: rgba(21, 31, 67, 0.2);
+  background: rgba(197, 162, 74, 0.14);
+  color: #55451a;
+}
+
+.leo-dialog .leo-status__dot {
+  background: var(--leo-dorado-texto);
+}
+
+.leo-dialog .leo-status[data-phase="DURING"] {
+  border-color: var(--leo-azul);
+  background: var(--leo-azul);
+  color: #fff;
+}
+
+.leo-dialog .leo-status[data-phase="DURING"] .leo-status__dot {
+  background: var(--leo-dorado-claro);
+}
+
+.leo-dialog .leo-status[data-phase="POST"] {
+  border-color: rgba(21, 31, 67, 0.18);
+  background: #eef0f5;
+  color: #3b4053;
+}
+
+.leo-dialog__cities {
+  margin: 18px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--leo-line);
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--leo-muted);
+}
+
+.leo-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  margin: 22px 0 0;
+}
+
+.leo-dialog__dismiss {
+  min-height: 44px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  font-family: var(--leo-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--leo-muted);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.leo-dialog__dismiss:hover {
+  color: var(--leo-azul);
+}
+
+.leo-dialog__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 50%;
+  background: rgba(10, 16, 40, 0.42);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 220ms var(--leo-ease),
+    border-color 220ms var(--leo-ease);
+}
+
+.leo-dialog__close:hover {
+  background: rgba(10, 16, 40, 0.78);
+  border-color: #fff;
+}
+
+.leo-dialog__close svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+@media (min-width: 780px) {
+  .leo-dialog {
+    grid-template-columns: 0.46fr 0.54fr;
+  }
+
+  .leo-dialog__visual {
+    min-height: 400px;
+    padding: 36px 32px;
+  }
+
+  .leo-dialog__panel {
+    padding: 44px 44px 44px 40px;
+  }
+
+  .leo-dialog__close {
+    border-color: var(--leo-line);
+    background: rgba(255, 255, 255, 0.94);
+    color: var(--leo-azul);
+  }
+
+  .leo-dialog__close:hover {
+    background: #fff;
+    border-color: var(--leo-azul);
+  }
+}
+
+@media (max-width: 779px) {
+  .leo-modal {
+    padding: 0;
+  }
+
+  .leo-dialog {
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    max-height: none;
+    align-content: start;
+  }
+
+  .leo-dialog__visual {
+    min-height: 40vh;
+    padding: 22px 20px 24px;
+  }
+
+  .leo-dialog__logo {
+    top: 20px;
+    left: 20px;
+    width: 90px;
+  }
+
+  .leo-dialog__panel {
+    padding: 26px 20px 34px;
+  }
+}
+
+body.leo-is-open {
+  overflow: hidden;
+}
+
+/* =========================================================
+   LANZADOR PERSISTENTE
+   ========================================================= */
+
+.leo-launcher {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 1200;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 60px;
+  max-width: calc(100vw - 32px);
+  padding: 10px 16px 10px 13px;
+  border: 1px solid var(--leo-dorado);
+  background: var(--leo-azul-950);
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 14px 34px rgba(8, 13, 36, 0.38);
+  transition: transform 280ms var(--leo-ease), box-shadow 280ms var(--leo-ease);
+}
+
+.leo-launcher[hidden] {
+  display: none;
+}
+
+.leo-launcher:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 44px rgba(8, 13, 36, 0.48);
+}
+
+.leo-launcher__mark {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--leo-line-dark);
+  border-radius: 50%;
+  font-family: var(--leo-serif);
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--leo-dorado-claro);
+  font-variant-numeric: tabular-nums;
+}
+
+.leo-launcher__copy {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.leo-launcher__copy strong {
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.leo-launcher__copy small {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.leo-launcher > svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--leo-dorado-claro);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 480px) {
+  .leo-launcher {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .leo-launcher__copy small {
+    max-width: 44vw;
+  }
+}
+
+/* =========================================================
+   ENLACE TEMPORAL EN LA NAVEGACIÓN GLOBAL
+   ========================================================= */
+
+#main-nav a.leo-nav-link {
+  color: var(--azul, #151f43);
+  white-space: nowrap;
+}
+
+#main-nav a.leo-nav-link::after {
+  content: "";
+  display: block;
+  height: 2px;
+  margin-top: 3px;
+  background: var(--dorado, #c5a24a);
+}
+
+#main-nav a.leo-nav-link:hover {
+  color: var(--dorado, #c5a24a);
+}
+
+/* Con el sexto ítem la barra se apretaba entre 769 y 940 px. El ajuste corre
+   solo donde se carga este CSS, es decir donde existe el enlace. */
+@media (min-width: 769px) and (max-width: 940px) {
+  #main-nav ul {
+    gap: 16px;
+  }
+
+  #main-nav > ul > li > a {
+    font-size: 0.9rem;
+    letter-spacing: 0.2px;
+  }
+}
+
+/* =========================================================
+   ENTRADA DE CONTENIDO — corta y discreta
+   Sin .leo-anim en <html> (JS apagado) queda todo visible.
+   ========================================================= */
+
+.leo-anim [data-leo-in] {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 560ms var(--leo-ease), transform 560ms var(--leo-ease);
+}
+
+.leo-anim [data-leo-in].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.leo-anim [data-leo-in="fade"] {
+  transform: none;
+}
+
+/* =========================================================
+   MOVIMIENTO REDUCIDO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .leo-page *,
+  .leo-modal *,
+  .leo-subnav * {
+    transition-duration: 1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .leo-anim [data-leo-in] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .leo-hero__photo,
+  .leo-dialog,
+  .leo-dialog__photo img,
+  .leo-launcher:hover,
+  .leo-osa__figure:hover img,
+  .leo-daycard:hover .leo-daycard__photo img {
+    transform: none !important;
+  }
+}
+
+/* =========================================================
+   IMPRESIÓN
+   ========================================================= */
+
+@media print {
+  .leo-modal,
+  .leo-launcher,
+  .leo-subnav,
+  .leo-hero__bg,
+  .leo-hero__photo {
+    display: none !important;
+  }
+
+  .leo-page,
+  .leo-hero,
+  .leo-section--dark,
+  .leo-dayhead,
+  .leo-today,
+  .leo-cta {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .leo-hero__title,
+  .leo-dayhead__num,
+  .leo-dayhead__title,
+  .leo-event__time {
+    color: #000 !important;
+  }
+}
